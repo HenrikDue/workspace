@@ -1,0 +1,1317 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/9/2014 2:29:24 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="PC001244"
+  DTS:CreatorName="DSB\thbr0803"
+  DTS:DTSID="{E71B7418-BEBC-4C8E-8F74-A51A380C77E3}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.2430.0"
+  DTS:LocaleID="1030"
+  DTS:ObjectName="030_DR_Produkrion_Stog"
+  DTS:PackageType="5"
+  DTS:VersionBuild="13"
+  DTS:VersionGUID="{8E50078B-A306-4A8E-BC93-5421B811DB14}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[MDW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{39C63D6E-1D90-4DFC-890A-F553EBF57D8D}"
+      DTS:ObjectName="MDW">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=MSSQLP01\ALPHA;Initial Catalog=mdw;Provider=SQLNCLI11;Integrated Security=SSPI;Application Name=SSIS-030_DR_Produkrion_Stog-{39C63D6E-1D90-4DFC-890A-F553EBF57D8D}MSSQLP01\ALPHA.mdw;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[POEMAKTUEL]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{088912D9-F830-4EAA-977D-7719068B7852}"
+      DTS:ObjectName="POEMAKTUEL">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=MSSQLT01\ALPHA;Initial Catalog=POEMAKTUEL;Provider=SQLNCLI11;Integrated Security=SSPI;Application Name=SSIS-030_DR_Produkrion_Stog-{088912D9-F830-4EAA-977D-7719068B7852}MSSQLT01\ALPHA.POEMAKTUEL;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{3C7C89BE-ABA1-4D8C-800E-07396E32ED89}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="v_DriverAar">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{40652EBA-74D9-4411-B29F-AAFCBD9294A4}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="v_DriverMaaned">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{A03E4B51-9149-4C0A-8F06-CD834CFC6560}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="v_DriverPeriode">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Find Periode"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{1865fcc6-025d-47eb-8d30-c5f021b0c937}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Find Periode"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{39C63D6E-1D90-4DFC-890A-F553EBF57D8D}"
+          SQLTask:SqlStatementSource="SELECT CONVERT(int, SUBSTRING(Value,1,4)) as Aar, CONVERT(int, SUBSTRING(value, 5, 2)) as Maaned,&#xA;   value as Periode&#xA;FROM ods.CTL_Dataload&#xA;WHERE Kilde_System = 'DrvTidsinter' AND Variable = 'Periode'"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="Aar"
+            SQLTask:DtsVariableName="User::v_DriverAar" />
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="maaned"
+            SQLTask:DtsVariableName="User::v_DriverMaaned" />
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="Periode"
+            SQLTask:DtsVariableName="User::v_DriverPeriode" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Fjern eksisterende driver værdier"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{7f30d8c2-fe39-4a67-a1cd-f28ce247af95}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Fjern eksisterende driver værdier"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{39C63D6E-1D90-4DFC-890A-F553EBF57D8D}"
+          SQLTask:SqlStatementSource="delete from edw.GD_R_DR_Tidsinterval&#xA;where periode = ?&#xA;and driverType in ('DR_Pladskm_Stog_Tid', 'DR_Togkm_Stog_tid')&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::v_DriverPeriode"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="0" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Indlæs driver værdier"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{E4775EA4-56A5-4C4D-9F3A-332C6BDC5D14}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Indlæs driver værdier"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server v10; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          version="1">
+          <components>
+            <component
+              refId="Package\Indlæs driver værdier\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Updates column values using expressions"
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Indlæs driver værdier\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Indlæs driver værdier\Derived Column.Inputs[Derived Column Input].Columns[Værdi]"
+                      cachedDataType="r8"
+                      cachedName="Værdi"
+                      lineageId="Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[Værdi]" />
+                    <inputColumn
+                      refId="Package\Indlæs driver værdier\Derived Column.Inputs[Derived Column Input].Columns[CostObjektVærdi]"
+                      cachedDataType="r8"
+                      cachedName="CostObjektVærdi"
+                      lineageId="Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[CostObjektVærdi]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Indlæs driver værdier\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Indlæs driver værdier\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\Derived Column.Outputs[Derived Column Output].Columns[DriverWeight]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Indlæs driver værdier\Derived Column.Outputs[Derived Column Output].Columns[DriverWeight]"
+                      name="DriverWeight"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[Værdi]} / #{Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[CostObjektVærdi]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">[Værdi] / [CostObjektVærdi]</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\Derived Column.Outputs[Derived Column Output].Columns[Periode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Indlæs driver værdier\Derived Column.Outputs[Derived Column Output].Columns[Periode]"
+                      name="Periode"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_STR,50,1252)@[User::v_DriverPeriode]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_STR,50,1252)@[User::v_DriverPeriode]</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Indlæs driver værdier\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Indlæs driver værdier\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Indlæs driver værdier\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Indlæs driver værdier\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Indlæs driver værdier\Driver type split"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Evaluates and directs rows in a dataset."
+              name="Driver type split"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Indlæs driver værdier\Driver type split.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Indlæs driver værdier\Driver type split.Inputs[Conditional Split Input].Columns[Enhed]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Enhed"
+                      lineageId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].Columns[Enhed]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Indlæs driver værdier\Driver type split.Outputs[DR_Pladskm_Stog_Tid]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="DR_Pladskm_Stog_Tid"
+                  synchronousInputId="Package\Indlæs driver værdier\Driver type split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].Columns[Enhed]} == "Pladskm"</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">Enhed == "Pladskm"</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Indlæs driver værdier\Driver type split.Outputs[DR_Togkm_Stog_tid]"
+                  description="Output 2 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="DR_Togkm_Stog_tid"
+                  synchronousInputId="Package\Indlæs driver værdier\Driver type split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].Columns[Enhed]} == "Togkm"</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">Enhed == "Togkm"</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">1</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Indlæs driver værdier\Driver type split.Outputs[Andre]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Andre"
+                  synchronousInputId="Package\Indlæs driver værdier\Driver type split.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Indlæs driver værdier\Driver type split.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\Indlæs driver værdier\Driver type split.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\Driver type split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Indlæs driver værdier\Driver type split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\Driver type split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Indlæs driver værdier\Driver type split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="GD_R_DR_TIDSINTERVAL"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[edw].[GD_R_DR_TIDSINTERVAL]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[MDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[MDW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].Columns[DriverType]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="DriverType"
+                      externalMetadataColumnId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].ExternalColumns[DriverType]"
+                      lineageId="Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[DriverType]" />
+                    <inputColumn
+                      refId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].Columns[DriverWeight]"
+                      cachedDataType="r8"
+                      cachedName="DriverWeight"
+                      externalMetadataColumnId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].ExternalColumns[DriverWeight]"
+                      lineageId="Package\Indlæs driver værdier\Derived Column.Outputs[Derived Column Output].Columns[DriverWeight]" />
+                    <inputColumn
+                      refId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].Columns[Periode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Periode"
+                      externalMetadataColumnId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].ExternalColumns[periode]"
+                      lineageId="Package\Indlæs driver værdier\Derived Column.Outputs[Derived Column Output].Columns[Periode]" />
+                    <inputColumn
+                      refId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].Columns[Costobjekt]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Costobjekt"
+                      externalMetadataColumnId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].ExternalColumns[CostObject]"
+                      lineageId="Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[Costobjekt]" />
+                    <inputColumn
+                      refId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].Columns[TidsintervalNavn]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="55"
+                      cachedName="TidsintervalNavn"
+                      externalMetadataColumnId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].ExternalColumns[Tidsinterval]"
+                      lineageId="Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[TidsintervalNavn]" />
+                    <inputColumn
+                      refId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].Columns[Værdi]"
+                      cachedDataType="r8"
+                      cachedName="Værdi"
+                      externalMetadataColumnId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].ExternalColumns[DriverQuantity]"
+                      lineageId="Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[Værdi]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].ExternalColumns[DriverType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="DriverType" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].ExternalColumns[CostObject]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="CostObject" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].ExternalColumns[Tidsinterval]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Tidsinterval" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].ExternalColumns[DriverQuantity]"
+                      dataType="r8"
+                      name="DriverQuantity" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].ExternalColumns[DriverWeight]"
+                      dataType="r8"
+                      name="DriverWeight" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].ExternalColumns[periode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="periode" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="GD_R_Togproduktion_STog SQL Command"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select Costobjekt, Enhed, SUBSTRING('Stog_' + TidsintervalNavn,1,50) As TidsintervalNavn, SUM(Værdi) As Værdi,
+SUM(SUM(Værdi)) OVER (PARTITION BY Costobjekt, Enhed) As CostObjektVærdi
+from dbo.GD_R_Togproduktion_STog
+where PeriodeIndlæst = ?
+group by Costobjekt, Enhed, TidsintervalNavn</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"0",{A03E4B51-9149-4C0A-8F06-CD834CFC6560};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[POEMAKTUEL]"
+                  connectionManagerRefId="Package.ConnectionManagers[POEMAKTUEL]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].Columns[Costobjekt]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].ExternalColumns[Costobjekt]"
+                      length="50"
+                      lineageId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].Columns[Costobjekt]"
+                      name="Costobjekt"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].Columns[Enhed]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].ExternalColumns[Enhed]"
+                      length="50"
+                      lineageId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].Columns[Enhed]"
+                      name="Enhed"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].Columns[TidsintervalNavn]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].ExternalColumns[TidsintervalNavn]"
+                      length="50"
+                      lineageId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].Columns[TidsintervalNavn]"
+                      name="TidsintervalNavn"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].Columns[Værdi]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].ExternalColumns[Værdi]"
+                      lineageId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].Columns[Værdi]"
+                      name="Værdi"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].Columns[CostObjektVærdi]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].ExternalColumns[CostObjektVærdi]"
+                      lineageId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].Columns[CostObjektVærdi]"
+                      name="CostObjektVærdi"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].ExternalColumns[Costobjekt]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Costobjekt" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].ExternalColumns[Enhed]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Enhed" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].ExternalColumns[TidsintervalNavn]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="TidsintervalNavn" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].ExternalColumns[Værdi]"
+                      dataType="r8"
+                      name="Værdi" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].ExternalColumns[CostObjektVærdi]"
+                      dataType="r8"
+                      name="CostObjektVærdi" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Error Output].Columns[Costobjekt]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Error Output].Columns[Costobjekt]"
+                      name="Costobjekt" />
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Error Output].Columns[Enhed]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Error Output].Columns[Enhed]"
+                      name="Enhed" />
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Error Output].Columns[TidsintervalNavn]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Error Output].Columns[TidsintervalNavn]"
+                      name="TidsintervalNavn" />
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Error Output].Columns[Værdi]"
+                      dataType="r8"
+                      lineageId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Error Output].Columns[Værdi]"
+                      name="Værdi" />
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Error Output].Columns[CostObjektVærdi]"
+                      dataType="r8"
+                      lineageId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Error Output].Columns[CostObjektVærdi]"
+                      name="CostObjektVærdi" />
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Indlæs driver værdier\Pladskm navn"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Updates column values using expressions"
+              name="Pladskm navn"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Indlæs driver værdier\Pladskm navn.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Indlæs driver værdier\Pladskm navn.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Indlæs driver værdier\Pladskm navn.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\Pladskm navn.Outputs[Derived Column Output].Columns[DriverType]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Indlæs driver værdier\Pladskm navn.Outputs[Derived Column Output].Columns[DriverType]"
+                      name="DriverType"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_STR,50,1252)"DR_Pladskm_Stog_Tid"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_STR,50,1252)"DR_Pladskm_Stog_Tid"</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Indlæs driver værdier\Pladskm navn.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Indlæs driver værdier\Pladskm navn.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\Pladskm navn.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Indlæs driver værdier\Pladskm navn.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\Pladskm navn.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Indlæs driver værdier\Pladskm navn.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Indlæs driver værdier\Togkm navn"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Updates column values using expressions"
+              name="Togkm navn"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Indlæs driver værdier\Togkm navn.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Indlæs driver værdier\Togkm navn.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Indlæs driver værdier\Togkm navn.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\Togkm navn.Outputs[Derived Column Output].Columns[DriverType]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Indlæs driver værdier\Togkm navn.Outputs[Derived Column Output].Columns[DriverType]"
+                      name="DriverType"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_STR,50,1252)"DR_Togkm_Stog_tid"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_STR,50,1252)"DR_Togkm_Stog_tid"</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Indlæs driver værdier\Togkm navn.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Indlæs driver værdier\Togkm navn.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\Togkm navn.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Indlæs driver værdier\Togkm navn.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\Togkm navn.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Indlæs driver værdier\Togkm navn.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Indlæs driver værdier\Union All"
+              componentClassID="Microsoft.UnionAll"
+              contactInfo="Union All;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Merges multiple datasets."
+              name="Union All"
+              version="1">
+              <inputs>
+                <input
+                  refId="Package\Indlæs driver værdier\Union All.Inputs[Union All Input 1]"
+                  name="Union All Input 1">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Indlæs driver værdier\Union All.Inputs[Union All Input 1].Columns[Costobjekt]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Costobjekt"
+                      lineageId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].Columns[Costobjekt]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[Costobjekt]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Indlæs driver værdier\Union All.Inputs[Union All Input 1].Columns[Enhed]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Enhed"
+                      lineageId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].Columns[Enhed]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[Enhed]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Indlæs driver værdier\Union All.Inputs[Union All Input 1].Columns[TidsintervalNavn]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="TidsintervalNavn"
+                      lineageId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].Columns[TidsintervalNavn]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[TidsintervalNavn]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Indlæs driver værdier\Union All.Inputs[Union All Input 1].Columns[Værdi]"
+                      cachedDataType="r8"
+                      cachedName="Værdi"
+                      lineageId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].Columns[Værdi]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[Værdi]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Indlæs driver værdier\Union All.Inputs[Union All Input 1].Columns[CostObjektVærdi]"
+                      cachedDataType="r8"
+                      cachedName="CostObjektVærdi"
+                      lineageId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].Columns[CostObjektVærdi]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[CostObjektVærdi]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Indlæs driver værdier\Union All.Inputs[Union All Input 1].Columns[DriverType]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="DriverType"
+                      lineageId="Package\Indlæs driver værdier\Pladskm navn.Outputs[Derived Column Output].Columns[DriverType]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[DriverType]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Indlæs driver værdier\Union All.Inputs[Union All Input 2]"
+                  hasSideEffects="true"
+                  name="Union All Input 2">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Indlæs driver værdier\Union All.Inputs[Union All Input 2].Columns[Costobjekt]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Costobjekt"
+                      lineageId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].Columns[Costobjekt]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[Costobjekt]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Indlæs driver værdier\Union All.Inputs[Union All Input 2].Columns[Enhed]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Enhed"
+                      lineageId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].Columns[Enhed]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[Enhed]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Indlæs driver værdier\Union All.Inputs[Union All Input 2].Columns[TidsintervalNavn]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="TidsintervalNavn"
+                      lineageId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].Columns[TidsintervalNavn]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[TidsintervalNavn]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Indlæs driver værdier\Union All.Inputs[Union All Input 2].Columns[Værdi]"
+                      cachedDataType="r8"
+                      cachedName="Værdi"
+                      lineageId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].Columns[Værdi]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[Værdi]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Indlæs driver værdier\Union All.Inputs[Union All Input 2].Columns[CostObjektVærdi]"
+                      cachedDataType="r8"
+                      cachedName="CostObjektVærdi"
+                      lineageId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output].Columns[CostObjektVærdi]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[CostObjektVærdi]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Indlæs driver værdier\Union All.Inputs[Union All Input 2].Columns[DriverType]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="DriverType"
+                      lineageId="Package\Indlæs driver værdier\Togkm navn.Outputs[Derived Column Output].Columns[DriverType]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[DriverType]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Indlæs driver værdier\Union All.Inputs[Union All Input 3]"
+                  dangling="true"
+                  hasSideEffects="true"
+                  name="Union All Input 3">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1]"
+                  name="Union All Output 1">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[Costobjekt]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[Costobjekt]"
+                      name="Costobjekt" />
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[Enhed]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[Enhed]"
+                      name="Enhed" />
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[TidsintervalNavn]"
+                      codePage="1252"
+                      dataType="str"
+                      length="55"
+                      lineageId="Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[TidsintervalNavn]"
+                      name="TidsintervalNavn" />
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[Værdi]"
+                      dataType="r8"
+                      lineageId="Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[Værdi]"
+                      name="Værdi" />
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[CostObjektVærdi]"
+                      dataType="r8"
+                      lineageId="Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[CostObjektVærdi]"
+                      name="CostObjektVærdi" />
+                    <outputColumn
+                      refId="Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[DriverType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1].Columns[DriverType]"
+                      name="DriverType" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Indlæs driver værdier.Paths[Derived Column Output]"
+              endId="Package\Indlæs driver værdier\Union All.Inputs[Union All Input 1]"
+              name="Derived Column Output"
+              startId="Package\Indlæs driver værdier\Pladskm navn.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Indlæs driver værdier.Paths[Derived Column Output1]"
+              endId="Package\Indlæs driver værdier\Union All.Inputs[Union All Input 2]"
+              name="Derived Column Output"
+              startId="Package\Indlæs driver værdier\Togkm navn.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Indlæs driver værdier.Paths[Derived Column Output2]"
+              endId="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Indlæs driver værdier\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Indlæs driver værdier.Paths[DR_Pladskm_Stog_Tid]"
+              endId="Package\Indlæs driver værdier\Pladskm navn.Inputs[Derived Column Input]"
+              name="DR_Pladskm_Stog_Tid"
+              startId="Package\Indlæs driver værdier\Driver type split.Outputs[DR_Pladskm_Stog_Tid]" />
+            <path
+              refId="Package\Indlæs driver værdier.Paths[DR_Togkm_Stog_tid]"
+              endId="Package\Indlæs driver værdier\Togkm navn.Inputs[Derived Column Input]"
+              name="DR_Togkm_Stog_tid"
+              startId="Package\Indlæs driver værdier\Driver type split.Outputs[DR_Togkm_Stog_tid]" />
+            <path
+              refId="Package\Indlæs driver værdier.Paths[OLE DB Source Output]"
+              endId="Package\Indlæs driver værdier\Driver type split.Inputs[Conditional Split Input]"
+              name="OLE DB Source Output"
+              startId="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Indlæs driver værdier.Paths[Union All Output 1]"
+              endId="Package\Indlæs driver værdier\Derived Column.Inputs[Derived Column Input]"
+              name="Union All Output 1"
+              startId="Package\Indlæs driver værdier\Union All.Outputs[Union All Output 1]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{6C7BBB2D-C3BE-4837-A61F-B12B0FE3C445}"
+      DTS:From="Package\Fjern eksisterende driver værdier"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Indlæs driver værdier" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{d13505cc-7e0e-4c13-ac55-1e383cd8f0b7}"
+      DTS:From="Package\Find Periode"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Fjern eksisterende driver værdier" />
+  </DTS:PrecedenceConstraints>
+  <DTS:PackageVariables>
+    <DTS:PackageVariable
+      DTS:CreationName=""
+      DTS:DTSID="{9EAF4E0E-2631-48F3-90A5-BA1702F94CE4}"
+      DTS:Namespace="dts-designer-1.0"
+      DTS:ObjectName="{6C7BBB2D-C3BE-4837-A61F-B12B0FE3C445}">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="PackageVariableValue">&lt;PrecedenceConstraint xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:EvalOp&gt;Constraint&lt;/dwd:EvalOp&gt;&lt;/PrecedenceConstraint&gt;</DTS:Property>
+    </DTS:PackageVariable>
+    <DTS:PackageVariable
+      DTS:CreationName=""
+      DTS:DTSID="{ED917CC2-4A4E-4C1A-80E1-DCB8C4DEDF3C}"
+      DTS:Namespace="dts-designer-1.0"
+      DTS:ObjectName="{d13505cc-7e0e-4c13-ac55-1e383cd8f0b7}">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="PackageVariableValue">&lt;PrecedenceConstraint xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:EvalOp&gt;Constraint&lt;/dwd:EvalOp&gt;&lt;/PrecedenceConstraint&gt;</DTS:Property>
+    </DTS:PackageVariable>
+    <DTS:PackageVariable
+      DTS:CreationName=""
+      DTS:DTSID="{F6FECF22-FBB9-4BA9-8573-242F3C45415B}"
+      DTS:Namespace="dts-designer-1.0"
+      DTS:ObjectName="{E4775EA4-56A5-4C4D-9F3A-332C6BDC5D14}">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="PackageVariableValue">&lt;TaskHost xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:DtsDataFlowDiagram&gt;&lt;dwd:BoundingLeft&gt;-952&lt;/dwd:BoundingLeft&gt;&lt;dwd:Layout&gt;&lt;dds&gt;&lt;diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="Microsoft.DataWarehouse.Layout.GraphLayout110" defaultlineroute="Microsoft.DataWarehouse.Layout.GraphLayout110" version="7" nextobject="38" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="0" scrolltop="2013" gridx="150" gridy="150" marginx="1000" marginy="1000" zoom="100" x="21352" y="18812" backcolor="15334399" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="1" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="1" viewpagebreaks="0" donotforceconnectorsbehindshapes="0" backpictureclsid="{00000000-0000-0000-0000-000000000000}"&gt;&lt;font&gt;&lt;ddsxmlobjectstreamwrapper binary="01010000900180380100065461686f6d61" /&gt;&lt;/font&gt;&lt;mouseicon&gt;&lt;ddsxmlobjectstreamwrapper binary="6c74000000000000" /&gt;&lt;/mouseicon&gt;&lt;/diagram&gt;&lt;layoutmanager&gt;&lt;ddsxmlobj /&gt;&lt;/layoutmanager&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="OLE DB Source" left="529" top="3003" logicalid="17" controlid="1" masterid="0" hint1="0" hint2="0" width="6958" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800002e1b00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Indlæs driver værdier\GD_R_Togproduktion_STog SQL Command" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Evaluates and directs rows in a dataset." left="2196" top="6258" logicalid="18" controlid="2" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Indlæs driver værdier\Driver type split" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="3596" top="3768" logicalid="19" controlid="3" masterid="0" hint1="0" hint2="0" width="812" height="2990" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Indlæs driver værdier.Paths[OLE DB Source Output]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="1" destid="2" sourceattachpoint="13" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="4008" y="4167" /&gt;&lt;point x="4008" y="5212" /&gt;&lt;point x="3995" y="5212" /&gt;&lt;point x="3995" y="6258" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Updates column values using expressions" left="-952" top="9432" logicalid="20" controlid="4" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Indlæs driver værdier\Pladskm navn" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="448" top="7023" logicalid="21" controlid="5" masterid="0" hint1="0" hint2="0" width="3947" height="2909" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1"&gt;&lt;adornment percentpos="23.148507173323" controlid="17" width="3057" height="344" side="0" behavior="2" himetric="1194" distfromline="175" startobj="0" x="574" y="7908" visible="1" allowoverlap="1" usepercent="1" /&gt;&lt;/polyline&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Indlæs driver værdier.Paths[DR_Pladskm_Stog_Tid]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="2" destid="4" sourceattachpoint="7" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="3995" y="7422" /&gt;&lt;point x="3995" y="8427" /&gt;&lt;point x="847" y="8427" /&gt;&lt;point x="847" y="9432" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Updates column values using expressions" left="7012" top="9459" logicalid="22" controlid="6" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Indlæs driver værdier\Togkm navn" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="4146" top="7023" logicalid="23" controlid="7" masterid="0" hint1="0" hint2="0" width="5065" height="2936" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1"&gt;&lt;adornment percentpos="69.8873552276694" controlid="18" width="2796" height="344" side="0" behavior="2" himetric="4405" distfromline="175" startobj="0" x="4961" y="8615" visible="1" allowoverlap="1" usepercent="1" /&gt;&lt;/polyline&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Indlæs driver værdier.Paths[DR_Togkm_Stog_tid]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="2" destid="6" sourceattachpoint="9" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="4545" y="7422" /&gt;&lt;point x="4545" y="8440" /&gt;&lt;point x="8811" y="8440" /&gt;&lt;point x="8811" y="9459" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Merges multiple datasets." left="2461" top="13030" logicalid="24" controlid="8" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Indlæs driver værdier\Union All" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="448" top="10197" logicalid="25" controlid="9" masterid="0" hint1="0" hint2="0" width="4212" height="3333" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Indlæs driver værdier.Paths[Derived Column Output]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="4" destid="8" sourceattachpoint="7" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="847" y="10596" /&gt;&lt;point x="847" y="11813" /&gt;&lt;point x="4260" y="11813" /&gt;&lt;point x="4260" y="13030" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="4411" top="10224" logicalid="26" controlid="10" masterid="0" hint1="0" hint2="0" width="4800" height="3306" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Indlæs driver værdier.Paths[Derived Column Output1]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="6" destid="8" sourceattachpoint="7" destattachpoint="8" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="8811" y="10623" /&gt;&lt;point x="8811" y="11826" /&gt;&lt;point x="4810" y="11826" /&gt;&lt;point x="4810" y="13030" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Updates column values using expressions" left="2462" top="15438" logicalid="27" controlid="11" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Indlæs driver værdier\Derived Column" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="3861" top="13795" logicalid="28" controlid="12" masterid="0" hint1="0" hint2="0" width="800" height="2143" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Indlæs driver værdier.Paths[Union All Output 1]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="8" destid="11" sourceattachpoint="7" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="4260" y="14194" /&gt;&lt;point x="4260" y="14816" /&gt;&lt;point x="4261" y="14816" /&gt;&lt;point x="4261" y="15438" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Truncation may occur due to inserting data from data flow column &amp;quot;TidsintervalNavn&amp;quot; with a length of..." left="2408" top="18211" logicalid="31" controlid="15" masterid="0" hint1="0" hint2="0" width="4815" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="00080000cf1200008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Indlæs driver værdier\GD_R_DR_TIDSINTERVAL" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="3862" top="16203" logicalid="32" controlid="16" masterid="0" hint1="0" hint2="0" width="1353" height="2508" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Indlæs driver værdier.Paths[Derived Column Output2]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="11" destid="15" sourceattachpoint="7" destattachpoint="8" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="4261" y="16602" /&gt;&lt;point x="4261" y="17406" /&gt;&lt;point x="4815" y="17406" /&gt;&lt;point x="4815" y="18211" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Text" left="574" top="7908" logicalid="33" controlid="17" masterid="5" hint1="0" hint2="0" width="3057" height="344" noresize="1" nomove="0" nodefaultattachpoints="1" autodrag="1" usedefaultiddshape="1" selectable="0" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="1" groupcollapsed="0" tabstop="0" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="00020000f10b000058010000030000000000050000800800008001000000350001000000900144420100065461686f6d611300440052005f0050006c006100640073006b006d005f00530074006f0067005f0054006900640000000000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="AnnotationAdornment" value="-1" vartype="11" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Text" left="4961" top="8615" logicalid="34" controlid="18" masterid="7" hint1="0" hint2="0" width="2796" height="344" noresize="1" nomove="0" nodefaultattachpoints="1" autodrag="1" usedefaultiddshape="1" selectable="0" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="1" groupcollapsed="0" tabstop="0" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="00020000ec0a000058010000030000000000050000800800008001000000350001000000900144420100065461686f6d611100440052005f0054006f0067006b006d005f00530074006f0067005f0074006900640000000000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="AnnotationAdornment" value="-1" vartype="11" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;/dds&gt;&lt;/dwd:Layout&gt;&lt;dwd:PersistedViewPortTop&gt;2013&lt;/dwd:PersistedViewPortTop&gt;&lt;/dwd:DtsDataFlowDiagram&gt;&lt;dwd:DtsComponentDesignerPropertiesList&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;261	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;261	TableInfoObjectType&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:string"&gt;Table&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;202	TableInfoObjectType&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:string"&gt;Table&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;63	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;16	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;202	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;/dwd:DtsComponentDesignerPropertiesList&gt;&lt;/TaskHost&gt;</DTS:Property>
+    </DTS:PackageVariable>
+    <DTS:PackageVariable
+      DTS:CreationName=""
+      DTS:DTSID="{87491B31-D135-4CF8-9AF5-DB1B23F2A1FC}"
+      DTS:Namespace="dts-designer-1.0"
+      DTS:ObjectName="{E4775EA4-56A5-4C4D-9F3A-332C6BDC5D14}-100">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="PackageVariableValue">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;OLE DB Source Output&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;Conditional Split Input&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
+    </DTS:PackageVariable>
+    <DTS:PackageVariable
+      DTS:CreationName=""
+      DTS:DTSID="{9DAC7EC0-D231-437B-9077-F2CA2205D2A2}"
+      DTS:Namespace="dts-designer-1.0"
+      DTS:ObjectName="{E4775EA4-56A5-4C4D-9F3A-332C6BDC5D14}-120">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="PackageVariableValue">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;DR_Pladskm_Stog_Tid&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;Derived Column Input&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
+    </DTS:PackageVariable>
+    <DTS:PackageVariable
+      DTS:CreationName=""
+      DTS:DTSID="{54751B30-7915-44DD-8C2F-FF3B2CAD7878}"
+      DTS:Namespace="dts-designer-1.0"
+      DTS:ObjectName="{E4775EA4-56A5-4C4D-9F3A-332C6BDC5D14}-135">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="PackageVariableValue">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;DR_Togkm_Stog_tid&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;Derived Column Input&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
+    </DTS:PackageVariable>
+    <DTS:PackageVariable
+      DTS:CreationName=""
+      DTS:DTSID="{D7B0B044-6E82-4ABC-9C5D-B297EC263E8E}"
+      DTS:Namespace="dts-designer-1.0"
+      DTS:ObjectName="{E4775EA4-56A5-4C4D-9F3A-332C6BDC5D14}-152">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="PackageVariableValue">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;Derived Column Output&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;Union All Input 1&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
+    </DTS:PackageVariable>
+    <DTS:PackageVariable
+      DTS:CreationName=""
+      DTS:DTSID="{F3870C48-0B46-4CBD-94AC-126E5DD908DD}"
+      DTS:Namespace="dts-designer-1.0"
+      DTS:ObjectName="{E4775EA4-56A5-4C4D-9F3A-332C6BDC5D14}-172">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="PackageVariableValue">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;Derived Column Output&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;Union All Input 2&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
+    </DTS:PackageVariable>
+    <DTS:PackageVariable
+      DTS:CreationName=""
+      DTS:DTSID="{D6BA32F0-F11F-49D0-B7F4-512C5ECA2FF9}"
+      DTS:Namespace="dts-designer-1.0"
+      DTS:ObjectName="{E4775EA4-56A5-4C4D-9F3A-332C6BDC5D14}-192">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="PackageVariableValue">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;Union All Output 1&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;Derived Column Input&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
+    </DTS:PackageVariable>
+    <DTS:PackageVariable
+      DTS:CreationName=""
+      DTS:DTSID="{1CE9AA12-7B68-48D5-A67D-C653769C3485}"
+      DTS:Namespace="dts-designer-1.0"
+      DTS:ObjectName="{E4775EA4-56A5-4C4D-9F3A-332C6BDC5D14}-278">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="PackageVariableValue">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;Derived Column Output&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;OLE DB Destination Input&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
+    </DTS:PackageVariable>
+    <DTS:PackageVariable
+      DTS:CreationName=""
+      DTS:DTSID="{EB7E13AD-F1CB-4FCE-9782-FB4C9605B66B}"
+      DTS:Namespace="dts-designer-1.0"
+      DTS:ObjectName="package-diagram">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="PackageVariableValue">&lt;Package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:DtsControlFlowDiagram&gt;&lt;dwd:BoundingTop&gt;1000&lt;/dwd:BoundingTop&gt;&lt;dwd:Layout&gt;&lt;dds&gt;&lt;diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="Microsoft.DataWarehouse.Layout.GraphLayout110" defaultlineroute="Microsoft.DataWarehouse.Layout.GraphLayout110" version="7" nextobject="14" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="0" scrolltop="0" gridx="150" gridy="150" marginx="1000" marginy="1000" zoom="100" x="21352" y="19738" backcolor="15334399" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="1" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="0" viewpagebreaks="0" donotforceconnectorsbehindshapes="1" backpictureclsid="{00000000-0000-0000-0000-000000000000}"&gt;&lt;font&gt;&lt;ddsxmlobjectstreamwrapper binary="01010000900180380100065461686f6d61" /&gt;&lt;/font&gt;&lt;mouseicon&gt;&lt;ddsxmlobjectstreamwrapper binary="6c74000000000000" /&gt;&lt;/mouseicon&gt;&lt;/diagram&gt;&lt;layoutmanager&gt;&lt;ddsxmlobj /&gt;&lt;/layoutmanager&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Execute SQL Task" left="1723" top="1000" logicalid="6" controlid="1" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Find Periode" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Execute SQL Task" left="0" top="4190" logicalid="7" controlid="2" masterid="0" hint1="0" hint2="0" width="7037" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800007d1b00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Fjern eksisterende driver værdier" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="3119" top="1765" logicalid="8" controlid="3" masterid="0" hint1="0" hint2="0" width="803" height="2925" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="2" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package.PrecedenceConstraints[Constraint 1]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector sourceid="1" destid="2" sourceattachpoint="7" destattachpoint="12" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="3522" y="2164" /&gt;&lt;point x="3522" y="3177" /&gt;&lt;point x="3518" y="3177" /&gt;&lt;point x="3518" y="4190" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Truncation may occur due to inserting data from data flow column &amp;quot;TidsintervalNavn&amp;quot; with a length of..." left="744" top="7428" logicalid="9" controlid="4" masterid="0" hint1="0" hint2="0" width="5556" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="00080000b41500008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Indlæs driver værdier" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="3119" top="4955" logicalid="10" controlid="5" masterid="0" hint1="0" hint2="0" width="803" height="2973" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="2" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package.PrecedenceConstraints[Constraint]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="2" destid="4" sourceattachpoint="13" destattachpoint="8" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="3518" y="5354" /&gt;&lt;point x="3518" y="6391" /&gt;&lt;point x="3522" y="6391" /&gt;&lt;point x="3522" y="7428" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;/dds&gt;&lt;/dwd:Layout&gt;&lt;/dwd:DtsControlFlowDiagram&gt;&lt;/Package&gt;</DTS:Property>
+    </DTS:PackageVariable>
+    <DTS:PackageVariable
+      DTS:CreationName=""
+      DTS:DTSID="{7C344350-B01F-4746-8837-4B96E7598372}"
+      DTS:Namespace="dts-designer-1.0"
+      DTS:ObjectName="package-diagram">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="PackageVariableValue">&lt;Package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:DtsControlFlowDiagram&gt;&lt;dwd:BoundingTop&gt;1000&lt;/dwd:BoundingTop&gt;&lt;dwd:Layout&gt;&lt;dds&gt;&lt;diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="Microsoft.DataWarehouse.Layout.GraphLayout110" defaultlineroute="Microsoft.DataWarehouse.Layout.GraphLayout110" version="7" nextobject="14" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="0" scrolltop="0" gridx="150" gridy="150" marginx="1000" marginy="1000" zoom="100" x="21352" y="19738" backcolor="15334399" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="1" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="0" viewpagebreaks="0" donotforceconnectorsbehindshapes="1" backpictureclsid="{00000000-0000-0000-0000-000000000000}"&gt;&lt;font&gt;&lt;ddsxmlobjectstreamwrapper binary="01010000900180380100065461686f6d61" /&gt;&lt;/font&gt;&lt;mouseicon&gt;&lt;ddsxmlobjectstreamwrapper binary="6c74000000000000" /&gt;&lt;/mouseicon&gt;&lt;/diagram&gt;&lt;layoutmanager&gt;&lt;ddsxmlobj /&gt;&lt;/layoutmanager&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Execute SQL Task" left="1723" top="1000" logicalid="6" controlid="1" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Find Periode" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Execute SQL Task" left="0" top="4190" logicalid="7" controlid="2" masterid="0" hint1="0" hint2="0" width="7037" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800007d1b00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Fjern eksisterende driver værdier" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="3119" top="1765" logicalid="8" controlid="3" masterid="0" hint1="0" hint2="0" width="803" height="2925" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="2" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package.PrecedenceConstraints[Constraint 1]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector sourceid="1" destid="2" sourceattachpoint="7" destattachpoint="12" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="3522" y="2164" /&gt;&lt;point x="3522" y="3177" /&gt;&lt;point x="3518" y="3177" /&gt;&lt;point x="3518" y="4190" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Truncation may occur due to inserting data from data flow column &amp;quot;TidsintervalNavn&amp;quot; with a length of..." left="744" top="7428" logicalid="9" controlid="4" masterid="0" hint1="0" hint2="0" width="5556" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="00080000b41500008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Indlæs driver værdier" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="3119" top="4955" logicalid="10" controlid="5" masterid="0" hint1="0" hint2="0" width="803" height="2973" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="2" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package.PrecedenceConstraints[Constraint]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="2" destid="4" sourceattachpoint="13" destattachpoint="8" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="3518" y="5354" /&gt;&lt;point x="3518" y="6391" /&gt;&lt;point x="3522" y="6391" /&gt;&lt;point x="3522" y="7428" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;/dds&gt;&lt;/dwd:Layout&gt;&lt;/dwd:DtsControlFlowDiagram&gt;&lt;/Package&gt;</DTS:Property>
+    </DTS:PackageVariable>
+  </DTS:PackageVariables>
+</DTS:Executable>

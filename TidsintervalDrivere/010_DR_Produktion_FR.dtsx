@@ -1,0 +1,1667 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/6/2013 10:23:29 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DSB076516"
+  DTS:CreatorName="DSB\thbr0803"
+  DTS:DTSID="{EE6E6F36-DF48-424D-B218-3AA72C25D8E4}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.2430.0"
+  DTS:LocaleID="1030"
+  DTS:ObjectName="010_DR_Produktion_FR"
+  DTS:PackageType="5"
+  DTS:VersionBuild="43"
+  DTS:VersionGUID="{72187645-F8FB-4CF1-A802-46D10C284DD1}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[MDW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{6F6FBE5B-05E8-4844-9184-9032A39426B5}"
+      DTS:ObjectName="MDW">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=mssqlp01\alpha;Initial Catalog=mdw;Provider=SQLNCLI11;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[POEMAKTUEL]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{FE8686AF-0435-4AE1-BD3B-7CF6E4EF1341}"
+      DTS:ObjectName="POEMAKTUEL">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=MSSQLT01\ALPHA;Initial Catalog=POEMAKTUEL;Provider=SQLNCLI11;Integrated Security=SSPI;Application Name=SSIS-010_DR_Produktion_FR-{FE8686AF-0435-4AE1-BD3B-7CF6E4EF1341}MSSQLT01\ALPHA.POEMAKTUEL;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{A1CB9CEB-21A1-4B84-B8F5-1C1F6A5CE8DB}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="v_DriverAar">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{80787B7B-6D55-46D1-A9C6-2C030375BC05}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="v_DriverMaaned">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{A2AAC674-C8AC-473A-A41C-9ED59200FD49}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="v_DriverPeriode">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F7D90A9F-9569-45F5-9A4F-7F900FD7C07B}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="v_DriverType">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Find periode"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{531EE0E3-FD23-409E-8066-A174E3064AFA}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Find periode"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{6F6FBE5B-05E8-4844-9184-9032A39426B5}"
+          SQLTask:SqlStatementSource="SELECT CONVERT(int, SUBSTRING(Value,1,4)) as Aar, CONVERT(int, SUBSTRING(value, 5, 2)) as Maaned,&#xA;   value as Periode&#xA;FROM ods.CTL_Dataload&#xA;WHERE Kilde_System = 'DrvTidsinter' AND Variable = 'Periode'"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="Aar"
+            SQLTask:DtsVariableName="User::v_DriverAar" />
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="maaned"
+            SQLTask:DtsVariableName="User::v_DriverMaaned" />
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="Periode"
+            SQLTask:DtsVariableName="User::v_DriverPeriode" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Fjern eksisterende driver værdier"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{E07F4F6F-93FB-4F37-90D5-B920EA671F04}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Fjern eksisterende driver værdier"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{6F6FBE5B-05E8-4844-9184-9032A39426B5}"
+          SQLTask:SqlStatementSource="delete from edw.GD_R_DR_Tidsinterval&#xA;where periode = ?&#xA;and driverType in ('DR_Litrakm_FR_tid', 'DR_Litratimer_FR_Tid', 'DR_Pladskm_FR_Tid','DR_Togkm_FR_Tid','DR_Togtimer_FR_Tid')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::v_DriverPeriode"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="0" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Gem Driver værdier"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{AE6F1F26-508B-4388-84B2-EE05502CF610}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Gem Driver værdier"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server v9; (C) 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          engineThreads="5"
+          version="1">
+          <components>
+            <component
+              refId="Package\Gem Driver værdier\Beregn vægt"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Updates column values using expressions"
+              name="Beregn vægt"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Gem Driver værdier\Beregn vægt.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\Beregn vægt.Inputs[Derived Column Input].Columns[DriverVærdiSum]"
+                      cachedDataType="r8"
+                      cachedName="DriverVærdiSum"
+                      lineageId="Package\Gem Driver værdier\Merge Join 2.Outputs[Merge Join Output].Columns[DriverVærdiSum]" />
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\Beregn vægt.Inputs[Derived Column Input].Columns[DriverVærdi]"
+                      cachedDataType="r8"
+                      cachedName="DriverVærdi"
+                      lineageId="Package\Gem Driver værdier\Merge Join 2.Outputs[Merge Join Output].Columns[DriverVærdi]" />
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\Beregn vægt.Inputs[Derived Column Input].Columns[TidsintervalNavn]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="TidsintervalNavn"
+                      lineageId="Package\Gem Driver værdier\Merge Join 2.Outputs[Merge Join Output].Columns[TidsintervalNavn]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Gem Driver værdier\Beregn vægt.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Gem Driver værdier\Beregn vægt.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\Beregn vægt.Outputs[Derived Column Output].Columns[Driver_weight]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Gem Driver værdier\Beregn vægt.Outputs[Derived Column Output].Columns[Driver_weight]"
+                      name="Driver_weight"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\Gem Driver værdier\Merge Join 2.Outputs[Merge Join Output].Columns[DriverVærdi]} / #{Package\Gem Driver værdier\Merge Join 2.Outputs[Merge Join Output].Columns[DriverVærdiSum]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">[DriverVærdi] / [DriverVærdiSum]</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\Beregn vægt.Outputs[Derived Column Output].Columns[Tidsinterval]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Gem Driver værdier\Beregn vægt.Outputs[Derived Column Output].Columns[Tidsinterval]"
+                      name="Tidsinterval"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_STR,50,1252)[SUBSTRING]("FR_" + #{Package\Gem Driver værdier\Merge Join 2.Outputs[Merge Join Output].Columns[TidsintervalNavn]},1,50)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_STR,50,1252)SUBSTRING("FR_" + TidsintervalNavn,1,50)</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Gem Driver værdier\Beregn vægt.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Gem Driver værdier\Beregn vægt.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\Beregn vægt.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Gem Driver værdier\Beregn vægt.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\Beregn vægt.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Gem Driver værdier\Beregn vægt.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="edw GD_R_DR_TIDSINTERVAL"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[edw].[GD_R_DR_TIDSINTERVAL]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[MDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[MDW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].Columns[DriverNavn]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="DriverNavn"
+                      cachedSortKeyPosition="2"
+                      externalMetadataColumnId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].ExternalColumns[DriverType]"
+                      lineageId="Package\Gem Driver værdier\Merge Join 2.Outputs[Merge Join Output].Columns[DriverNavn]" />
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].Columns[CostObjekt]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="CostObjekt"
+                      cachedSortKeyPosition="3"
+                      externalMetadataColumnId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].ExternalColumns[CostObject]"
+                      lineageId="Package\Gem Driver værdier\Merge Join 2.Outputs[Merge Join Output].Columns[CostObjekt]" />
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].Columns[DriverVærdi]"
+                      cachedDataType="r8"
+                      cachedName="DriverVærdi"
+                      externalMetadataColumnId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].ExternalColumns[DriverQuantity]"
+                      lineageId="Package\Gem Driver værdier\Merge Join 2.Outputs[Merge Join Output].Columns[DriverVærdi]" />
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].Columns[Driver_weight]"
+                      cachedDataType="r8"
+                      cachedName="Driver_weight"
+                      externalMetadataColumnId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].ExternalColumns[DriverWeight]"
+                      lineageId="Package\Gem Driver værdier\Beregn vægt.Outputs[Derived Column Output].Columns[Driver_weight]" />
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].Columns[PeriodeIndlæst]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="PeriodeIndlæst"
+                      cachedSortKeyPosition="1"
+                      externalMetadataColumnId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].ExternalColumns[periode]"
+                      lineageId="Package\Gem Driver værdier\Merge Join 2.Outputs[Merge Join Output].Columns[PeriodeIndlæst]" />
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].Columns[Tidsinterval]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Tidsinterval"
+                      externalMetadataColumnId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].ExternalColumns[Tidsinterval]"
+                      lineageId="Package\Gem Driver værdier\Beregn vægt.Outputs[Derived Column Output].Columns[Tidsinterval]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].ExternalColumns[DriverType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="DriverType" />
+                    <externalMetadataColumn
+                      refId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].ExternalColumns[CostObject]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="CostObject" />
+                    <externalMetadataColumn
+                      refId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].ExternalColumns[Tidsinterval]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Tidsinterval" />
+                    <externalMetadataColumn
+                      refId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].ExternalColumns[DriverQuantity]"
+                      dataType="r8"
+                      name="DriverQuantity" />
+                    <externalMetadataColumn
+                      refId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].ExternalColumns[DriverWeight]"
+                      dataType="r8"
+                      name="DriverWeight" />
+                    <externalMetadataColumn
+                      refId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input].ExternalColumns[periode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="periode" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Gem Driver værdier\Find sum per driver"
+              componentClassID="Microsoft.Aggregate"
+              contactInfo="Aggregate;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;3"
+              description="Aggregates and groups values in a dataset."
+              name="Find sum per driver"
+              version="3">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the approximate number of group by keys that the aggregation produces. Low indicates 500,000 key values, Medium indicates 5 million key values, and High indicates more than 25 million key values. Unspecified indicates no KeyScale value is used."
+                  name="KeyScale"
+                  typeConverter="KeyScaleType">0</property>
+                <property
+                  dataType="System.Null"
+                  description="Specifies the exact number of group by keys that the aggregation produces. If a KeyScale value is specified, the value in Keys takes precedence."
+                  name="Keys" />
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the approximate number of distinct values in a column that the aggregation counts distinctly. Low indicates 500,000 key values, Medium indicates 5 million key values, and High indicates more than 25 million key values. Unspecified indicates no CountDistinctScale value is used."
+                  name="CountDistinctScale"
+                  typeConverter="KeyScaleType">0</property>
+                <property
+                  dataType="System.Null"
+                  description="Specifies the exact number of distinct values in a column that the aggregation counts distinctly. If a CountDistinctScale value is specified, the value in CountDistinctKeys takes precedence."
+                  name="CountDistinctKeys" />
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage by which memory can be extended during the aggregation. Valid values are between 1 and 100."
+                  name="AutoExtendFactor">25</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Gem Driver værdier\Find sum per driver.Inputs[Aggregate Input 1]"
+                  name="Aggregate Input 1">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\Find sum per driver.Inputs[Aggregate Input 1].Columns[PeriodeIndlæst]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="PeriodeIndlæst"
+                      lineageId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[PeriodeIndlæst]" />
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\Find sum per driver.Inputs[Aggregate Input 1].Columns[DriverNavn]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="DriverNavn"
+                      lineageId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[DriverNavn]" />
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\Find sum per driver.Inputs[Aggregate Input 1].Columns[CostObjekt]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="CostObjekt"
+                      lineageId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[CostObjekt]" />
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\Find sum per driver.Inputs[Aggregate Input 1].Columns[Værdi]"
+                      cachedDataType="r8"
+                      cachedName="Værdi"
+                      lineageId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[Værdi]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Gem Driver værdier\Find sum per driver.Outputs[Aggregate Output 1]"
+                  name="Aggregate Output 1">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the approximate number of group by keys that the aggregation produces. Low indicates 500,000 key values, Medium indicates 5 million key values, and High indicates more than 25 million key values. Unspecified indicates no KeyScale value is used."
+                      name="KeyScale"
+                      typeConverter="KeyScaleType">0</property>
+                    <property
+                      dataType="System.Null"
+                      description="Specifies the exact number of group by keys that the aggregation produces. If a KeyScale value is specified, the value in Keys takes precedence."
+                      name="Keys" />
+                  </properties>
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\Find sum per driver.Outputs[Aggregate Output 1].Columns[PeriodeIndlæst]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Gem Driver værdier\Find sum per driver.Outputs[Aggregate Output 1].Columns[PeriodeIndlæst]"
+                      name="PeriodeIndlæst">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the ID of the input column used in the aggregation."
+                          name="AggregationColumnId">#{Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[PeriodeIndlæst]}</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the type of aggregation."
+                          name="AggregationType"
+                          typeConverter="AggregationType">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Indicates whether the column requires special handling because it may contain oversized data or it requires precision beyond a float data type."
+                          name="IsBig">1</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the string comparison options."
+                          name="AggregationComparisonFlags">0</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\Find sum per driver.Outputs[Aggregate Output 1].Columns[DriverNavn]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\Gem Driver værdier\Find sum per driver.Outputs[Aggregate Output 1].Columns[DriverNavn]"
+                      name="DriverNavn">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the ID of the input column used in the aggregation."
+                          name="AggregationColumnId">#{Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[DriverNavn]}</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the type of aggregation."
+                          name="AggregationType"
+                          typeConverter="AggregationType">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Indicates whether the column requires special handling because it may contain oversized data or it requires precision beyond a float data type."
+                          name="IsBig">1</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the string comparison options."
+                          name="AggregationComparisonFlags">0</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\Find sum per driver.Outputs[Aggregate Output 1].Columns[CostObjekt]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Gem Driver værdier\Find sum per driver.Outputs[Aggregate Output 1].Columns[CostObjekt]"
+                      name="CostObjekt">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the ID of the input column used in the aggregation."
+                          name="AggregationColumnId">#{Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[CostObjekt]}</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the type of aggregation."
+                          name="AggregationType"
+                          typeConverter="AggregationType">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Indicates whether the column requires special handling because it may contain oversized data or it requires precision beyond a float data type."
+                          name="IsBig">1</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the string comparison options."
+                          name="AggregationComparisonFlags">0</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\Find sum per driver.Outputs[Aggregate Output 1].Columns[Værdi]"
+                      dataType="r8"
+                      lineageId="Package\Gem Driver værdier\Find sum per driver.Outputs[Aggregate Output 1].Columns[Værdi]"
+                      name="Værdi">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the ID of the input column used in the aggregation."
+                          name="AggregationColumnId">#{Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[Værdi]}</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the type of aggregation."
+                          name="AggregationType"
+                          typeConverter="AggregationType">4</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Indicates whether the column requires special handling because it may contain oversized data or it requires precision beyond a float data type."
+                          name="IsBig">1</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the string comparison options."
+                          name="AggregationComparisonFlags">0</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="GD_R_Togproduktion_FR SQL Command"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [PeriodeIndlæst] ,[TidsintervalNavn], [CostObjekt], SUM([Værdi]) AS [Værdi],
+  CASE Enhed 
+    WHEN 'Togkm' THEN 'DR_Togkm_FR_tid'
+    WHEN 'Togtimer' THEN 'DR_Togtimer_FR_Tid'
+    WHEN 'Litrakm' THEN 'DR_Litrakm_FR_Tid'
+    WHEN 'Litratimer' THEN 'DR_Litratimer_FR_Tid'
+    WHEN 'Pladskm' THEN 'DR_Pladskm_FR_Tid'
+    ELSE 'Ukendt' END As DriverNavn
+  FROM [POEMAKTUEL].[dbo].[GD_R_Togproduktion_FR]
+  where PeriodeIndlæst = ?
+  and [Materielkørsel] = 'nej'
+GROUP BY [PeriodeIndlæst], [TidsintervalNavn], [CostObjekt], 
+  CASE Enhed 
+    WHEN 'Togkm' THEN 'DR_Togkm_FR_tid'
+    WHEN 'Togtimer' THEN 'DR_Togtimer_FR_Tid'
+    WHEN 'Litrakm' THEN 'DR_Litrakm_FR_Tid'
+    WHEN 'Litratimer' THEN 'DR_Litratimer_FR_Tid'
+    WHEN 'Pladskm' THEN 'DR_Pladskm_FR_Tid'
+    ELSE 'Ukendt' END</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"0",{A2AAC674-C8AC-473A-A41C-9ED59200FD49};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[POEMAKTUEL]"
+                  connectionManagerRefId="Package.ConnectionManagers[POEMAKTUEL]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[PeriodeIndlæst]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].ExternalColumns[PeriodeIndlæst]"
+                      length="50"
+                      lineageId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[PeriodeIndlæst]"
+                      name="PeriodeIndlæst"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[TidsintervalNavn]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].ExternalColumns[TidsintervalNavn]"
+                      length="50"
+                      lineageId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[TidsintervalNavn]"
+                      name="TidsintervalNavn"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[CostObjekt]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].ExternalColumns[CostObjekt]"
+                      length="50"
+                      lineageId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[CostObjekt]"
+                      name="CostObjekt"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[Værdi]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].ExternalColumns[Værdi]"
+                      lineageId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[Værdi]"
+                      name="Værdi"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[DriverNavn]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].ExternalColumns[DriverNavn]"
+                      length="20"
+                      lineageId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[DriverNavn]"
+                      name="DriverNavn"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].ExternalColumns[PeriodeIndlæst]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="PeriodeIndlæst" />
+                    <externalMetadataColumn
+                      refId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].ExternalColumns[TidsintervalNavn]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="TidsintervalNavn" />
+                    <externalMetadataColumn
+                      refId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].ExternalColumns[CostObjekt]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="CostObjekt" />
+                    <externalMetadataColumn
+                      refId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].ExternalColumns[Værdi]"
+                      dataType="r8"
+                      name="Værdi" />
+                    <externalMetadataColumn
+                      refId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].ExternalColumns[DriverNavn]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="DriverNavn" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Error Output].Columns[PeriodeIndlæst]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Error Output].Columns[PeriodeIndlæst]"
+                      name="PeriodeIndlæst" />
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Error Output].Columns[TidsintervalNavn]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Error Output].Columns[TidsintervalNavn]"
+                      name="TidsintervalNavn" />
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Error Output].Columns[CostObjekt]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Error Output].Columns[CostObjekt]"
+                      name="CostObjekt" />
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Error Output].Columns[Værdi]"
+                      dataType="r8"
+                      lineageId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Error Output].Columns[Værdi]"
+                      name="Værdi" />
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Error Output].Columns[DriverNavn]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Error Output].Columns[DriverNavn]"
+                      name="DriverNavn" />
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Gem Driver værdier\Merge Join 2"
+              componentClassID="Microsoft.MergeJoin"
+              contactInfo="Merge Join;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Merges data from two datasets by using a join."
+              name="Merge Join 2"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of join to perform."
+                  name="JoinType"
+                  typeConverter="JoinType">2</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the number of columns in the ordering key."
+                  name="NumKeyColumns">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the null values are treated as equal values."
+                  name="TreatNullsAsEqual">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Indicates the requested maximum buffers per input before blocking."
+                  name="MaxBuffersPerInput">5</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Gem Driver værdier\Merge Join 2.Inputs[Merge Join Left Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Left Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\Merge Join 2.Inputs[Merge Join Left Input].Columns[PeriodeIndlæst]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="PeriodeIndlæst"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Gem Driver værdier\Sort summer.Outputs[Sort Output].Columns[PeriodeIndlæst]" />
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\Merge Join 2.Inputs[Merge Join Left Input].Columns[DriverNavn]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="DriverNavn"
+                      cachedSortKeyPosition="2"
+                      lineageId="Package\Gem Driver værdier\Sort summer.Outputs[Sort Output].Columns[DriverNavn]" />
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\Merge Join 2.Inputs[Merge Join Left Input].Columns[CostObjekt]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="CostObjekt"
+                      cachedSortKeyPosition="3"
+                      lineageId="Package\Gem Driver værdier\Sort summer.Outputs[Sort Output].Columns[CostObjekt]" />
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\Merge Join 2.Inputs[Merge Join Left Input].Columns[Værdi]"
+                      cachedDataType="r8"
+                      cachedName="Værdi"
+                      lineageId="Package\Gem Driver værdier\Sort summer.Outputs[Sort Output].Columns[Værdi]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Gem Driver værdier\Merge Join 2.Inputs[Merge Join Right Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Right Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\Merge Join 2.Inputs[Merge Join Right Input].Columns[PeriodeIndlæst]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="PeriodeIndlæst"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Gem Driver værdier\Sort driver værdier.Outputs[Sort Output].Columns[PeriodeIndlæst]" />
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\Merge Join 2.Inputs[Merge Join Right Input].Columns[CostObjekt]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="CostObjekt"
+                      cachedSortKeyPosition="3"
+                      lineageId="Package\Gem Driver værdier\Sort driver værdier.Outputs[Sort Output].Columns[CostObjekt]" />
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\Merge Join 2.Inputs[Merge Join Right Input].Columns[DriverNavn]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="DriverNavn"
+                      cachedSortKeyPosition="2"
+                      lineageId="Package\Gem Driver værdier\Sort driver værdier.Outputs[Sort Output].Columns[DriverNavn]" />
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\Merge Join 2.Inputs[Merge Join Right Input].Columns[Værdi]"
+                      cachedDataType="r8"
+                      cachedName="Værdi"
+                      lineageId="Package\Gem Driver værdier\Sort driver værdier.Outputs[Sort Output].Columns[Værdi]" />
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\Merge Join 2.Inputs[Merge Join Right Input].Columns[TidsintervalNavn]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="TidsintervalNavn"
+                      lineageId="Package\Gem Driver værdier\Sort driver værdier.Outputs[Sort Output].Columns[TidsintervalNavn]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Gem Driver værdier\Merge Join 2.Outputs[Merge Join Output]"
+                  isSorted="true"
+                  name="Merge Join Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\Merge Join 2.Outputs[Merge Join Output].Columns[PeriodeIndlæst]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Gem Driver værdier\Merge Join 2.Outputs[Merge Join Output].Columns[PeriodeIndlæst]"
+                      name="PeriodeIndlæst"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Gem Driver værdier\Merge Join 2.Inputs[Merge Join Left Input].Columns[PeriodeIndlæst]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\Merge Join 2.Outputs[Merge Join Output].Columns[DriverNavn]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\Gem Driver værdier\Merge Join 2.Outputs[Merge Join Output].Columns[DriverNavn]"
+                      name="DriverNavn"
+                      sortKeyPosition="2">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Gem Driver værdier\Merge Join 2.Inputs[Merge Join Left Input].Columns[DriverNavn]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\Merge Join 2.Outputs[Merge Join Output].Columns[CostObjekt]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Gem Driver værdier\Merge Join 2.Outputs[Merge Join Output].Columns[CostObjekt]"
+                      name="CostObjekt"
+                      sortKeyPosition="3">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Gem Driver værdier\Merge Join 2.Inputs[Merge Join Left Input].Columns[CostObjekt]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\Merge Join 2.Outputs[Merge Join Output].Columns[DriverVærdiSum]"
+                      dataType="r8"
+                      lineageId="Package\Gem Driver værdier\Merge Join 2.Outputs[Merge Join Output].Columns[DriverVærdiSum]"
+                      name="DriverVærdiSum">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Gem Driver værdier\Merge Join 2.Inputs[Merge Join Left Input].Columns[Værdi]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\Merge Join 2.Outputs[Merge Join Output].Columns[DriverVærdi]"
+                      dataType="r8"
+                      lineageId="Package\Gem Driver værdier\Merge Join 2.Outputs[Merge Join Output].Columns[DriverVærdi]"
+                      name="DriverVærdi">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Gem Driver værdier\Merge Join 2.Inputs[Merge Join Right Input].Columns[Værdi]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\Merge Join 2.Outputs[Merge Join Output].Columns[TidsintervalNavn]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Gem Driver værdier\Merge Join 2.Outputs[Merge Join Output].Columns[TidsintervalNavn]"
+                      name="TidsintervalNavn">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Gem Driver værdier\Merge Join 2.Inputs[Merge Join Right Input].Columns[TidsintervalNavn]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Gem Driver værdier\Sort driver værdier"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts data."
+              name="Sort driver værdier"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Gem Driver værdier\Sort driver værdier.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\Sort driver værdier.Inputs[Sort Input].Columns[PeriodeIndlæst]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="PeriodeIndlæst"
+                      lineageId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[PeriodeIndlæst]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\Sort driver værdier.Inputs[Sort Input].Columns[TidsintervalNavn]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="TidsintervalNavn"
+                      lineageId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[TidsintervalNavn]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\Sort driver værdier.Inputs[Sort Input].Columns[CostObjekt]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="CostObjekt"
+                      lineageId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[CostObjekt]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">3</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\Sort driver værdier.Inputs[Sort Input].Columns[Værdi]"
+                      cachedDataType="r8"
+                      cachedName="Værdi"
+                      lineageId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[Værdi]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\Sort driver værdier.Inputs[Sort Input].Columns[DriverNavn]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="DriverNavn"
+                      lineageId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[DriverNavn]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">2</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Gem Driver værdier\Sort driver værdier.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\Sort driver værdier.Outputs[Sort Output].Columns[PeriodeIndlæst]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Gem Driver værdier\Sort driver værdier.Outputs[Sort Output].Columns[PeriodeIndlæst]"
+                      name="PeriodeIndlæst"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[PeriodeIndlæst]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\Sort driver værdier.Outputs[Sort Output].Columns[TidsintervalNavn]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Gem Driver værdier\Sort driver værdier.Outputs[Sort Output].Columns[TidsintervalNavn]"
+                      name="TidsintervalNavn">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[TidsintervalNavn]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\Sort driver værdier.Outputs[Sort Output].Columns[CostObjekt]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Gem Driver værdier\Sort driver værdier.Outputs[Sort Output].Columns[CostObjekt]"
+                      name="CostObjekt"
+                      sortKeyPosition="3">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[CostObjekt]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\Sort driver værdier.Outputs[Sort Output].Columns[Værdi]"
+                      dataType="r8"
+                      lineageId="Package\Gem Driver værdier\Sort driver værdier.Outputs[Sort Output].Columns[Værdi]"
+                      name="Værdi">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[Værdi]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\Sort driver værdier.Outputs[Sort Output].Columns[DriverNavn]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\Gem Driver værdier\Sort driver værdier.Outputs[Sort Output].Columns[DriverNavn]"
+                      name="DriverNavn"
+                      sortKeyPosition="2">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output].Columns[DriverNavn]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Gem Driver værdier\Sort summer"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts data."
+              name="Sort summer"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Gem Driver værdier\Sort summer.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\Sort summer.Inputs[Sort Input].Columns[PeriodeIndlæst]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="PeriodeIndlæst"
+                      lineageId="Package\Gem Driver værdier\Find sum per driver.Outputs[Aggregate Output 1].Columns[PeriodeIndlæst]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\Sort summer.Inputs[Sort Input].Columns[DriverNavn]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="DriverNavn"
+                      lineageId="Package\Gem Driver værdier\Find sum per driver.Outputs[Aggregate Output 1].Columns[DriverNavn]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\Sort summer.Inputs[Sort Input].Columns[CostObjekt]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="CostObjekt"
+                      lineageId="Package\Gem Driver værdier\Find sum per driver.Outputs[Aggregate Output 1].Columns[CostObjekt]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">3</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Gem Driver værdier\Sort summer.Inputs[Sort Input].Columns[Værdi]"
+                      cachedDataType="r8"
+                      cachedName="Værdi"
+                      lineageId="Package\Gem Driver værdier\Find sum per driver.Outputs[Aggregate Output 1].Columns[Værdi]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Gem Driver værdier\Sort summer.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\Sort summer.Outputs[Sort Output].Columns[PeriodeIndlæst]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Gem Driver værdier\Sort summer.Outputs[Sort Output].Columns[PeriodeIndlæst]"
+                      name="PeriodeIndlæst"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Gem Driver værdier\Find sum per driver.Outputs[Aggregate Output 1].Columns[PeriodeIndlæst]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\Sort summer.Outputs[Sort Output].Columns[DriverNavn]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\Gem Driver værdier\Sort summer.Outputs[Sort Output].Columns[DriverNavn]"
+                      name="DriverNavn"
+                      sortKeyPosition="2">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Gem Driver værdier\Find sum per driver.Outputs[Aggregate Output 1].Columns[DriverNavn]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\Sort summer.Outputs[Sort Output].Columns[CostObjekt]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Gem Driver værdier\Sort summer.Outputs[Sort Output].Columns[CostObjekt]"
+                      name="CostObjekt"
+                      sortKeyPosition="3">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Gem Driver værdier\Find sum per driver.Outputs[Aggregate Output 1].Columns[CostObjekt]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Gem Driver værdier\Sort summer.Outputs[Sort Output].Columns[Værdi]"
+                      dataType="r8"
+                      lineageId="Package\Gem Driver værdier\Sort summer.Outputs[Sort Output].Columns[Værdi]"
+                      name="Værdi">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Gem Driver værdier\Find sum per driver.Outputs[Aggregate Output 1].Columns[Værdi]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Gem Driver værdier\Split til beregning af vægtede forhold"
+              componentClassID="Microsoft.Multicast"
+              contactInfo="Multicast;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates copies of a dataset."
+              name="Split til beregning af vægtede forhold">
+              <inputs>
+                <input
+                  refId="Package\Gem Driver værdier\Split til beregning af vægtede forhold.Inputs[Multicast Input 1]"
+                  name="Multicast Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Gem Driver værdier\Split til beregning af vægtede forhold.Outputs[Multicast Output 1]"
+                  deleteOutputOnPathDetached="true"
+                  name="Multicast Output 1"
+                  synchronousInputId="Package\Gem Driver værdier\Split til beregning af vægtede forhold.Inputs[Multicast Input 1]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Gem Driver værdier\Split til beregning af vægtede forhold.Outputs[Multicast Output 2]"
+                  deleteOutputOnPathDetached="true"
+                  name="Multicast Output 2"
+                  synchronousInputId="Package\Gem Driver værdier\Split til beregning af vægtede forhold.Inputs[Multicast Input 1]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Gem Driver værdier\Split til beregning af vægtede forhold.Outputs[Multicast Output 3]"
+                  dangling="true"
+                  deleteOutputOnPathDetached="true"
+                  name="Multicast Output 3"
+                  synchronousInputId="Package\Gem Driver værdier\Split til beregning af vægtede forhold.Inputs[Multicast Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Gem Driver værdier.Paths[Aggregate Output 1]"
+              endId="Package\Gem Driver værdier\Sort summer.Inputs[Sort Input]"
+              name="Aggregate Output 1"
+              startId="Package\Gem Driver værdier\Find sum per driver.Outputs[Aggregate Output 1]" />
+            <path
+              refId="Package\Gem Driver værdier.Paths[Derived Column Output]"
+              endId="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Gem Driver værdier\Beregn vægt.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Gem Driver værdier.Paths[Merge Join Output]"
+              endId="Package\Gem Driver værdier\Beregn vægt.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\Gem Driver værdier\Merge Join 2.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\Gem Driver værdier.Paths[Multicast Output 1]"
+              endId="Package\Gem Driver værdier\Find sum per driver.Inputs[Aggregate Input 1]"
+              name="Multicast Output 1"
+              startId="Package\Gem Driver værdier\Split til beregning af vægtede forhold.Outputs[Multicast Output 1]" />
+            <path
+              refId="Package\Gem Driver værdier.Paths[Multicast Output 2]"
+              endId="Package\Gem Driver værdier\Sort driver værdier.Inputs[Sort Input]"
+              name="Multicast Output 2"
+              startId="Package\Gem Driver værdier\Split til beregning af vægtede forhold.Outputs[Multicast Output 2]" />
+            <path
+              refId="Package\Gem Driver værdier.Paths[OLE DB Source Output]"
+              endId="Package\Gem Driver værdier\Split til beregning af vægtede forhold.Inputs[Multicast Input 1]"
+              name="OLE DB Source Output"
+              startId="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Gem Driver værdier.Paths[Sort Output]"
+              endId="Package\Gem Driver værdier\Merge Join 2.Inputs[Merge Join Left Input]"
+              name="Sort Output"
+              startId="Package\Gem Driver værdier\Sort summer.Outputs[Sort Output]" />
+            <path
+              refId="Package\Gem Driver værdier.Paths[Sort Output1]"
+              endId="Package\Gem Driver værdier\Merge Join 2.Inputs[Merge Join Right Input]"
+              name="Sort Output"
+              startId="Package\Gem Driver værdier\Sort driver værdier.Outputs[Sort Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{EB96A378-F7D0-4F14-BFF2-F16F64001D2A}"
+      DTS:From="Package\Find periode"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Fjern eksisterende driver værdier" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{30F59FF6-5BEE-4596-8D34-96EC873D5485}"
+      DTS:From="Package\Fjern eksisterende driver værdier"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Gem Driver værdier" />
+  </DTS:PrecedenceConstraints>
+  <DTS:PackageVariables>
+    <DTS:PackageVariable
+      DTS:CreationName=""
+      DTS:DTSID="{F3302EA8-A713-4C1D-AB84-13A672487CDE}"
+      DTS:Namespace="dts-designer-1.0"
+      DTS:ObjectName="{30F59FF6-5BEE-4596-8D34-96EC873D5485}">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="PackageVariableValue">&lt;PrecedenceConstraint xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:EvalOp&gt;Constraint&lt;/dwd:EvalOp&gt;&lt;/PrecedenceConstraint&gt;</DTS:Property>
+    </DTS:PackageVariable>
+    <DTS:PackageVariable
+      DTS:CreationName=""
+      DTS:DTSID="{49FAF2DE-4DFA-4A45-980B-5FA373299CFA}"
+      DTS:Namespace="dts-designer-1.0"
+      DTS:ObjectName="{AE6F1F26-508B-4388-84B2-EE05502CF610}">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="PackageVariableValue">&lt;TaskHost xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:DtsDataFlowDiagram&gt;&lt;dwd:BoundingLeft&gt;-359&lt;/dwd:BoundingLeft&gt;&lt;dwd:Layout&gt;&lt;dds&gt;&lt;diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="Microsoft.DataWarehouse.Layout.GraphLayout110" defaultlineroute="Microsoft.DataWarehouse.Layout.GraphLayout110" version="7" nextobject="37" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="-1359" scrolltop="2805" gridx="150" gridy="150" marginx="1000" marginy="1000" zoom="100" x="21352" y="18812" backcolor="15334399" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="1" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="1" viewpagebreaks="0" donotforceconnectorsbehindshapes="0" backpictureclsid="{00000000-0000-0000-0000-000000000000}"&gt;&lt;font&gt;&lt;ddsxmlobjectstreamwrapper binary="01010000900180380100065461686f6d61" /&gt;&lt;/font&gt;&lt;mouseicon&gt;&lt;ddsxmlobjectstreamwrapper binary="6c74000000000000" /&gt;&lt;/mouseicon&gt;&lt;/diagram&gt;&lt;layoutmanager&gt;&lt;ddsxmlobj /&gt;&lt;/layoutmanager&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="OLE DB Source" left="493" top="1578" logicalid="17" controlid="1" masterid="0" hint1="0" hint2="0" width="7089" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="00080000b11b00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Gem Driver værdier\GD_R_Togproduktion_FR SQL Command" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Creates copies of a dataset." left="624" top="4039" logicalid="18" controlid="2" masterid="0" hint1="0" hint2="0" width="6852" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="00080000c41a00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Gem Driver værdier\Split til beregning af vægtede forhold" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="3638" top="2343" logicalid="19" controlid="3" masterid="0" hint1="0" hint2="0" width="812" height="2196" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Gem Driver værdier.Paths[OLE DB Source Output]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="1" destid="2" sourceattachpoint="13" destattachpoint="12" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="4037" y="2742" /&gt;&lt;point x="4037" y="3390" /&gt;&lt;point x="4050" y="3390" /&gt;&lt;point x="4050" y="4039" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Aggregates and groups values in a dataset." left="-359" top="7638" logicalid="20" controlid="4" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Gem Driver værdier\Find sum per driver" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="1041" top="4804" logicalid="21" controlid="5" masterid="0" hint1="0" hint2="0" width="3409" height="3334" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Gem Driver værdier.Paths[Multicast Output 1]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="2" destid="4" sourceattachpoint="13" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="4050" y="5203" /&gt;&lt;point x="4050" y="6420" /&gt;&lt;point x="1440" y="6420" /&gt;&lt;point x="1440" y="7638" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Sorts data." left="-359" top="10337" logicalid="22" controlid="6" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Gem Driver værdier\Sort summer" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="1041" top="8403" logicalid="23" controlid="7" masterid="0" hint1="0" hint2="0" width="799" height="2434" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Gem Driver værdier.Paths[Aggregate Output 1]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="4" destid="6" sourceattachpoint="7" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="1440" y="8802" /&gt;&lt;point x="1440" y="10337" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Sorts data." left="4879" top="10377" logicalid="24" controlid="8" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Gem Driver værdier\Sort driver værdier" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="4751" top="4804" logicalid="25" controlid="9" masterid="0" hint1="0" hint2="0" width="2327" height="6073" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Gem Driver værdier.Paths[Multicast Output 2]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="2" destid="8" sourceattachpoint="17" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="5150" y="5203" /&gt;&lt;point x="5150" y="7790" /&gt;&lt;point x="6678" y="7790" /&gt;&lt;point x="6678" y="10377" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Merges data from two datasets by using a join." left="2418" top="13684" logicalid="26" controlid="10" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Gem Driver værdier\Merge Join 2" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="1041" top="11102" logicalid="27" controlid="11" masterid="0" hint1="0" hint2="0" width="3576" height="3082" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Gem Driver værdier.Paths[Sort Output]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="6" destid="10" sourceattachpoint="7" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="1440" y="11501" /&gt;&lt;point x="1440" y="12592" /&gt;&lt;point x="4217" y="12592" /&gt;&lt;point x="4217" y="13684" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="4368" top="11142" logicalid="28" controlid="12" masterid="0" hint1="0" hint2="0" width="2710" height="3042" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Gem Driver værdier.Paths[Sort Output1]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="8" destid="10" sourceattachpoint="7" destattachpoint="8" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="6678" y="11541" /&gt;&lt;point x="6678" y="12612" /&gt;&lt;point x="4767" y="12612" /&gt;&lt;point x="4767" y="13684" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Updates column values using expressions" left="2418" top="16331" logicalid="29" controlid="13" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Gem Driver værdier\Beregn vægt" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="3818" top="14449" logicalid="30" controlid="14" masterid="0" hint1="0" hint2="0" width="799" height="2382" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Gem Driver værdier.Paths[Merge Join Output]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="10" destid="13" sourceattachpoint="7" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="4217" y="14848" /&gt;&lt;point x="4217" y="16331" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="OLE DB Destination" left="1121" top="19003" logicalid="31" controlid="15" masterid="0" hint1="0" hint2="0" width="6165" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="00080000151800008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Gem Driver værdier\edw GD_R_DR_TIDSINTERVAL" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="3804" top="17096" logicalid="32" controlid="16" masterid="0" hint1="0" hint2="0" width="813" height="2407" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Gem Driver værdier.Paths[Derived Column Output]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="13" destid="15" sourceattachpoint="7" destattachpoint="10" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="4217" y="17495" /&gt;&lt;point x="4217" y="18249" /&gt;&lt;point x="4203" y="18249" /&gt;&lt;point x="4203" y="19003" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;/dds&gt;&lt;/dwd:Layout&gt;&lt;dwd:PersistedViewPortLeft&gt;-1359&lt;/dwd:PersistedViewPortLeft&gt;&lt;dwd:PersistedViewPortTop&gt;2805&lt;/dwd:PersistedViewPortTop&gt;&lt;/dwd:DtsDataFlowDiagram&gt;&lt;dwd:DtsComponentDesignerPropertiesList&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;1363	TableInfoObjectType&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:string"&gt;Table&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;492	TableInfoObjectType&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:string"&gt;Table&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;1363	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;97	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;1175	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;492	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;1	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;/dwd:DtsComponentDesignerPropertiesList&gt;&lt;/TaskHost&gt;</DTS:Property>
+    </DTS:PackageVariable>
+    <DTS:PackageVariable
+      DTS:CreationName=""
+      DTS:DTSID="{6FD36DBB-5BE2-44FE-A066-A51338621A9C}"
+      DTS:Namespace="dts-designer-1.0"
+      DTS:ObjectName="{AE6F1F26-508B-4388-84B2-EE05502CF610}-1211">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="PackageVariableValue">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;OLE DB Source Output&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;Multicast Input 1&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
+    </DTS:PackageVariable>
+    <DTS:PackageVariable
+      DTS:CreationName=""
+      DTS:DTSID="{BCE71C28-C200-43F8-BA4E-0374E4EF8C7F}"
+      DTS:Namespace="dts-designer-1.0"
+      DTS:ObjectName="{AE6F1F26-508B-4388-84B2-EE05502CF610}-1222">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="PackageVariableValue">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;Multicast Output 1&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;Aggregate Input 1&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
+    </DTS:PackageVariable>
+    <DTS:PackageVariable
+      DTS:CreationName=""
+      DTS:DTSID="{A4EEE051-7CB9-4341-9C04-D7A38848A031}"
+      DTS:Namespace="dts-designer-1.0"
+      DTS:ObjectName="{AE6F1F26-508B-4388-84B2-EE05502CF610}-1256">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="PackageVariableValue">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;Aggregate Output 1&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;Sort Input&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
+    </DTS:PackageVariable>
+    <DTS:PackageVariable
+      DTS:CreationName=""
+      DTS:DTSID="{74BB4D26-EE71-4A93-9443-68AC1E16DE38}"
+      DTS:Namespace="dts-designer-1.0"
+      DTS:ObjectName="{AE6F1F26-508B-4388-84B2-EE05502CF610}-1282">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="PackageVariableValue">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;Multicast Output 2&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;Sort Input&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
+    </DTS:PackageVariable>
+    <DTS:PackageVariable
+      DTS:CreationName=""
+      DTS:DTSID="{8F479D30-9B01-481C-A623-2FA41E79195C}"
+      DTS:Namespace="dts-designer-1.0"
+      DTS:ObjectName="{AE6F1F26-508B-4388-84B2-EE05502CF610}-1317">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="PackageVariableValue">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;Sort Output&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;Merge Join Left Input&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
+    </DTS:PackageVariable>
+    <DTS:PackageVariable
+      DTS:CreationName=""
+      DTS:DTSID="{3804F313-B176-4734-9817-90C5DCC74C66}"
+      DTS:Namespace="dts-designer-1.0"
+      DTS:ObjectName="{AE6F1F26-508B-4388-84B2-EE05502CF610}-1321">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="PackageVariableValue">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;Sort Output&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;Merge Join Right Input&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
+    </DTS:PackageVariable>
+    <DTS:PackageVariable
+      DTS:CreationName=""
+      DTS:DTSID="{D6FE24A9-A7BB-48E8-B84F-3B3CC2E1CA2A}"
+      DTS:Namespace="dts-designer-1.0"
+      DTS:ObjectName="{AE6F1F26-508B-4388-84B2-EE05502CF610}-1346">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="PackageVariableValue">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;Merge Join Output&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;Derived Column Input&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
+    </DTS:PackageVariable>
+    <DTS:PackageVariable
+      DTS:CreationName=""
+      DTS:DTSID="{AD0C25E1-A8A1-4A14-A292-5E629F7BB340}"
+      DTS:Namespace="dts-designer-1.0"
+      DTS:ObjectName="{AE6F1F26-508B-4388-84B2-EE05502CF610}-1380">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="PackageVariableValue">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;Derived Column Output&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;OLE DB Destination Input&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
+    </DTS:PackageVariable>
+    <DTS:PackageVariable
+      DTS:CreationName=""
+      DTS:DTSID="{D48E654E-EF15-47BB-A787-D52DB3F76A99}"
+      DTS:Namespace="dts-designer-1.0"
+      DTS:ObjectName="{EB96A378-F7D0-4F14-BFF2-F16F64001D2A}">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="PackageVariableValue">&lt;PrecedenceConstraint xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:EvalOp&gt;Constraint&lt;/dwd:EvalOp&gt;&lt;/PrecedenceConstraint&gt;</DTS:Property>
+    </DTS:PackageVariable>
+    <DTS:PackageVariable
+      DTS:CreationName=""
+      DTS:DTSID="{77E022AA-8BB7-43A9-BF1D-664868A83878}"
+      DTS:Namespace="dts-designer-1.0"
+      DTS:ObjectName="package-diagram">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="PackageVariableValue">&lt;Package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:DtsControlFlowDiagram&gt;&lt;dwd:BoundingLeft&gt;1000&lt;/dwd:BoundingLeft&gt;&lt;dwd:BoundingTop&gt;1000&lt;/dwd:BoundingTop&gt;&lt;dwd:Layout&gt;&lt;dds&gt;&lt;diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="Microsoft.DataWarehouse.Layout.GraphLayout110" defaultlineroute="Microsoft.DataWarehouse.Layout.GraphLayout110" version="7" nextobject="14" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="0" scrolltop="0" gridx="150" gridy="150" marginx="1000" marginy="1000" zoom="100" x="21352" y="19738" backcolor="15334399" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="1" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="0" viewpagebreaks="0" donotforceconnectorsbehindshapes="1" backpictureclsid="{00000000-0000-0000-0000-000000000000}"&gt;&lt;font&gt;&lt;ddsxmlobjectstreamwrapper binary="01010000900180380100065461686f6d61" /&gt;&lt;/font&gt;&lt;mouseicon&gt;&lt;ddsxmlobjectstreamwrapper binary="6c74000000000000" /&gt;&lt;/mouseicon&gt;&lt;/diagram&gt;&lt;layoutmanager&gt;&lt;ddsxmlobj /&gt;&lt;/layoutmanager&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Execute SQL Task" left="1555" top="1000" logicalid="6" controlid="1" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Find periode" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Execute SQL Task" left="1000" top="3645" logicalid="7" controlid="2" masterid="0" hint1="0" hint2="0" width="4709" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="00080000651200008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Fjern eksisterende driver værdier" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="2955" top="1765" logicalid="8" controlid="3" masterid="0" hint1="0" hint2="0" width="799" height="2380" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="2" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package.PrecedenceConstraints[Constraint 1]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="1" destid="2" sourceattachpoint="7" destattachpoint="8" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="3354" y="2164" /&gt;&lt;point x="3354" y="3645" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Data Flow Task" left="1555" top="6477" logicalid="9" controlid="4" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Gem Driver værdier" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="2955" top="4410" logicalid="10" controlid="5" masterid="0" hint1="0" hint2="0" width="799" height="2567" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="2" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package.PrecedenceConstraints[Constraint 2]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="2" destid="4" sourceattachpoint="9" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="3354" y="4809" /&gt;&lt;point x="3354" y="6477" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;/dds&gt;&lt;/dwd:Layout&gt;&lt;/dwd:DtsControlFlowDiagram&gt;&lt;/Package&gt;</DTS:Property>
+    </DTS:PackageVariable>
+    <DTS:PackageVariable
+      DTS:CreationName=""
+      DTS:DTSID="{8A384CC2-769F-4DB5-9679-C867EE045BCB}"
+      DTS:Namespace="dts-designer-1.0"
+      DTS:ObjectName="package-diagram">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="PackageVariableValue">&lt;Package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:DtsControlFlowDiagram&gt;&lt;dwd:BoundingLeft&gt;1000&lt;/dwd:BoundingLeft&gt;&lt;dwd:BoundingTop&gt;1000&lt;/dwd:BoundingTop&gt;&lt;dwd:Layout&gt;&lt;dds&gt;&lt;diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="Microsoft.DataWarehouse.Layout.GraphLayout110" defaultlineroute="Microsoft.DataWarehouse.Layout.GraphLayout110" version="7" nextobject="14" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="0" scrolltop="0" gridx="150" gridy="150" marginx="1000" marginy="1000" zoom="100" x="21352" y="19738" backcolor="15334399" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="1" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="0" viewpagebreaks="0" donotforceconnectorsbehindshapes="1" backpictureclsid="{00000000-0000-0000-0000-000000000000}"&gt;&lt;font&gt;&lt;ddsxmlobjectstreamwrapper binary="01010000900180380100065461686f6d61" /&gt;&lt;/font&gt;&lt;mouseicon&gt;&lt;ddsxmlobjectstreamwrapper binary="6c74000000000000" /&gt;&lt;/mouseicon&gt;&lt;/diagram&gt;&lt;layoutmanager&gt;&lt;ddsxmlobj /&gt;&lt;/layoutmanager&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Execute SQL Task" left="1555" top="1000" logicalid="6" controlid="1" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Find periode" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Execute SQL Task" left="1000" top="3645" logicalid="7" controlid="2" masterid="0" hint1="0" hint2="0" width="4709" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="00080000651200008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Fjern eksisterende driver værdier" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="2955" top="1765" logicalid="8" controlid="3" masterid="0" hint1="0" hint2="0" width="799" height="2380" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="2" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package.PrecedenceConstraints[Constraint 1]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="1" destid="2" sourceattachpoint="7" destattachpoint="8" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="3354" y="2164" /&gt;&lt;point x="3354" y="3645" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Data Flow Task" left="1555" top="6477" logicalid="9" controlid="4" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Gem Driver værdier" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="2955" top="4410" logicalid="10" controlid="5" masterid="0" hint1="0" hint2="0" width="799" height="2567" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="2" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package.PrecedenceConstraints[Constraint 2]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="2" destid="4" sourceattachpoint="9" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="3354" y="4809" /&gt;&lt;point x="3354" y="6477" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;/dds&gt;&lt;/dwd:Layout&gt;&lt;/dwd:DtsControlFlowDiagram&gt;&lt;/Package&gt;</DTS:Property>
+    </DTS:PackageVariable>
+  </DTS:PackageVariables>
+</DTS:Executable>
