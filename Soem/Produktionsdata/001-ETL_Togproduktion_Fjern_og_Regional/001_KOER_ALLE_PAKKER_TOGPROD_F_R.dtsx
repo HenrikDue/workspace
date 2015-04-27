@@ -12,8 +12,8 @@
   DTS:ObjectName="001_KOER_ALLE_PAKKER_TOGPROD_F_R"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="10"
-  DTS:VersionGUID="{D7EFD676-7956-47B9-B564-B465411CA82C}">
+  DTS:VersionBuild="13"
+  DTS:VersionGUID="{5488E90F-7810-4783-84B1-57F29BA43CF0}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:Variables />
@@ -223,6 +223,57 @@
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
+      DTS:refId="Package\Execute 310_ODS_DL_RD_Togproduktion_Tog"
+      DTS:CreationName="SSIS.ExecutePackageTask.3"
+      DTS:Description="Execute Package Task"
+      DTS:DTSID="{91CDB431-9ED5-4EAA-88A3-452C6FFCB028}"
+      DTS:ExecutableType="SSIS.ExecutePackageTask.3"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute 310_ODS_DL_RD_Togproduktion_Tog"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>310_ODS_DL_RD_Togproduktion_Tog.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Execute 320_EDW_TR1_FT_Togproduktion_Tog"
+      DTS:CreationName="SSIS.ExecutePackageTask.3"
+      DTS:Description="Execute Package Task"
+      DTS:DTSID="{D198124A-7950-49F5-A98D-5D8AB3AD26F8}"
+      DTS:ExecutableType="SSIS.ExecutePackageTask.3"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute 320_EDW_TR1_FT_Togproduktion_Tog"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>320_EDW_TR1_FT_Togproduktion_Tog.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Execute 330_EDW_TR2_FT_Togproduktion_Tog_Priv_upd"
+      DTS:CreationName="SSIS.ExecutePackageTask.3"
+      DTS:Description="Execute Package Task"
+      DTS:DTSID="{C4CA1F13-A756-46A9-B48F-D4BF0AA0A37E}"
+      DTS:ExecutableType="SSIS.ExecutePackageTask.3"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute 330_EDW_TR2_FT_Togproduktion_Tog_Priv_upd"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>330_EDW_TR2_FT_Togproduktion_Tog_Priv_upd.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
       DTS:refId="Package\Execute250_EDW_TR3_DI_Materiale_Ukendte_loebenr"
       DTS:CreationName="SSIS.ExecutePackageTask.3"
       DTS:Description="Execute Package Task"
@@ -273,6 +324,30 @@
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 11"
       DTS:To="Package\Execute 270_EDW_TR2_FT_Togproduktion_Litra_Priv_upd" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 12]"
+      DTS:CreationName=""
+      DTS:DTSID="{4C7C764E-4990-4700-80F7-73CD8E8C894A}"
+      DTS:From="Package\Execute 270_EDW_TR2_FT_Togproduktion_Litra_Priv_upd"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 12"
+      DTS:To="Package\Execute 310_ODS_DL_RD_Togproduktion_Tog" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 13]"
+      DTS:CreationName=""
+      DTS:DTSID="{60DD353F-1BF4-4587-BE5D-368F13FCB6BE}"
+      DTS:From="Package\Execute 310_ODS_DL_RD_Togproduktion_Tog"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 13"
+      DTS:To="Package\Execute 320_EDW_TR1_FT_Togproduktion_Tog" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 14]"
+      DTS:CreationName=""
+      DTS:DTSID="{90E34ECD-AF68-4CF7-AD70-3EA323E8C9DB}"
+      DTS:From="Package\Execute 320_EDW_TR1_FT_Togproduktion_Tog"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 14"
+      DTS:To="Package\Execute 330_EDW_TR2_FT_Togproduktion_Tog_Priv_upd" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
       DTS:CreationName=""
@@ -641,12 +716,12 @@
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
-          Size="352,42"
+          Size="358,42"
           Id="Package\Execute 270_EDW_TR2_FT_Togproduktion_Litra_Priv_upd"
           TopLeft="787,608" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 11]"
-          TopLeft="964.5,685">
+          TopLeft="966,685">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{x:Null}"
@@ -658,6 +733,84 @@
                   Capacity="5">
                   <mssgle:LineSegment
                     End="0,-27.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="358,42"
+          Id="Package\Execute 310_ODS_DL_RD_Togproduktion_Tog"
+          TopLeft="792.666666666667,531" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 12]"
+          TopLeft="968.833333333333,608">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="0,-35"
+              Start="0,0"
+              End="0,-27.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-27.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="358,42"
+          Id="Package\Execute 320_EDW_TR1_FT_Togproduktion_Tog"
+          TopLeft="792.666666666667,448" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 13]"
+          TopLeft="971.666666666667,531">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="0,-41"
+              Start="0,0"
+              End="0,-33.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-33.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="358,42"
+          Id="Package\Execute 330_EDW_TR2_FT_Togproduktion_Tog_Priv_upd"
+          TopLeft="792.666666666667,366" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 14]"
+          TopLeft="971.666666666667,448">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="0,-40"
+              Start="0,0"
+              End="0,-32.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-32.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>

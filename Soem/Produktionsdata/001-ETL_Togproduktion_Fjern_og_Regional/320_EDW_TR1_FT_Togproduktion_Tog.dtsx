@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
   DTS:CreationDate="10/20/2008 8:31:48 AM"
@@ -13,8 +13,8 @@
   DTS:ObjectName="320_EDW_TR1_FT_Togproduktion_Tog"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="260"
-  DTS:VersionGUID="{E809638D-3450-4489-AB6F-EAAB378885BF}">
+  DTS:VersionBuild="263"
+  DTS:VersionGUID="{FF3E950B-2C00-4822-9A0A-9B2DB186C7B7}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -32,39 +32,7 @@
           DTS:ConnectionString="Data Source=oesmsqlt01\soem;Initial Catalog=MDW_udv1;Integrated Security=True;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[DSB mailserver]"
-      DTS:CreationName="SMTP"
-      DTS:DTSID="{7C4B9BAA-D6D0-4C13-9DD5-A246F8364C9F}"
-      DTS:ObjectName="DSB mailserver">
-      <DTS:ObjectData>
-        <SmtpConnectionManager
-          ConnectionString="SmtpServer=10.35.19.12;UseWindowsAuthentication=True;EnableSsl=False;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[OLEDB]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{25AEFFCA-631C-4352-8A90-720FF30EA911}"
-      DTS:ObjectName="OLEDB">
-      <DTS:PropertyExpression
-        DTS:Name="InitialCatalog">@[User::DATABASE]</DTS:PropertyExpression>
-      <DTS:PropertyExpression
-        DTS:Name="ServerName">@[User::SERVER]</DTS:PropertyExpression>
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectionString="Data Source=oesmsqlt01\soem;Initial Catalog=MDW_udv1;Provider=SQLNCLI11;Integrated Security=SSPI;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
-  <DTS:Configurations>
-    <DTS:Configuration
-      DTS:ConfigurationString="ServerOgDatabase.dtsConfig"
-      DTS:ConfigurationType="1"
-      DTS:CreationName=""
-      DTS:DTSID="{B21567A5-2A55-4D90-97E7-0659B1101F4F}"
-      DTS:ObjectName="ServerOgDatabase" />
-  </DTS:Configurations>
   <DTS:Variables>
     <DTS:Variable
       DTS:CreationName=""
@@ -172,7 +140,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{25AEFFCA-631C-4352-8A90-720FF30EA911}"
+              SQLTask:Connection="{CAF59936-1F57-48F0-BE4F-38037430D2F4}"
               SQLTask:SqlStatementSource="SELECT COUNT(*)&#xA;FROM ods.cd_togproduktion_tog"
               SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ResultBinding
@@ -210,7 +178,7 @@
             DTS:Name="ToLine">@[User::v_Emailadresse]</DTS:PropertyExpression>
           <DTS:ObjectData>
             <SendMailTask:SendMailTaskData
-              SendMailTask:SMTPServer="{7C4B9BAA-D6D0-4C13-9DD5-A246F8364C9F}"
+              SendMailTask:SMTPServer="{E2F208EA-7622-4BA6-9ADF-0A64212CEBDE}"
               SendMailTask:From="datawarehouse@dsb.dk"
               SendMailTask:To="hbre@dsb.dk"
               SendMailTask:Subject="Kørsel af 320_EDW_TR1_FT_Togproduktion_Tog er afsluttet"
@@ -242,7 +210,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{25AEFFCA-631C-4352-8A90-720FF30EA911}"
+          SQLTask:Connection="{CAF59936-1F57-48F0-BE4F-38037430D2F4}"
           SQLTask:SqlStatementSource="exec  [etl].[edw_togproduktion_load_dimensions]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -259,7 +227,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{D38AD913-BFB0-4BB4-B40E-320CB4997B63}"
+          SQLTask:Connection="{D5500454-4EF7-4BB1-A4D2-3A9283161D25}"
           SQLTask:IsStoredProc="True"
           SQLTask:SqlStatementSource="etl.grl_EndPackageLog" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
           <SQLTask:ParameterBinding
@@ -284,7 +252,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{D38AD913-BFB0-4BB4-B40E-320CB4997B63}"
+          SQLTask:Connection="{D5500454-4EF7-4BB1-A4D2-3A9283161D25}"
           SQLTask:IsStoredProc="True"
           SQLTask:SqlStatementSource="etl.grl_InitPackageLog"
           SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
@@ -322,7 +290,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{25AEFFCA-631C-4352-8A90-720FF30EA911}"
+              SQLTask:Connection="{CAF59936-1F57-48F0-BE4F-38037430D2F4}"
               SQLTask:SqlStatementSource="SELECT Value&#xA;FROM ods.CTL_Dataload&#xA;WHERE Kilde_System = 'PROTAL' AND Variable = 'Email'"
               SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ResultBinding
@@ -356,7 +324,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{D38AD913-BFB0-4BB4-B40E-320CB4997B63}"
+              SQLTask:Connection="{D5500454-4EF7-4BB1-A4D2-3A9283161D25}"
               SQLTask:SqlStatementSource="EXEC etl.edw_EndTabRefLog @TabReflogID, @Rowcount_FT, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ParameterBinding
                 SQLTask:ParameterName="TabRefLogID"
@@ -385,7 +353,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{D38AD913-BFB0-4BB4-B40E-320CB4997B63}"
+              SQLTask:Connection="{D5500454-4EF7-4BB1-A4D2-3A9283161D25}"
               SQLTask:SqlStatementSource="EXEC etl.edw_InitTabRefLog @packagelogid, 'EDW.FT_Togproduktion_tog', 'INS', NULL, NULL, NULL, NULL"
               SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ResultBinding
@@ -753,8 +721,8 @@
                   <connections>
                     <connection
                       refId="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog\EDW FT_Togproduktion_Tog.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[OLEDB]"
-                      connectionManagerRefId="Package.ConnectionManagers[OLEDB]"
+                      connectionManagerID="{CAF59936-1F57-48F0-BE4F-38037430D2F4}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[MDW]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -1265,7 +1233,11 @@ WHERE     (Aktiv = 'True')</property>
                       dataType="System.String"
                       description="Specifies a SQL statement that uses parameters to generate the lookup table."
                       expressionType="Notify"
-                      name="SqlCommandParam"></property>
+                      name="SqlCommandParam">select * from (SELECT     PK_DI_Togsystem, Togsystemnummer, Togsystemnavn, IC_Straekning, Gl_togsystemnummer, Produkt, [POEM_CZ-ref], [POEM_CX-ref], Kommentar, 
+                      Aktiv, AktivFra, AktivTil
+FROM         edw.DI_Togsystem
+WHERE     (Aktiv = 'True')) [refTable]
+where [refTable].[IC_Straekning] = ? and [refTable].[Gl_togsystemnummer] = ?</property>
                     <property
                       dataType="System.Int32"
                       description="Specifies the cache type of the lookup table."
@@ -1287,7 +1259,7 @@ WHERE     (Aktiv = 'True')</property>
                       containsID="true"
                       dataType="System.String"
                       description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
-                      name="ParameterMap">#{Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog\Correct togsystem og dato.Outputs[Derived Column Output].Columns[Togsystem_INT]};#{Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog\ods RD_Togproduktion_Tog.Outputs[OLE DB Source Output].Columns[ICStraekning]};</property>
+                      name="ParameterMap">#{Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog\ods RD_Togproduktion_Tog.Outputs[OLE DB Source Output].Columns[ICStraekning]};#{Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog\Correct togsystem og dato.Outputs[Derived Column Output].Columns[Togsystem_INT]};</property>
                     <property
                       dataType="System.Int32"
                       description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -1314,8 +1286,8 @@ WHERE     (Aktiv = 'True')</property>
                   <connections>
                     <connection
                       refId="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog\Get FK_DI_Togsystem.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[OLEDB]"
-                      connectionManagerRefId="Package.ConnectionManagers[OLEDB]"
+                      connectionManagerID="{CAF59936-1F57-48F0-BE4F-38037430D2F4}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[MDW]"
                       description="Connection manager used to access lookup data."
                       name="OleDbConnection" />
                   </connections>
@@ -1479,8 +1451,8 @@ WHERE     (Aktiv = 'True')</property>
                   <connections>
                     <connection
                       refId="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog\ods CD_Togproduktion_tog.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[OLEDB]"
-                      connectionManagerRefId="Package.ConnectionManagers[OLEDB]"
+                      connectionManagerID="{CAF59936-1F57-48F0-BE4F-38037430D2F4}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[MDW]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -1718,9 +1690,8 @@ WHERE     (Aktiv = 'True')</property>
                           lineageId="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog\ods RD_Togproduktion_Tog.Outputs[OLE DB Source Output].Columns[Timestamp]" />
                         <inputColumn
                           refId="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog\ods CD_Togproduktion_tog.Inputs[OLE DB Destination Input].Columns[Beskrivelse]"
-                          cachedCodepage="1252"
-                          cachedDataType="str"
-                          cachedLength="50"
+                          cachedDataType="wstr"
+                          cachedLength="26"
                           cachedName="Beskrivelse"
                           externalMetadataColumnId="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog\ods CD_Togproduktion_tog.Inputs[OLE DB Destination Input].ExternalColumns[CD_Beskrivelse]"
                           lineageId="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog\Add description 1.Outputs[Derived Column Output].Columns[Beskrivelse]" />
@@ -2068,8 +2039,8 @@ WHERE     (Aktiv = 'True')</property>
                   <connections>
                     <connection
                       refId="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog\ods RD_Togproduktion_Tog.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[OLEDB]"
-                      connectionManagerRefId="Package.ConnectionManagers[OLEDB]"
+                      connectionManagerID="{CAF59936-1F57-48F0-BE4F-38037430D2F4}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[MDW]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -3135,195 +3106,603 @@ WHERE     (Aktiv = 'True')</property>
       DTS:ObjectName="Constraint 4"
       DTS:To="Package\Check loaded data" />
   </DTS:PrecedenceConstraints>
-  <DTS:PackageVariables>
-    <DTS:PackageVariable
-      DTS:CreationName=""
-      DTS:DTSID="{16AE0D51-1539-4685-AE82-0CFB48E4AE4B}"
-      DTS:Namespace="dts-designer-1.0"
-      DTS:ObjectName="{1F7C0F58-172B-493C-8AE6-FDAEAD0F4030}">
-      <DTS:Property
-        DTS:DataType="8"
-        DTS:Name="PackageVariableValue">&lt;PrecedenceConstraint xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:EvalOp&gt;Constraint&lt;/dwd:EvalOp&gt;&lt;/PrecedenceConstraint&gt;</DTS:Property>
-    </DTS:PackageVariable>
-    <DTS:PackageVariable
-      DTS:CreationName=""
-      DTS:DTSID="{FF7174E3-EBFA-425D-B9E3-D96657EF8FD2}"
-      DTS:Namespace="dts-designer-1.0"
-      DTS:ObjectName="{25AEFFCA-631C-4352-8A90-720FF30EA911}">
-      <DTS:Property
-        DTS:DataType="8"
-        DTS:Name="PackageVariableValue">&lt;ConnectionManager xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:DataSourceID&gt;GBLOGS_PBW_Mdw&lt;/dwd:DataSourceID&gt;&lt;/ConnectionManager&gt;</DTS:Property>
-    </DTS:PackageVariable>
-    <DTS:PackageVariable
-      DTS:CreationName=""
-      DTS:DTSID="{080D65B5-90A5-4025-B8C2-481C3A4E5425}"
-      DTS:Namespace="dts-designer-1.0"
-      DTS:ObjectName="{3AC320BE-E1A4-4EED-9E73-8E26B5FA5AFC}">
-      <DTS:Property
-        DTS:DataType="8"
-        DTS:Name="PackageVariableValue">&lt;PrecedenceConstraint xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:EvalOp&gt;Constraint&lt;/dwd:EvalOp&gt;&lt;/PrecedenceConstraint&gt;</DTS:Property>
-    </DTS:PackageVariable>
-    <DTS:PackageVariable
-      DTS:CreationName=""
-      DTS:DTSID="{0C80AA20-E664-4B0E-863E-44D87CC2BF3F}"
-      DTS:Namespace="dts-designer-1.0"
-      DTS:ObjectName="{49ABC89E-BA45-4438-BB61-E37F54EE30FB}">
-      <DTS:Property
-        DTS:DataType="8"
-        DTS:Name="PackageVariableValue">&lt;TaskHost xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:DtsDataFlowDiagram&gt;&lt;dwd:BoundingTop&gt;-8609&lt;/dwd:BoundingTop&gt;&lt;dwd:Layout&gt;&lt;dds&gt;&lt;diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="Microsoft.DataWarehouse.Layout.GraphLayout110" defaultlineroute="Microsoft.DataWarehouse.Layout.GraphLayout110" version="7" nextobject="44" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="0" scrolltop="-9609" gridx="150" gridy="150" marginx="1000" marginy="1000" zoom="100" x="29236" y="18812" backcolor="15334399" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="1" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="0" viewpagebreaks="0" donotforceconnectorsbehindshapes="0" backpictureclsid="{00000000-0000-0000-0000-000000000000}"&gt;&lt;font&gt;&lt;ddsxmlobjectstreamwrapper binary="01010000900180380100065461686f6d61" /&gt;&lt;/font&gt;&lt;mouseicon&gt;&lt;ddsxmlobjectstreamwrapper binary="6c74000000000000" /&gt;&lt;/mouseicon&gt;&lt;/diagram&gt;&lt;layoutmanager&gt;&lt;ddsxmlobj /&gt;&lt;/layoutmanager&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="OLE DB Destination" left="1164" top="3003" logicalid="20" controlid="1" masterid="0" hint1="0" hint2="0" width="5689" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="00080000391600008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="37" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="OLE DB Source" left="670" top="-8609" logicalid="21" controlid="2" masterid="0" hint1="0" hint2="0" width="5054" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="00080000be1300008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="250" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Sætter tomme togsystemer til -1" left="757" top="-4211" logicalid="22" controlid="3" masterid="0" hint1="0" hint2="0" width="4948" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="00080000541300008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="11" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Looks up values in a reference dataset by using exact matching." left="789" top="-1938" logicalid="23" controlid="4" masterid="0" hint1="0" hint2="0" width="4895" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800001f1300008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="127" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="2832" top="-3446" logicalid="24" controlid="5" masterid="0" hint1="0" hint2="0" width="804" height="2008" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="391" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="3" destid="4" sourceattachpoint="9" destattachpoint="8" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="3231" y="-3047" /&gt;&lt;point x="3231" y="-2492" /&gt;&lt;point x="3236" y="-2492" /&gt;&lt;point x="3236" y="-1938" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="OLE DB Destination" left="11004" top="3061" logicalid="25" controlid="6" masterid="0" hint1="0" hint2="0" width="5477" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="00080000651500008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="155" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Updates column values using expressions" left="10846" top="-1965" logicalid="26" controlid="7" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="2" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Counts the rows in a dataset." left="1424" top="224" logicalid="27" controlid="8" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="383" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="2824" top="989" logicalid="28" controlid="9" masterid="0" hint1="0" hint2="0" width="1584" height="2514" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="396" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="8" destid="1" sourceattachpoint="7" destattachpoint="8" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="3223" y="1388" /&gt;&lt;point x="3223" y="2196" /&gt;&lt;point x="4008" y="2196" /&gt;&lt;point x="4008" y="3003" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="5285" top="-1782" logicalid="29" controlid="10" masterid="0" hint1="0" hint2="0" width="5861" height="826" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="255" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1"&gt;&lt;adornment percentpos="26.825978030449" controlid="20" width="2826" height="344" side="0" behavior="2" himetric="1392" distfromline="175" startobj="0" x="7171" y="-1181" visible="1" allowoverlap="1" usepercent="1" /&gt;&lt;/polyline&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="393" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="4" destid="7" sourceattachpoint="19" destattachpoint="14" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="5684" y="-1356" /&gt;&lt;point x="8265" y="-1356" /&gt;&lt;point x="8265" y="-1383" /&gt;&lt;point x="10846" y="-1383" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="2824" top="-1173" logicalid="30" controlid="11" masterid="0" hint1="0" hint2="0" width="812" height="1897" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1"&gt;&lt;adornment percentpos="49.3570722057369" controlid="21" width="2970" height="344" side="0" behavior="2" himetric="499" distfromline="175" startobj="0" x="91" y="-794" visible="1" allowoverlap="1" usepercent="1" /&gt;&lt;/polyline&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="394" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="4" destid="8" sourceattachpoint="9" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="3236" y="-774" /&gt;&lt;point x="3236" y="-275" /&gt;&lt;point x="3223" y="-275" /&gt;&lt;point x="3223" y="224" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Counts the rows in a dataset." left="1398" top="-6684" logicalid="31" controlid="12" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="387" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="2798" top="-7844" logicalid="32" controlid="13" masterid="0" hint1="0" hint2="0" width="799" height="1660" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="395" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="2" destid="12" sourceattachpoint="9" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="3197" y="-7445" /&gt;&lt;point x="3197" y="-6684" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="2798" top="-5919" logicalid="33" controlid="14" masterid="0" hint1="0" hint2="0" width="833" height="2208" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="397" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="12" destid="3" sourceattachpoint="7" destattachpoint="8" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="3197" y="-5520" /&gt;&lt;point x="3197" y="-4865" /&gt;&lt;point x="3231" y="-4865" /&gt;&lt;point x="3231" y="-4211" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Counts the rows in a dataset." left="10869" top="219" logicalid="34" controlid="15" masterid="0" hint1="0" hint2="0" width="3863" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="00080000170f00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="379" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="12246" top="-1200" logicalid="35" controlid="16" masterid="0" hint1="0" hint2="0" width="954" height="1919" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="392" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="7" destid="15" sourceattachpoint="7" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="12645" y="-801" /&gt;&lt;point x="12645" y="-291" /&gt;&lt;point x="12800" y="-291" /&gt;&lt;point x="12800" y="219" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="12401" top="984" logicalid="36" controlid="17" masterid="0" hint1="0" hint2="0" width="1741" height="2577" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="398" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="15" destid="6" sourceattachpoint="7" destattachpoint="8" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="12800" y="1383" /&gt;&lt;point x="12800" y="2222" /&gt;&lt;point x="13742" y="2222" /&gt;&lt;point x="13742" y="3061" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Text" left="7171" top="-1181" logicalid="39" controlid="20" masterid="10" hint1="0" hint2="0" width="2826" height="344" noresize="1" nomove="0" nodefaultattachpoints="1" autodrag="1" usedefaultiddshape="1" selectable="0" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="1" groupcollapsed="0" tabstop="0" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000200000a0b000058010000030000000000050000800800008001000000350001000000900144420100065461686f6d6113004c006f006f006b007500700020004500720072006f00720020004f007500740070007500740000000000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="AnnotationAdornment" value="-1" vartype="11" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Text" left="91" top="-794" logicalid="40" controlid="21" masterid="11" hint1="0" hint2="0" width="2970" height="344" noresize="1" nomove="0" nodefaultattachpoints="1" autodrag="1" usedefaultiddshape="1" selectable="0" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="1" groupcollapsed="0" tabstop="0" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000200009a0b000058010000030000000000050000800800008001000000350001000000900144420100065461686f6d6113004c006f006f006b007500700020004d00610074006300680020004f007500740070007500740000000000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="AnnotationAdornment" value="-1" vartype="11" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;/dds&gt;&lt;/dwd:Layout&gt;&lt;dwd:PersistedViewPortTop&gt;-9609&lt;/dwd:PersistedViewPortTop&gt;&lt;/dwd:DtsDataFlowDiagram&gt;&lt;dwd:DtsComponentDesignerPropertiesList&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;3284	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;9360	TableInfoObjectType&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:string"&gt;Table&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;112	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;21914	UsedTableName&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;11507	TableInfoObjectType&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:string"&gt;Table&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;13344	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;3284	TableInfoObjectType&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:string"&gt;Table&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;10493	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;14134	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;13344	TableInfoObjectType&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:string"&gt;Table&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;14134	TableInfoObjectType&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:string"&gt;Table&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;10047	TableInfoObjectType&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:string"&gt;Table&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;21914	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;1	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;9360	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;10047	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;21914	OverwriteParamsSQLProp&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:boolean"&gt;false&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;11507	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;1	TableInfoObjectType&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:string"&gt;Table&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;112	TableInfoObjectType&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:string"&gt;Table&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;21914	TableInfoObjectType&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:string"&gt;Table&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;22531	TableInfoObjectType&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:string"&gt;Table&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;13063	TableInfoObjectType&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:string"&gt;Table&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;13063	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;22531	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;10493	TableInfoObjectType&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:string"&gt;Table&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;/dwd:DtsComponentDesignerPropertiesList&gt;&lt;/TaskHost&gt;</DTS:Property>
-    </DTS:PackageVariable>
-    <DTS:PackageVariable
-      DTS:CreationName=""
-      DTS:DTSID="{451E03E2-6C9F-4933-9A81-8BD598872E2B}"
-      DTS:Namespace="dts-designer-1.0"
-      DTS:ObjectName="{49ABC89E-BA45-4438-BB61-E37F54EE30FB}-21929">
-      <DTS:Property
-        DTS:DataType="8"
-        DTS:Name="PackageVariableValue">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;Derived Column Output&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;Lookup Input&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
-    </DTS:PackageVariable>
-    <DTS:PackageVariable
-      DTS:CreationName=""
-      DTS:DTSID="{B4BC5A79-9C64-4970-BD79-26B02CBADD3F}"
-      DTS:Namespace="dts-designer-1.0"
-      DTS:ObjectName="{49ABC89E-BA45-4438-BB61-E37F54EE30FB}-22720">
-      <DTS:Property
-        DTS:DataType="8"
-        DTS:Name="PackageVariableValue">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;Row Count Output 1&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;OLE DB Destination Input&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
-    </DTS:PackageVariable>
-    <DTS:PackageVariable
-      DTS:CreationName=""
-      DTS:DTSID="{F5F836B8-E20F-4C00-9393-FA2E1EB3F4B9}"
-      DTS:Namespace="dts-designer-1.0"
-      DTS:ObjectName="{49ABC89E-BA45-4438-BB61-E37F54EE30FB}-22744">
-      <DTS:Property
-        DTS:DataType="8"
-        DTS:Name="PackageVariableValue">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:PathAnnotation&gt;PathName&lt;/dwd:PathAnnotation&gt;&lt;dwd:SourceName&gt;Lookup Error Output&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;Derived Column Input&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
-    </DTS:PackageVariable>
-    <DTS:PackageVariable
-      DTS:CreationName=""
-      DTS:DTSID="{4F782338-3CD0-40D6-8CC2-D91D213C7074}"
-      DTS:Namespace="dts-designer-1.0"
-      DTS:ObjectName="{49ABC89E-BA45-4438-BB61-E37F54EE30FB}-26644">
-      <DTS:Property
-        DTS:DataType="8"
-        DTS:Name="PackageVariableValue">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;Lookup Match Output&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;Row Count Input 1&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
-    </DTS:PackageVariable>
-    <DTS:PackageVariable
-      DTS:CreationName=""
-      DTS:DTSID="{9E31A932-8340-4ECF-8652-6BF72F52D71D}"
-      DTS:Namespace="dts-designer-1.0"
-      DTS:ObjectName="{49ABC89E-BA45-4438-BB61-E37F54EE30FB}-26778">
-      <DTS:Property
-        DTS:DataType="8"
-        DTS:Name="PackageVariableValue">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;OLE DB Source Output&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;Row Count Input 1&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
-    </DTS:PackageVariable>
-    <DTS:PackageVariable
-      DTS:CreationName=""
-      DTS:DTSID="{50DF6AB3-2518-439A-9FF4-37D91D0A801D}"
-      DTS:Namespace="dts-designer-1.0"
-      DTS:ObjectName="{49ABC89E-BA45-4438-BB61-E37F54EE30FB}-26783">
-      <DTS:Property
-        DTS:DataType="8"
-        DTS:Name="PackageVariableValue">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;Row Count Output 1&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;Derived Column Input&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
-    </DTS:PackageVariable>
-    <DTS:PackageVariable
-      DTS:CreationName=""
-      DTS:DTSID="{B128D7D8-67A0-4291-AECC-F72ADFBF98ED}"
-      DTS:Namespace="dts-designer-1.0"
-      DTS:ObjectName="{49ABC89E-BA45-4438-BB61-E37F54EE30FB}-26792">
-      <DTS:Property
-        DTS:DataType="8"
-        DTS:Name="PackageVariableValue">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;Derived Column Output&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;Row Count Input 1&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
-    </DTS:PackageVariable>
-    <DTS:PackageVariable
-      DTS:CreationName=""
-      DTS:DTSID="{B1B01432-F08D-47D9-B2F5-EA0FE79972D8}"
-      DTS:Namespace="dts-designer-1.0"
-      DTS:ObjectName="{49ABC89E-BA45-4438-BB61-E37F54EE30FB}-26914">
-      <DTS:Property
-        DTS:DataType="8"
-        DTS:Name="PackageVariableValue">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;Row Count Output 1&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;OLE DB Destination Input&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
-    </DTS:PackageVariable>
-    <DTS:PackageVariable
-      DTS:CreationName=""
-      DTS:DTSID="{E87CC2D4-F04B-45A2-8439-0BBB0F28F5F9}"
-      DTS:Namespace="dts-designer-1.0"
-      DTS:ObjectName="{59CF3332-F7B5-4A4A-A0B9-7E1054755323}">
-      <DTS:Property
-        DTS:DataType="8"
-        DTS:Name="PackageVariableValue">&lt;PrecedenceConstraint xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:EvalOp&gt;Constraint&lt;/dwd:EvalOp&gt;&lt;/PrecedenceConstraint&gt;</DTS:Property>
-    </DTS:PackageVariable>
-    <DTS:PackageVariable
-      DTS:CreationName=""
-      DTS:DTSID="{3879BB0D-11E6-442E-A4A1-44BE2839A96F}"
-      DTS:Namespace="dts-designer-1.0"
-      DTS:ObjectName="{6CD5EDE8-654E-484C-A9D2-578B2E705A8A}">
-      <DTS:Property
-        DTS:DataType="8"
-        DTS:Name="PackageVariableValue">&lt;PrecedenceConstraint xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:EvalOp&gt;Constraint&lt;/dwd:EvalOp&gt;&lt;/PrecedenceConstraint&gt;</DTS:Property>
-    </DTS:PackageVariable>
-    <DTS:PackageVariable
-      DTS:CreationName=""
-      DTS:DTSID="{6F170D4A-A6FB-45A5-AEB8-24D4949DB733}"
-      DTS:Namespace="dts-designer-1.0"
-      DTS:ObjectName="{8E74A557-5469-48FA-B933-6940B60C0D15}">
-      <DTS:Property
-        DTS:DataType="8"
-        DTS:Name="PackageVariableValue">&lt;PrecedenceConstraint xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:EvalOp&gt;Constraint&lt;/dwd:EvalOp&gt;&lt;/PrecedenceConstraint&gt;</DTS:Property>
-    </DTS:PackageVariable>
-    <DTS:PackageVariable
-      DTS:CreationName=""
-      DTS:DTSID="{568A8213-A141-44B3-ACAF-CF13EA1C73BB}"
-      DTS:Namespace="dts-designer-1.0"
-      DTS:ObjectName="{90BC2785-A86D-4C1C-8495-9148E58FDF4D}">
-      <DTS:Property
-        DTS:DataType="8"
-        DTS:Name="PackageVariableValue">&lt;PrecedenceConstraint xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:EvalOp&gt;Constraint&lt;/dwd:EvalOp&gt;&lt;/PrecedenceConstraint&gt;</DTS:Property>
-    </DTS:PackageVariable>
-    <DTS:PackageVariable
-      DTS:CreationName=""
-      DTS:DTSID="{C431EF7E-B5DA-4C31-A9A9-E1B47946CE82}"
-      DTS:Namespace="dts-designer-1.0"
-      DTS:ObjectName="{B40CF925-7DD3-4DC3-A225-FA41CE4A51C6}">
-      <DTS:Property
-        DTS:DataType="8"
-        DTS:Name="PackageVariableValue">&lt;PrecedenceConstraint xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:EvalOp&gt;Constraint&lt;/dwd:EvalOp&gt;&lt;/PrecedenceConstraint&gt;</DTS:Property>
-    </DTS:PackageVariable>
-    <DTS:PackageVariable
-      DTS:CreationName=""
-      DTS:DTSID="{B0D27045-224D-495D-974E-E6E4A6D33946}"
-      DTS:Namespace="dts-designer-1.0"
-      DTS:ObjectName="{D1CC583E-328C-4FB2-8688-344FDC787439}">
-      <DTS:Property
-        DTS:DataType="8"
-        DTS:Name="PackageVariableValue">&lt;PrecedenceConstraint xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:EvalOp&gt;Constraint&lt;/dwd:EvalOp&gt;&lt;/PrecedenceConstraint&gt;</DTS:Property>
-    </DTS:PackageVariable>
-    <DTS:PackageVariable
-      DTS:CreationName=""
-      DTS:DTSID="{26FF3BE5-D338-49FD-845A-177417FE8108}"
-      DTS:Namespace="dts-designer-1.0"
-      DTS:ObjectName="{D38AD913-BFB0-4BB4-B40E-320CB4997B63}">
-      <DTS:Property
-        DTS:DataType="8"
-        DTS:Name="PackageVariableValue">&lt;ConnectionManager xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:DataSourceID&gt;.net GBLOGS&lt;/dwd:DataSourceID&gt;&lt;/ConnectionManager&gt;</DTS:Property>
-    </DTS:PackageVariable>
-    <DTS:PackageVariable
-      DTS:CreationName=""
-      DTS:DTSID="{C316BB4F-9C0F-4445-849E-63FAFAA76402}"
-      DTS:Namespace="dts-designer-1.0"
-      DTS:ObjectName="package-diagram">
-      <DTS:Property
-        DTS:DataType="8"
-        DTS:Name="PackageVariableValue">&lt;Package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:DtsControlFlowDiagram&gt;&lt;dwd:BoundingLeft&gt;-26117&lt;/dwd:BoundingLeft&gt;&lt;dwd:BoundingTop&gt;-901&lt;/dwd:BoundingTop&gt;&lt;dwd:Layout&gt;&lt;dds&gt;&lt;diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="Microsoft.DataWarehouse.Layout.GraphLayout110" defaultlineroute="Microsoft.DataWarehouse.Layout.GraphLayout110" version="7" nextobject="43" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="-27107" scrolltop="-1901" gridx="150" gridy="150" marginx="1000" marginy="1000" zoom="100" x="29236" y="19738" backcolor="15334399" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="1" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="0" viewpagebreaks="0" donotforceconnectorsbehindshapes="1" backpictureclsid="{00000000-0000-0000-0000-000000000000}"&gt;&lt;font&gt;&lt;ddsxmlobjectstreamwrapper binary="01010000900180380100065461686f6d61" /&gt;&lt;/font&gt;&lt;mouseicon&gt;&lt;ddsxmlobjectstreamwrapper binary="6c74000000000000" /&gt;&lt;/mouseicon&gt;&lt;/diagram&gt;&lt;layoutmanager&gt;&lt;ddsxmlobj /&gt;&lt;/layoutmanager&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Initiate packagelog" left="-25354" top="-901" logicalid="21" controlid="1" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\EXEC Init packagelog" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="End packagelog" left="-14666" top="13043" logicalid="22" controlid="2" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\EXEC End packagelog" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsContainerObjectManagedBridge.2" tooltip="Sequence Container" left="-26117" top="4937" logicalid="23" controlid="3" masterid="0" hint1="0" hint2="0" width="6380" height="7667" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="00080000ec180000f31d0000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="Caption" value="Load til FT_Togproduktion_Tog" vartype="8" /&gt;&lt;property name="CaptionHeight" value="1164" vartype="3" /&gt;&lt;property name="Collapsed" value="0" vartype="11" /&gt;&lt;property name="CollapsedWidth" value="15054" vartype="3" /&gt;&lt;property name="LogicalObject" value="Package\Load til FT_Togproduktion_Tog" vartype="8" /&gt;&lt;property name="RealHeight" value="19203" vartype="3" /&gt;&lt;property name="RealWidth" value="15054" vartype="3" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Extract, Load og Transform til dannelse af edw.FT_SPROM" left="-25893" top="8574" logicalid="24" controlid="4" masterid="3" hint1="0" hint2="0" width="5768" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="00080000881600008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Logger oplysninger vedr. opdatering af EDW.TD1_ProtalTog" left="-25688" top="11040" logicalid="25" controlid="5" masterid="3" hint1="0" hint2="0" width="4128" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="00080000201000008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Load til FT_Togproduktion_Tog\EXEC EndTabRefLog" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" left="-25585" top="6306" logicalid="26" controlid="6" masterid="3" hint1="0" hint2="0" width="4075" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="00080000eb0f00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Load til FT_Togproduktion_Tog\EXEC InitTabRefLog" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsContainerObjectManagedBridge.2" tooltip="Sequence Container" left="-25543" top="1121" logicalid="27" controlid="7" masterid="0" hint1="0" hint2="0" width="3998" height="2728" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800009e0f0000a80a0000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="Caption" value="Forberedelser" vartype="8" /&gt;&lt;property name="CaptionHeight" value="1164" vartype="3" /&gt;&lt;property name="Collapsed" value="0" vartype="11" /&gt;&lt;property name="CollapsedWidth" value="3998" vartype="3" /&gt;&lt;property name="LogicalObject" value="Package\Forberedelser" vartype="8" /&gt;&lt;property name="RealHeight" value="0" vartype="3" /&gt;&lt;property name="RealWidth" value="0" vartype="3" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="-23954" top="-136" logicalid="28" controlid="8" masterid="0" hint1="0" hint2="0" width="810" height="1757" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="2" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package.PrecedenceConstraints[Constraint]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="1" destid="7" sourceattachpoint="7" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="-23555" y="263" /&gt;&lt;point x="-23555" y="692" /&gt;&lt;point x="-23544" y="692" /&gt;&lt;point x="-23544" y="1121" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="-23943" top="3450" logicalid="29" controlid="9" masterid="0" hint1="0" hint2="0" width="1416" height="1987" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="2" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package.PrecedenceConstraints[Constraint 1]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="7" destid="3" sourceattachpoint="7" destattachpoint="10" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="-23544" y="3849" /&gt;&lt;point x="-23544" y="4393" /&gt;&lt;point x="-22927" y="4393" /&gt;&lt;point x="-22927" y="4937" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsContainerObjectManagedBridge.2" tooltip="Sequence Container" left="-8591" top="4703" logicalid="30" controlid="10" masterid="0" hint1="0" hint2="0" width="5665" height="5821" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="0008000021160000bd160000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="Caption" value="Check loaded data" vartype="8" /&gt;&lt;property name="CaptionHeight" value="1164" vartype="3" /&gt;&lt;property name="Collapsed" value="0" vartype="11" /&gt;&lt;property name="CollapsedWidth" value="5665" vartype="3" /&gt;&lt;property name="LogicalObject" value="Package\Check loaded data" vartype="8" /&gt;&lt;property name="RealHeight" value="0" vartype="3" /&gt;&lt;property name="RealWidth" value="0" vartype="3" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="-13266" top="10125" logicalid="31" controlid="11" masterid="0" hint1="0" hint2="0" width="7907" height="3418" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="2" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package.PrecedenceConstraints[Constraint 3]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="10" destid="2" sourceattachpoint="9" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="-5759" y="10524" /&gt;&lt;point x="-5759" y="11783" /&gt;&lt;point x="-12867" y="11783" /&gt;&lt;point x="-12867" y="13043" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" left="-25342" top="2485" logicalid="32" controlid="12" masterid="7" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Forberedelser\Get emailadress" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="-23947" top="7071" logicalid="33" controlid="13" masterid="0" hint1="0" hint2="0" width="1338" height="2003" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="2" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Load til FT_Togproduktion_Tog.PrecedenceConstraints[Constraint]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="6" destid="4" sourceattachpoint="7" destattachpoint="10" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="-23548" y="7470" /&gt;&lt;point x="-23548" y="8022" /&gt;&lt;point x="-23009" y="8022" /&gt;&lt;point x="-23009" y="8574" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="-24023" top="9339" logicalid="34" controlid="14" masterid="0" hint1="0" hint2="0" width="1414" height="2201" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="2" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Load til FT_Togproduktion_Tog.PrecedenceConstraints[Constraint 1]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="4" destid="5" sourceattachpoint="11" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="-23009" y="9738" /&gt;&lt;point x="-23009" y="10389" /&gt;&lt;point x="-23624" y="10389" /&gt;&lt;point x="-23624" y="11040" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Send Mail Task" left="-7905" top="8646" logicalid="35" controlid="15" masterid="10" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Check loaded data\Send Mail Task" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Execute SQL Task" left="-7771" top="6317" logicalid="36" controlid="16" masterid="10" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Check loaded data\Count rows in CD" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="-6505" top="7082" logicalid="37" controlid="17" masterid="0" hint1="0" hint2="0" width="933" height="2064" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="2" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Check loaded data.PrecedenceConstraints[Constraint]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="16" destid="15" sourceattachpoint="7" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="-5972" y="7481" /&gt;&lt;point x="-5972" y="8063" /&gt;&lt;point x="-6106" y="8063" /&gt;&lt;point x="-6106" y="8646" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Execute SQL Task" left="-18164" top="6344" logicalid="38" controlid="18" masterid="0" hint1="0" hint2="0" width="7436" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000c1d00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\exec  etl edw_togproduktion_load_dimensions" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="-20136" top="6527" logicalid="39" controlid="19" masterid="0" hint1="0" hint2="0" width="2272" height="2643" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="2" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package.PrecedenceConstraints[Constraint 2]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="3" destid="18" sourceattachpoint="35" destattachpoint="26" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="-19737" y="8770" /&gt;&lt;point x="-18950" y="8770" /&gt;&lt;point x="-18950" y="6926" /&gt;&lt;point x="-18164" y="6926" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="-11127" top="6527" logicalid="40" controlid="20" masterid="0" hint1="0" hint2="0" width="2836" height="1486" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="2" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package.PrecedenceConstraints[Constraint 4]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="18" destid="10" sourceattachpoint="27" destattachpoint="28" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="-10728" y="6926" /&gt;&lt;point x="-9659" y="6926" /&gt;&lt;point x="-9659" y="7613" /&gt;&lt;point x="-8591" y="7613" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;/dds&gt;&lt;/dwd:Layout&gt;&lt;dwd:PersistedViewPortLeft&gt;-27107&lt;/dwd:PersistedViewPortLeft&gt;&lt;dwd:PersistedViewPortTop&gt;-1901&lt;/dwd:PersistedViewPortTop&gt;&lt;/dwd:DtsControlFlowDiagram&gt;&lt;/Package&gt;</DTS:Property>
-    </DTS:PackageVariable>
-    <DTS:PackageVariable
-      DTS:CreationName=""
-      DTS:DTSID="{8A84962B-6840-4D9F-952A-8C5C27AD7B90}"
-      DTS:Namespace="dts-designer-1.0"
-      DTS:ObjectName="package-diagram">
-      <DTS:Property
-        DTS:DataType="8"
-        DTS:Name="PackageVariableValue">&lt;Package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:DtsControlFlowDiagram&gt;&lt;dwd:BoundingLeft&gt;-26117&lt;/dwd:BoundingLeft&gt;&lt;dwd:BoundingTop&gt;-901&lt;/dwd:BoundingTop&gt;&lt;dwd:Layout&gt;&lt;dds&gt;&lt;diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="Microsoft.DataWarehouse.Layout.GraphLayout110" defaultlineroute="Microsoft.DataWarehouse.Layout.GraphLayout110" version="7" nextobject="43" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="-27107" scrolltop="-1901" gridx="150" gridy="150" marginx="1000" marginy="1000" zoom="100" x="29236" y="19738" backcolor="15334399" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="1" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="0" viewpagebreaks="0" donotforceconnectorsbehindshapes="1" backpictureclsid="{00000000-0000-0000-0000-000000000000}"&gt;&lt;font&gt;&lt;ddsxmlobjectstreamwrapper binary="01010000900180380100065461686f6d61" /&gt;&lt;/font&gt;&lt;mouseicon&gt;&lt;ddsxmlobjectstreamwrapper binary="6c74000000000000" /&gt;&lt;/mouseicon&gt;&lt;/diagram&gt;&lt;layoutmanager&gt;&lt;ddsxmlobj /&gt;&lt;/layoutmanager&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Initiate packagelog" left="-25354" top="-901" logicalid="21" controlid="1" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\EXEC Init packagelog" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="End packagelog" left="-14666" top="13043" logicalid="22" controlid="2" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\EXEC End packagelog" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsContainerObjectManagedBridge.2" tooltip="Sequence Container" left="-26117" top="4937" logicalid="23" controlid="3" masterid="0" hint1="0" hint2="0" width="6380" height="7667" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="00080000ec180000f31d0000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="Caption" value="Load til FT_Togproduktion_Tog" vartype="8" /&gt;&lt;property name="CaptionHeight" value="1164" vartype="3" /&gt;&lt;property name="Collapsed" value="0" vartype="11" /&gt;&lt;property name="CollapsedWidth" value="15054" vartype="3" /&gt;&lt;property name="LogicalObject" value="Package\Load til FT_Togproduktion_Tog" vartype="8" /&gt;&lt;property name="RealHeight" value="19203" vartype="3" /&gt;&lt;property name="RealWidth" value="15054" vartype="3" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Extract, Load og Transform til dannelse af edw.FT_SPROM" left="-25893" top="8574" logicalid="24" controlid="4" masterid="3" hint1="0" hint2="0" width="5768" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="00080000881600008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Logger oplysninger vedr. opdatering af EDW.TD1_ProtalTog" left="-25688" top="11040" logicalid="25" controlid="5" masterid="3" hint1="0" hint2="0" width="4128" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="00080000201000008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Load til FT_Togproduktion_Tog\EXEC EndTabRefLog" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" left="-25585" top="6306" logicalid="26" controlid="6" masterid="3" hint1="0" hint2="0" width="4075" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="00080000eb0f00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Load til FT_Togproduktion_Tog\EXEC InitTabRefLog" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsContainerObjectManagedBridge.2" tooltip="Sequence Container" left="-25543" top="1121" logicalid="27" controlid="7" masterid="0" hint1="0" hint2="0" width="3998" height="2728" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800009e0f0000a80a0000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="Caption" value="Forberedelser" vartype="8" /&gt;&lt;property name="CaptionHeight" value="1164" vartype="3" /&gt;&lt;property name="Collapsed" value="0" vartype="11" /&gt;&lt;property name="CollapsedWidth" value="3998" vartype="3" /&gt;&lt;property name="LogicalObject" value="Package\Forberedelser" vartype="8" /&gt;&lt;property name="RealHeight" value="0" vartype="3" /&gt;&lt;property name="RealWidth" value="0" vartype="3" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="-23954" top="-136" logicalid="28" controlid="8" masterid="0" hint1="0" hint2="0" width="810" height="1757" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="2" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package.PrecedenceConstraints[Constraint]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="1" destid="7" sourceattachpoint="7" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="-23555" y="263" /&gt;&lt;point x="-23555" y="692" /&gt;&lt;point x="-23544" y="692" /&gt;&lt;point x="-23544" y="1121" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="-23943" top="3450" logicalid="29" controlid="9" masterid="0" hint1="0" hint2="0" width="1416" height="1987" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="2" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package.PrecedenceConstraints[Constraint 1]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="7" destid="3" sourceattachpoint="7" destattachpoint="10" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="-23544" y="3849" /&gt;&lt;point x="-23544" y="4393" /&gt;&lt;point x="-22927" y="4393" /&gt;&lt;point x="-22927" y="4937" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsContainerObjectManagedBridge.2" tooltip="Sequence Container" left="-8591" top="4703" logicalid="30" controlid="10" masterid="0" hint1="0" hint2="0" width="5665" height="5821" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="0008000021160000bd160000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="Caption" value="Check loaded data" vartype="8" /&gt;&lt;property name="CaptionHeight" value="1164" vartype="3" /&gt;&lt;property name="Collapsed" value="0" vartype="11" /&gt;&lt;property name="CollapsedWidth" value="5665" vartype="3" /&gt;&lt;property name="LogicalObject" value="Package\Check loaded data" vartype="8" /&gt;&lt;property name="RealHeight" value="0" vartype="3" /&gt;&lt;property name="RealWidth" value="0" vartype="3" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="-13266" top="10125" logicalid="31" controlid="11" masterid="0" hint1="0" hint2="0" width="7907" height="3418" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="2" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package.PrecedenceConstraints[Constraint 3]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="10" destid="2" sourceattachpoint="9" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="-5759" y="10524" /&gt;&lt;point x="-5759" y="11783" /&gt;&lt;point x="-12867" y="11783" /&gt;&lt;point x="-12867" y="13043" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" left="-25342" top="2485" logicalid="32" controlid="12" masterid="7" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Forberedelser\Get emailadress" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="-23947" top="7071" logicalid="33" controlid="13" masterid="0" hint1="0" hint2="0" width="1338" height="2003" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="2" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Load til FT_Togproduktion_Tog.PrecedenceConstraints[Constraint]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="6" destid="4" sourceattachpoint="7" destattachpoint="10" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="-23548" y="7470" /&gt;&lt;point x="-23548" y="8022" /&gt;&lt;point x="-23009" y="8022" /&gt;&lt;point x="-23009" y="8574" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="-24023" top="9339" logicalid="34" controlid="14" masterid="0" hint1="0" hint2="0" width="1414" height="2201" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="2" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Load til FT_Togproduktion_Tog.PrecedenceConstraints[Constraint 1]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="4" destid="5" sourceattachpoint="11" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="-23009" y="9738" /&gt;&lt;point x="-23009" y="10389" /&gt;&lt;point x="-23624" y="10389" /&gt;&lt;point x="-23624" y="11040" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Send Mail Task" left="-7905" top="8646" logicalid="35" controlid="15" masterid="10" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Check loaded data\Send Mail Task" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Execute SQL Task" left="-7771" top="6317" logicalid="36" controlid="16" masterid="10" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Check loaded data\Count rows in CD" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="-6505" top="7082" logicalid="37" controlid="17" masterid="0" hint1="0" hint2="0" width="933" height="2064" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="2" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\Check loaded data.PrecedenceConstraints[Constraint]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="16" destid="15" sourceattachpoint="7" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="-5972" y="7481" /&gt;&lt;point x="-5972" y="8063" /&gt;&lt;point x="-6106" y="8063" /&gt;&lt;point x="-6106" y="8646" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Execute SQL Task" left="-18164" top="6344" logicalid="38" controlid="18" masterid="0" hint1="0" hint2="0" width="7436" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000c1d00008c040000" /&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package\exec  etl edw_togproduktion_load_dimensions" vartype="8" /&gt;&lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;shape groupshapeid="0" groupnode="0" /&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="-20136" top="6527" logicalid="39" controlid="19" masterid="0" hint1="0" hint2="0" width="2272" height="2643" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="2" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package.PrecedenceConstraints[Constraint 2]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="3" destid="18" sourceattachpoint="35" destattachpoint="26" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="-19737" y="8770" /&gt;&lt;point x="-18950" y="8770" /&gt;&lt;point x="-18950" y="6926" /&gt;&lt;point x="-18164" y="6926" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;ddscontrol controlprogid="MSDDS.Polyline" left="-11127" top="6527" logicalid="40" controlid="20" masterid="0" hint1="0" hint2="0" width="2836" height="1486" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="2" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;&lt;/ddsxmlobj&gt;&lt;/control&gt;&lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="Package.PrecedenceConstraints[Constraint 4]" vartype="8" /&gt;&lt;property name="Virtual" value="0" vartype="11" /&gt;&lt;property name="VisibleAP" value="0" vartype="3" /&gt;&lt;/ddsxmlobj&gt;&lt;/layoutobject&gt;&lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout110" sourceid="18" destid="10" sourceattachpoint="27" destattachpoint="28" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="-10728" y="6926" /&gt;&lt;point x="-9659" y="6926" /&gt;&lt;point x="-9659" y="7613" /&gt;&lt;point x="-8591" y="7613" /&gt;&lt;/connector&gt;&lt;/ddscontrol&gt;&lt;/dds&gt;&lt;/dwd:Layout&gt;&lt;dwd:PersistedViewPortLeft&gt;-27107&lt;/dwd:PersistedViewPortLeft&gt;&lt;dwd:PersistedViewPortTop&gt;-1901&lt;/dwd:PersistedViewPortTop&gt;&lt;/dwd:DtsControlFlowDiagram&gt;&lt;/Package&gt;</DTS:Property>
-    </DTS:PackageVariable>
-  </DTS:PackageVariables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Check loaded data\Count rows in CD"
+          TopLeft="30.9433962264151,17.9056603773585" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Check loaded data\Send Mail Task"
+          TopLeft="25.8867924528302,105.792452830189" />
+        <EdgeLayout
+          Id="Package\Check loaded data.PrecedenceConstraints[Constraint]"
+          TopLeft="98.8301886792453,61.8301886792453">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-5.0566037735849,43.9622641509434"
+              Start="0,0"
+              End="-5.0566037735849,36.4622641509434">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.9622641509434" />
+                  <mssgle:LineSegment
+                    End="-5.0566037735849,21.9622641509434" />
+                  <mssgle:LineSegment
+                    End="-5.0566037735849,36.4622641509434" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43.924528301886795"
+          IsExpanded="True"
+          PanelSize="214,176"
+          Size="214,220"
+          Id="Package\Check loaded data"
+          TopLeft="666.858490566038,216.971698113208" />
+        <NodeLayout
+          Size="281,44"
+          Id="Package\exec  etl edw_togproduktion_load_dimensions"
+          TopLeft="305.61320754717,278.896226415094" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\EXEC End packagelog"
+          TopLeft="437.61320754717,531.688679245283" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\EXEC Init packagelog"
+          TopLeft="34.2924528301886,5.5" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Forberedelser\Get emailadress"
+          TopLeft="7.58490566037733,8.47169811320754" />
+        <ContainerLayout
+          HeaderHeight="43.924528301886795"
+          IsExpanded="True"
+          PanelSize="151,59"
+          Size="151,103"
+          Id="Package\Forberedelser"
+          TopLeft="27.1603773584906,81.8018867924528" />
+        <NodeLayout
+          Size="156,44"
+          Id="Package\Load til FT_Togproduktion_Tog\EXEC EndTabRefLog"
+          TopLeft="16.188679245283,187.301886792453" />
+        <NodeLayout
+          Size="154,44"
+          Id="Package\Load til FT_Togproduktion_Tog\EXEC InitTabRefLog"
+          TopLeft="20.0754716981131,8.66037735849056" />
+        <NodeLayout
+          Size="218,44"
+          Id="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog"
+          TopLeft="8.45283018867917,94.245283018868" />
+        <EdgeLayout
+          Id="Package\Load til FT_Togproduktion_Tog.PrecedenceConstraints[Constraint]"
+          TopLeft="96.9433962264151,52.5849056603774">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="20.3396226415094,41.6603773584906"
+              Start="0,0"
+              End="20.3396226415094,34.1603773584906">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.8301886792453" />
+                  <mssgle:LineSegment
+                    End="20.3396226415094,20.8301886792453" />
+                  <mssgle:LineSegment
+                    End="20.3396226415094,34.1603773584906" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load til FT_Togproduktion_Tog.PrecedenceConstraints[Constraint 1]"
+          TopLeft="117.283018867925,138.169811320755">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-23.2075471698114,49.1320754716981"
+              Start="0,0"
+              End="-23.2075471698114,41.6320754716981">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.5660377358491" />
+                  <mssgle:LineSegment
+                    End="-23.2075471698114,24.5660377358491" />
+                  <mssgle:LineSegment
+                    End="-23.2075471698114,41.6320754716981" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43.924528301886795"
+          IsExpanded="True"
+          PanelSize="241,245"
+          Size="241,289"
+          Id="Package\Load til FT_Togproduktion_Tog"
+          TopLeft="5.5,225.801886792453" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="102.179245283019,49.4245283018868">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="0.415094339622556,32.377358490566"
+              Start="0,0"
+              End="0.415094339622556,24.877358490566">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.188679245283" />
+                  <mssgle:LineSegment
+                    End="0.415094339622556,16.188679245283" />
+                  <mssgle:LineSegment
+                    End="0.415094339622556,24.877358490566" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="102.594339622641,184.745283018868">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="23.2830188679246,41.0566037735849"
+              Start="0,0"
+              End="23.2830188679246,33.5566037735849">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.5283018867925" />
+                  <mssgle:LineSegment
+                    End="23.2830188679246,20.5283018867925" />
+                  <mssgle:LineSegment
+                    End="23.2830188679246,33.5566037735849" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="246.254716981132,370.443396226415">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="59.3584905660377,-69.5849056603773"
+              Start="0,0"
+              End="51.8584905660377,-69.5849056603773">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="29.6981132075472,0" />
+                  <mssgle:LineSegment
+                    End="29.6981132075472,-69.5849056603773" />
+                  <mssgle:LineSegment
+                    End="51.8584905660377,-69.5849056603773" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="773.72641509434,436.632075471698">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-268.22641509434,95.0566037735849"
+              Start="0,0"
+              End="-268.22641509434,87.5566037735849">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.5094339622642" />
+                  <mssgle:LineSegment
+                    End="-268.22641509434,47.5094339622642" />
+                  <mssgle:LineSegment
+                    End="-268.22641509434,87.5566037735849" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="586.216981132075,300.858490566038">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="80.6415094339623,25.9245283018868"
+              Start="0,0"
+              End="73.1415094339623,25.9245283018868">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="40.3396226415094,0" />
+                  <mssgle:LineSegment
+                    End="40.3396226415094,25.9245283018868" />
+                  <mssgle:LineSegment
+                    End="73.1415094339623,25.9245283018868" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <ConnectionManager
+    design-time-name="Package.ConnectionManagers[DOTNET]">
+    <DataSourceID>.net GBLOGS</DataSourceID>
+  </ConnectionManager>
+  <TaskHost
+    design-time-name="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog\Rowcount_RD"
+          TopLeft="32.9716981132076,78.1415094339623" />
+        <NodeLayout
+          Size="191,44"
+          Id="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog\ods RD_Togproduktion_Tog"
+          TopLeft="5.5,5.5" />
+        <NodeLayout
+          Size="187,44"
+          Id="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog\Correct togsystem og dato"
+          TopLeft="8.78301886792453,171.462264150943" />
+        <NodeLayout
+          Size="207,44"
+          Id="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog\ods CD_Togproduktion_tog"
+          TopLeft="395.462264150943,445.877358490566" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog\Rowcount_FT"
+          TopLeft="33.9528301886792,338.820754716981" />
+        <NodeLayout
+          Size="185,44"
+          Id="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog\Get FK_DI_Togsystem"
+          TopLeft="9.99056603773585,257.235849056604" />
+        <NodeLayout
+          Size="146,44"
+          Id="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog\Rowcount_CD"
+          TopLeft="390.367924528302,338.632075471698" />
+        <NodeLayout
+          Size="215,44"
+          Id="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog\EDW FT_Togproduktion_Tog"
+          TopLeft="24.1415094339623,443.688679245283" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog\Add description 1"
+          TopLeft="389.5,256.216981132075" />
+        <EdgeLayout
+          Id="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog.Paths[Row Count Output 12]"
+          TopLeft="463.235849056604,382.556603773585">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="35.5471698113207,63.3207547169811"
+              Start="0,0"
+              End="35.5471698113207,55.8207547169811">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.6603773584906" />
+                  <mssgle:LineSegment
+                    End="35.5471698113207,31.6603773584906" />
+                  <mssgle:LineSegment
+                    End="35.5471698113207,55.8207547169811" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog.Paths[Row Count Output 11]"
+          TopLeft="100.858490566038,122.066037735849">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="1.28301886792453,49.3962264150943"
+              Start="0,0"
+              End="1.28301886792453,41.8962264150943">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.7169811320755" />
+                  <mssgle:LineSegment
+                    End="1.28301886792453,24.7169811320755" />
+                  <mssgle:LineSegment
+                    End="1.28301886792453,41.8962264150943" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog.Paths[Row Count Output 1]"
+          TopLeft="101.839622641509,382.745283018868">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="29.622641509434,60.9433962264151"
+              Start="0,0"
+              End="29.622641509434,53.4433962264151">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.4905660377358" />
+                  <mssgle:LineSegment
+                    End="29.622641509434,30.4905660377358" />
+                  <mssgle:LineSegment
+                    End="29.622641509434,53.4433962264151" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog.Paths[OLE DB Source Output]"
+          TopLeft="100.858490566038,49.4245283018868">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="0,28.7169811320755"
+              Start="0,0"
+              End="0,21.2169811320755">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.2169811320755" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog.Paths[Lookup Output]"
+          TopLeft="102.330188679245,301.160377358491">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-0.490566037735846,37.6603773584906"
+              Start="0,0"
+              End="-0.490566037735846,30.1603773584906">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.8301886792453" />
+                  <mssgle:LineSegment
+                    End="-0.490566037735846,18.8301886792453" />
+                  <mssgle:LineSegment
+                    End="-0.490566037735846,30.1603773584906" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.4366697376179,23.8301886792453,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog.Paths[Lookup Error Output]"
+          TopLeft="194.707547169811,279.198113207547">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="194.792452830189,-1.0188679245283"
+              Start="0,0"
+              End="187.292452830189,-1.0188679245283">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="97.3962264150944,0" />
+                  <mssgle:LineSegment
+                    End="97.3962264150944,-1.0188679245283" />
+                  <mssgle:LineSegment
+                    End="187.292452830189,-1.0188679245283" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="51.5298396963444,5,91.7327734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog.Paths[Derived Column Output1]"
+          TopLeft="457.38679245283,300.141509433962">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="5.84905660377359,38.4905660377358"
+              Start="0,0"
+              End="5.84905660377359,30.9905660377358">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.2452830188679" />
+                  <mssgle:LineSegment
+                    End="5.84905660377359,19.2452830188679" />
+                  <mssgle:LineSegment
+                    End="5.84905660377359,30.9905660377358" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog.Paths[Derived Column Output]"
+          TopLeft="102.141509433962,215.38679245283">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="0.188679245283012,41.8490566037736"
+              Start="0,0"
+              End="0.188679245283012,34.3490566037736">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.9433962264151" />
+                  <mssgle:LineSegment
+                    End="0.188679245283012,20.9433962264151" />
+                  <mssgle:LineSegment
+                    End="0.188679245283012,34.3490566037736" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog\ods RD_Togproduktion_Tog">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog\ods CD_Togproduktion_tog">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog\Get FK_DI_Togsystem">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load til FT_Togproduktion_Tog\Load edw FT_Togproduktion_Tog\EDW FT_Togproduktion_Tog">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
 </DTS:Executable>
