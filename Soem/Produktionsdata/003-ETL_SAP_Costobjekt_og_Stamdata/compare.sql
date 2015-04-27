@@ -5,7 +5,9 @@ SELECT
 --*  
 count(*)
 FROM  mdw_udv1.
-[edw].[DI_CostObject]
+--[edw].[DI_CostObject]
+--[edw].[DI_Omksted]
+[edw].[DI_Profitcenter]
 --with cube
 go
 
@@ -14,7 +16,9 @@ SELECT
 --*  
 count(*)
 FROM  mdw.
-[edw].[DI_CostObject]
+--[edw].[DI_CostObject]
+--[edw].[DI_Omksted]
+[edw].[DI_Profitcenter]
 --with cube
 go
 
