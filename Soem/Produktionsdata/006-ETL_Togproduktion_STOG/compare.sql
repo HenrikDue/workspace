@@ -8,6 +8,11 @@
 edw.DI_S_Straekning
  ods.MD_Stog_finger_straekninger
 edw.DI_S_Doegn_Inddeling
+ods.MD_Stog_DoegnInddeling
+edw.FT_Togproduktion_S_Tog
+[etl].[edw_togproduktion_s_tog_set_tidsinterval] 
+dbo.getIsDanishHolyDay
+dbo.UgedagNummer
 
 
  */
