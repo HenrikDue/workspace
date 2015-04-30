@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>MDWDatabase</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{5bb5c0d1-2736-4c33-9be8-03ec5b362ea2}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql110DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>MDWDatabase</RootNamespace>
+    <AssemblyName>MDWDatabase</AssemblyName>
+    <ModelCollation>1030,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>Danish_Norwegian_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="edw\" />
+    <Folder Include="edw\Tables\" />
+    <Folder Include="ods\" />
+    <Folder Include="ods\Tables\" />
+    <Folder Include="etl\" />
+    <Folder Include="etl\Tables\" />
+    <Folder Include="Security\" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Functions\" />
+    <Folder Include="etl\Functions\" />
+    <Folder Include="etl\Stored Procedures\" />
+    <Folder Include="ods\Stored Procedures\" />
+    <Folder Include="dbo\Stored Procedures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="edw\Tables\DI_TogOmraade.sql" />
+    <Build Include="edw\Tables\DI_Litra.sql" />
+    <Build Include="edw\Tables\DI_Traekkraft.sql" />
+    <Build Include="edw\Tables\CD_LTD_Lokopersonale.sql" />
+    <Build Include="edw\Tables\DI_Loebestrk.sql" />
+    <Build Include="edw\Tables\FT_Lokofravaer.sql" />
+    <Build Include="edw\Tables\TD_Togprod_Straeknings_Prioritet_Tog.sql" />
+    <Build Include="ods\Tables\RDP_Togstandsninger.sql" />
+    <Build Include="ods\Tables\RD_Togstandsninger.sql" />
+    <Build Include="ods\Tables\RDH_Togstandsninger.sql" />
+    <Build Include="ods\Tables\CD_Togstandsninger.sql" />
+    <Build Include="edw\Tables\CD_FT-Lokofravaer.sql" />
+    <Build Include="edw\Tables\CD_Togproduktion_Togstandsninger.sql" />
+    <Build Include="edw\Tables\FT_Togproduktion_Togstandsninger.sql" />
+    <Build Include="ods\Tables\CTL_Dataload.sql" />
+    <Build Include="edw\Tables\DI_Tjenestested.sql" />
+    <Build Include="ods\Tables\TD_Togsystem_mapning.sql" />
+    <Build Include="etl\Tables\Grl_PackageLog.sql" />
+    <Build Include="edw\Tables\FT_Arbejdstimer.sql" />
+    <Build Include="etl\Tables\Ods_LoaderLog.sql" />
+    <Build Include="ods\Tables\MD_G_STAM_Depoter.sql" />
+    <Build Include="edw\Tables\CD_FT-Lokopersonale.sql" />
+    <Build Include="ods\Tables\RD_PDS_Workdone_Togfører_FR.sql" />
+    <Build Include="ods\Tables\MD_G_STAM_Ejendomme.sql" />
+    <Build Include="ods\Tables\rd_stog_korelobtider.sql" />
+    <Build Include="ods\Tables\RD_PDS_Absence_Togfører_FR.sql" />
+    <Build Include="ods\Tables\MD_G_STAM_Ejendomme_M_Kategori.sql" />
+    <Build Include="edw\Tables\DI_Medarbejder_Togfører_FR.sql" />
+    <Build Include="ods\Tables\MD_G_STAM_Ejendomme_udlejningsenheder.sql" />
+    <Build Include="ods\Tables\md_stog_stationer.sql" />
+    <Build Include="ods\Tables\MD_G_STAM_Litra.sql" />
+    <Build Include="ods\Tables\rd_stog_Straekninger.sql" />
+    <Build Include="ods\Tables\MD_G_STAM_Stationer.sql" />
+    <Build Include="edw\Tables\DI_S_Station_Straekning.sql" />
+    <Build Include="ods\Tables\MD_G_STAM_Timer_Grp_Lokoførertid.sql" />
+    <Build Include="edw\Tables\DI_Opgave.sql" />
+    <Build Include="edw\Tables\DI_S_Materiel.sql" />
+    <Build Include="ods\Tables\MD_G_STAM_Timer_Grp_Lokoførertid_STog.sql" />
+    <Build Include="edw\Tables\DI_Turdepot.sql" />
+    <Build Include="ods\Tables\MD_G_STAM_Timer_Grp_Togførertid.sql" />
+    <Build Include="ods\Tables\MD_Stog_litra_typer.sql" />
+    <Build Include="edw\Tables\DI_Arbejdskode.sql" />
+    <Build Include="edw\Tables\DI_S_Straekning.sql" />
+    <Build Include="edw\Tables\DI_Fravaerkode.sql" />
+    <Build Include="ods\Tables\MD_G_STAM_Togsystem.sql" />
+    <Build Include="ods\Tables\RD_Baneafgifter.sql" />
+    <Build Include="ods\Tables\MD_Stog_finger_straekninger.sql" />
+    <Build Include="edw\Tables\DI_Station.sql" />
+    <Build Include="ods\Tables\RDH_Baneafgifter.sql" />
+    <Build Include="ods\Tables\RDP_Baneafgifter.sql" />
+    <Build Include="edw\Tables\FT_OBSOpgaver.sql" />
+    <Build Include="ods\Tables\RDP_Broafgifter.sql" />
+    <Build Include="ods\Tables\RD_Broafgifter.sql" />
+    <Build Include="ods\Tables\RDH_Broafgifter.sql" />
+    <Build Include="ods\Tables\CD_Broafgifter.sql" />
+    <Build Include="ods\Tables\RD_Strkafgifter.sql" />
+    <Build Include="edw\Tables\FT_OBSArbejder.sql" />
+    <Build Include="ods\Tables\RDH_Strkafgifter.sql" />
+    <Build Include="ods\Tables\RDP_Strkafgifter.sql" />
+    <Build Include="edw\Tables\DI_Tid.sql" />
+    <Build Include="ods\Tables\td_pds_togsystem.sql" />
+    <Build Include="ods\Tables\CD_Strkafgifter.sql" />
+    <Build Include="edw\Tables\TD_OBSOpgaver_med_togproduktion.sql" />
+    <Build Include="edw\Tables\CD_FT-OBSOpgaver.sql" />
+    <Build Include="ods\Tables\RD_PDS_Workdone.sql" />
+    <Build Include="edw\Tables\FT_OBSFravaer.sql" />
+    <Build Include="edw\Tables\DI_Togsystem.sql" />
+    <Build Include="edw\Tables\CD_FT-OBSFravaer.sql" />
+    <Build Include="edw\Tables\FT_Togproduktion_Afgifter.sql" />
+    <Build Include="edw\Tables\FT_PDS.sql" />
+    <Build Include="edw\Tables\MD_Afgiftssats.sql" />
+    <Build Include="edw\Tables\CD_Togproduktion_Afgifter.sql" />
+    <Build Include="etl\Tables\Edw_TabRefLog.sql" />
+    <Build Include="ods\Tables\RD_Costobjects.sql" />
+    <Build Include="edw\Tables\TD_Dim_CostObject.sql" />
+    <Build Include="ods\Tables\CD_Baneafgifter.sql" />
+    <Build Include="edw\Tables\DIH_CostObject.sql" />
+    <Build Include="edw\Tables\GD_Dim_CostObject.sql" />
+    <Build Include="etl\Tables\Grl_DataLoadCheck_Vaerdi.sql" />
+    <Build Include="ods\Tables\MD_A_Costobjects.sql" />
+    <Build Include="edw\Tables\DI_CostObject.sql" />
+    <Build Include="etl\Tables\Grl_DataLoadCheck_Element.sql" />
+    <Build Include="ods\Tables\RD_SAP_OmkStedStam.sql" />
+    <Build Include="ods\Tables\RD_SAP_ProfitcenterStam.sql" />
+    <Build Include="etl\Tables\Grl_DataLoadCheck.sql" />
+    <Build Include="edw\Tables\GD_A_Stamdata_OmkSted.sql" />
+    <Build Include="edw\Tables\DI_Profitcenter.sql" />
+    <Build Include="edw\Tables\DI_Omksted.sql" />
+    <Build Include="ods\Tables\MD_Tidsintervaller.sql" />
+    <Build Include="edw\Tables\GD_A_Stamdata_Profitcenter.sql" />
+    <Build Include="edw\Tables\DI_Tidsintervaller.sql" />
+    <Build Include="edw\Tables\MD_A_Profitcenter_Enhed.sql" />
+    <Build Include="ods\Tables\RDH_Togproduktion_Litra.sql" />
+    <Build Include="edw\Tables\CD_A_Stamdata_Profitcenter.sql" />
+    <Build Include="ods\Tables\RDP_Togproduktion_Tog.sql" />
+    <Build Include="ods\Tables\RDP_Togproduktion_Litra.sql" />
+    <Build Include="ods\Tables\Key_Dim_Profitcenter.sql" />
+    <Build Include="ods\Tables\RDT_Togproduktion_Litra.sql" />
+    <Build Include="ods\Tables\RD_Togproduktion_Litra.sql" />
+    <Build Include="ods\Tables\Key_Dim_Omkostningssted.sql" />
+    <Build Include="ods\Tables\RD_Materiale_databasen.sql" />
+    <Build Include="edw\Tables\MD_Materiale_sidepladser_default.sql" />
+    <Build Include="edw\Tables\DI_Profitcenter_ny.sql" />
+    <Build Include="ods\Tables\MD_Materiale_databasen.sql" />
+    <Build Include="edw\Tables\di_omksted_ny.sql" />
+    <Build Include="edw\Tables\DI_Materiale.sql" />
+    <Build Include="ods\Tables\RD_FPC_FTE.sql" />
+    <Build Include="ods\Tables\CD_FPC_FTE.sql" />
+    <Build Include="ods\Tables\CD_Togproduktion_Litra.sql" />
+    <Build Include="edw\Tables\DI_Firmakode.sql" />
+    <Build Include="edw\Tables\FT_Togproduktion_Litra.sql" />
+    <Build Include="edw\Tables\DI_Medarbejde.sql" />
+    <Build Include="edw\Tables\FT_FTE.sql" />
+    <Build Include="edw\Tables\CD_FT-FTE.sql" />
+    <Build Include="edw\Tables\MD_Store_Stationer.sql" />
+    <Build Include="ods\Tables\RD_LTD2_Lokopersonale.sql" />
+    <Build Include="edw\Tables\MD_Tid_Konverter_Interval_Definitioner.sql" />
+    <Build Include="ods\Tables\CD_LTD2_Lokopersonale.sql" />
+    <Build Include="edw\Tables\TD_Togprod_Straeknings_Prioritet_Litra.sql" />
+    <Build Include="ods\Tables\RD_LTD2_Lokofravaer.sql" />
+    <Build Include="ods\Tables\TD_RDP_Togproduktion_Tog.sql" />
+    <Build Include="ods\Tables\CD_LTD2_Lokofravaer.sql" />
+    <Build Include="ods\Tables\RD_Togproduktion_Tog.sql" />
+    <Build Include="ods\Tables\RDH_Togproduktion_Tog.sql" />
+    <Build Include="edw\Tables\FT_Togproduktion_Tog.sql" />
+    <Build Include="ods\Tables\CD_Togproduktion_Tog.sql" />
+    <Build Include="edw\Tables\DI_Elementkode_ltf.sql" />
+    <Build Include="edw\Tables\DI_Tognummer.sql" />
+    <Build Include="edw\Tables\DI_Tid_Maaned.sql" />
+    <Build Include="edw\Tables\DI_Operatoer.sql" />
+    <Build Include="edw\Tables\DI_Togkategori.sql" />
+    <Build Include="edw\Tables\DI_Lokation.sql" />
+    <Build Include="edw\Tables\FT_Lokopersonale.sql" />
+    <Build Include="edw\Tables\DI_Straekning.sql" />
+    <Build Include="Security\DSB_HEBR2802.sql" />
+    <Build Include="Security\DSB_SQL_BI_BRUGER.sql" />
+    <Build Include="Security\DSB_SQL_BI_BRUGER_1.sql" />
+    <Build Include="Security\RoleMemberships.sql" />
+    <Build Include="dbo\Functions\LTDDatoOgTidspunktTilDatetime.sql" />
+    <Build Include="dbo\Functions\FormatHhMm.sql" />
+    <Build Include="dbo\Functions\HoursOnly.sql" />
+    <Build Include="dbo\Functions\datetime2yyyymm.sql" />
+    <Build Include="dbo\Functions\charDatoMedBindestreger2datetime.sql" />
+    <Build Include="dbo\Functions\FjernForanstilledeNuller.sql" />
+    <Build Include="etl\Functions\logDiff.sql" />
+    <Build Include="etl\Stored Procedures\get_loadinfo_protal.sql" />
+    <Build Include="ods\Stored Procedures\TD_Togsystem_mapning_prc.sql" />
+    <Build Include="etl\Stored Procedures\edw_togproduktion_set_trafikkontrakt_flag.sql" />
+    <Build Include="dbo\Stored Procedures\MD_G_STAM_Ejendomme_Kategori.sql" />
+    <Build Include="etl\Stored Procedures\grl_InitPackageLog.sql" />
+    <Build Include="etl\Stored Procedures\ods_InitLoaderLog.sql" />
+    <Build Include="etl\Stored Procedures\ods_EndLoaderLog.sql" />
+    <Build Include="etl\Stored Procedures\grl_EndPackageLog.sql" />
+    <Build Include="etl\Stored Procedures\edw_InitTabRefLog.sql" />
+    <Build Include="etl\Stored Procedures\get_loadinfo_pds.sql" />
+    <Build Include="etl\Stored Procedures\delete_togproduktion_FogR_alle_rdh_og_ft_tabeller_efter_fejl.sql" />
+    <Build Include="etl\Stored Procedures\edw_EndTabRefLog.sql" />
+    <Build Include="etl\Stored Procedures\Grl_DataLoadCheck_Log.sql" />
+    <Build Include="etl\Stored Procedures\load_Dim_Profitcenter_og_omkostningssted_ny.sql" />
+    <Build Include="etl\Stored Procedures\Grl_DataLoadCheck_char_Log.sql" />
+    <Build Include="etl\Stored Procedures\edw_togproduktion_load_dimensions.sql" />
+    <Build Include="Security\edw.sql" />
+    <Build Include="Security\etl.sql" />
+    <Build Include="Security\ods.sql" />
+  </ItemGroup>
+</Project>
