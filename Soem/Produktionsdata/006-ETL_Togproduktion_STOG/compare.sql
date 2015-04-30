@@ -13,6 +13,9 @@ edw.FT_Togproduktion_S_Tog
 [etl].[edw_togproduktion_s_tog_set_tidsinterval] 
 dbo.getIsDanishHolyDay
 dbo.UgedagNummer
+[etl].[edw_TD_S_materiale_til_Litra_mapping]
+edw.FT_Togproduktion_S_Tog_Litra
+[etl].[TD_S_materiale_til_Litra_mapping]
 
 
  */
@@ -23,7 +26,7 @@ dbo.UgedagNummer
 --go
 SELECT 
 --*
-count(*)  
+count(*),sum([Litrakm]),sum([Pladskm])  
 FROM  mdw_udv1.
 --ods.rd_stog_korelobtider
 --ods.md_stog_stationer
@@ -31,14 +34,16 @@ FROM  mdw_udv1.
 --edw.di_s_station_straekning
 --edw.DI_S_Materiel
 --ods.MD_Stog_finger_straekninger
-edw.DI_S_Straekning
+--edw.DI_S_Straekning
+edw.FT_Togproduktion_S_Tog_Litra
+where [DI_Tid] between '20150301' and '20150331'
 --with cube
 go
 
 :CONNECT mssqlp01\alpha
 SELECT
 --*
-count(*) 
+count(*),sum([Litrakm]),sum([Pladskm])
 FROM mdw.
 --ods.rd_stog_korelobtider
 --ods.md_stog_stationer
@@ -46,6 +51,8 @@ FROM mdw.
 --edw.di_s_station_straekning
 --edw.DI_S_Materiel
 --ods.MD_Stog_finger_straekninger
-edw.DI_S_Straekning
+--edw.DI_S_Straekning
+edw.FT_Togproduktion_S_Tog_Litra
+where [DI_Tid] between '20150301' and '20150331'
 --with cube
 go
