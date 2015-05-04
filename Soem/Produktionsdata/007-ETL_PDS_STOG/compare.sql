@@ -7,6 +7,8 @@ edw.DI_S_Opgave_Straekning
 edw.DI_S_Opgave_Lokofører
 [edw].[FT_Lokopersonale_S_tog]
 edw.DI_Depot
+[etl].[get_loadinfo_pds_Stog]
+
 
  */
  /*afvikles i SQLCMD mode. Query - SQLCMD*/
