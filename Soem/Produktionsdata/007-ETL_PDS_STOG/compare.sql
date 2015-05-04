@@ -1,42 +1,42 @@
  /*
 [ods].[RD_PDS_Lokofører_STOG]
+ods.TD_Strækning_Mapping
+[etl].[ods_TD_Strækning_Mapping_Standsninger]
+[ods].[TD_Strækning_S_Lokofører_Opgaver]
+edw.DI_S_Opgave_Straekning
 
 
  */
  /*afvikles i SQLCMD mode. Query - SQLCMD*/
 
 :CONNECT oesmsqlt01\soem
---truncate table [MDW_udv1].edw.di_s_station_straekning 
+--truncate table [MDW_udv1].[ods].[RD_PDS_Lokofører_STOG] 
 --go
 SELECT 
 --*
-count(*),sum([Litrakm]),sum([Pladskm])  
+count(*)
+--count(*),sum([Litrakm]),sum([Pladskm])  
 FROM  mdw_udv1.
---ods.rd_stog_korelobtider
---ods.md_stog_stationer
---ods.rd_stog_Straekninger
---edw.di_s_station_straekning
---edw.DI_S_Materiel
---ods.MD_Stog_finger_straekninger
---edw.DI_S_Straekning
-edw.FT_Togproduktion_S_Tog_Litra
-where [DI_Tid] between '20150301' and '20150331'
+--[ods].[RD_PDS_Lokofører_STOG]
+--[ods].[TD_Strækning_Mapping]
+--[ods].[TD_Strækning_S_Lokofører_Opgaver]
+edw.DI_S_Opgave_Straekning
+--where E_DAY_DATE BETWEEN DATEADD(day, -1, '2015-03-01' ) AND DATEADD(month, 1, '2015-03-01')
+--where [DI_Tid] between '20150301' and '20150331'
 --with cube
 go
 
 :CONNECT mssqlp01\alpha
 SELECT
 --*
-count(*),sum([Litrakm]),sum([Pladskm])
+count(*)
+--count(*),sum([Litrakm]),sum([Pladskm])
 FROM mdw.
---ods.rd_stog_korelobtider
---ods.md_stog_stationer
---ods.rd_stog_Straekninger
---edw.di_s_station_straekning
---edw.DI_S_Materiel
---ods.MD_Stog_finger_straekninger
---edw.DI_S_Straekning
-edw.FT_Togproduktion_S_Tog_Litra
-where [DI_Tid] between '20150301' and '20150331'
+--[ods].[RD_PDS_Lokofører_STOG]
+--[ods].[TD_Strækning_Mapping]
+--[ods].[TD_Strækning_S_Lokofører_Opgaver]
+edw.DI_S_Opgave_Straekning
+--where E_DAY_DATE BETWEEN DATEADD(day, -1, '2015-03-01' ) AND DATEADD(month, 1, '2015-03-01')
+--where [DI_Tid] between '20150301' and '20150331'
 --with cube
 go
