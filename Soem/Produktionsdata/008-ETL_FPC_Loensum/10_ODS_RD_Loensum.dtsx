@@ -13,8 +13,8 @@
   DTS:ObjectName="10_ODS_RD_Loensum"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="31"
-  DTS:VersionGUID="{65D7F86E-3347-4A35-B2DC-90030BBF654F}">
+  DTS:VersionBuild="34"
+  DTS:VersionGUID="{EE2871F3-C3DA-4C35-8786-9302F9D0D1BD}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -28,16 +28,6 @@
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=P:\70_BI\Projects\Files\FPC_Lønsum\RD_R_LønsumAnsættelsetype 201401.xlsx;Extended Properties=&quot;Excel 12.0 XML;HDR=NO&quot;;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[mdw]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{6DBC1E63-93F0-4543-9C3A-FE8F99D3DF1E}"
-      DTS:ObjectName="mdw">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectionString="Data Source=oesmsqlt01\soem;Initial Catalog=MDW_udv1;Provider=SQLNCLI11;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-10_ODS_RD_Lønsum-{6DBC1E63-93F0-4543-9C3A-FE8F99D3DF1E}mssqlp01\alpha.mdw;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -609,8 +599,8 @@
                   <connections>
                     <connection
                       refId="Package\Load RD data\Data Flow Task\RD_FPC_Lønsum.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[mdw]"
-                      connectionManagerRefId="Package.ConnectionManagers[mdw]"
+                      connectionManagerID="{5771DD25-0F50-48E7-AFCA-84180D38E2A7}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[MDW]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -1125,7 +1115,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{6DBC1E63-93F0-4543-9C3A-FE8F99D3DF1E}"
+              SQLTask:Connection="{5771DD25-0F50-48E7-AFCA-84180D38E2A7}"
               SQLTask:SqlStatementSource="Select Value As periode from ods.ctl_dataload&#xA;Where kilde_system = 'alle'&#xA;and Variable = 'Model_Periode'&#xA;"
               SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ResultBinding
@@ -1147,7 +1137,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{6DBC1E63-93F0-4543-9C3A-FE8F99D3DF1E}"
+              SQLTask:Connection="{5771DD25-0F50-48E7-AFCA-84180D38E2A7}"
               SQLTask:SqlStatementSource="Truncate table [ods].[RD_FPC_Lønsum]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
@@ -1250,5 +1240,69 @@
       </GraphLayout>
     </LayoutInfo>
   </Package>
+  <TaskHost
+    design-time-name="Package\Load RD data\Data Flow Task">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="151,44"
+          Id="Package\Load RD data\Data Flow Task\RD_FPC_Lønsum"
+          TopLeft="72.8962264150943,182.707547169811" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Load RD data\Data Flow Task\Konverter"
+          TopLeft="80.3679245283019,94.1037735849057" />
+        <NodeLayout
+          Size="286,44"
+          Id="Package\Load RD data\Data Flow Task\RD_R_LønsumAnsættelsetype_yyyymm csv"
+          TopLeft="5.5,5.49999999999999" />
+        <EdgeLayout
+          Id="Package\Load RD data\Data Flow Task.Paths[Derived Column Output]"
+          TopLeft="148.254716981132,138.028301886792">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44.6792452830189"
+              Start="0,0"
+              End="0,37.1792452830189">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.1792452830189" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load RD data\Data Flow Task.Paths[Flat File Source Output]"
+          TopLeft="148.254716981132,49.4245283018868">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44.6792452830189"
+              Start="0,0"
+              End="0,37.1792452830189">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.1792452830189" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
 </Objects>]]></DTS:DesignTimeProperties>
 </DTS:Executable>
