@@ -1,6 +1,9 @@
  /*
 [ods].[RD_FPC_Lønsum]
 [ods].[RD_RIM_Rejseindtaegter_togsystemer]
+etl.RD_RIM_Rejseindtaegter_togsystemer_beregn_for_loadperiode
+[ods].[RD_RIM_Rejseindtaegter]
+etl.RD_RIM_Rejseindtaegter_beregn_for_loadperiode
 
 
  */
@@ -11,7 +14,7 @@
 --go
 SELECT 
 --*
-count(*),sum([Litrakm]),sum([Pladskm])  
+count(*)--,sum([Litrakm]),sum([Pladskm])  
 FROM  mdw_udv1.
 --ods.rd_stog_korelobtider
 --ods.md_stog_stationer
@@ -20,15 +23,17 @@ FROM  mdw_udv1.
 --edw.DI_S_Materiel
 --ods.MD_Stog_finger_straekninger
 --edw.DI_S_Straekning
-edw.FT_Togproduktion_S_Tog_Litra
-where [DI_Tid] between '20150301' and '20150331'
+--edw.FT_Togproduktion_S_Tog_Litra
+[ods].[RD_RIM_Rejseindtaegter_togsystemer]
+
+--where [DI_Tid] between '20150301' and '20150331'
 --with cube
 go
 
 :CONNECT mssqlp01\alpha
 SELECT
 --*
-count(*),sum([Litrakm]),sum([Pladskm])
+count(*)--,sum([Litrakm]),sum([Pladskm])
 FROM mdw.
 --ods.rd_stog_korelobtider
 --ods.md_stog_stationer
@@ -37,7 +42,8 @@ FROM mdw.
 --edw.DI_S_Materiel
 --ods.MD_Stog_finger_straekninger
 --edw.DI_S_Straekning
-edw.FT_Togproduktion_S_Tog_Litra
-where [DI_Tid] between '20150301' and '20150331'
+--edw.FT_Togproduktion_S_Tog_Litra
+[ods].[RD_RIM_Rejseindtaegter_togsystemer]
+--where [DI_Tid] between '20150301' and '20150331'
 --with cube
 go
