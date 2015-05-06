@@ -6,6 +6,9 @@ dbo.GD_R_LønsumAnsættelsetype
 [dbo].[GD_R_Lokoførertid_STog]
 dbo.GD_R_Personaledata
 dbo.[GD_R_RejseIndtægter_Togsystem_FR]
+dbo.GD_R_RejserIndtægter_FR
+dbo.GD_R_RejserIndtægter_Stog
+[ods].[RD_Stog_Rejsedata]
 
  */
  /*afvikles i SQLCMD mode. Query - SQLCMD*/
@@ -15,7 +18,7 @@ dbo.[GD_R_RejseIndtægter_Togsystem_FR]
 --go
 SELECT 
 --*
-count(*)--,sum([Litrakm]),sum([Pladskm])  
+count(*),sum([Værdi])--,sum([Litrakm]),sum([Pladskm])  
 FROM  mdw_udv1.
 --dbo.GD_R_Baneafgifter_FR
 --dbo.GD_R_Togførertid_FR
@@ -23,7 +26,9 @@ FROM  mdw_udv1.
 --dbo.GD_R_LønsumAnsættelsetype
 --[dbo].[GD_R_Lokoførertid_STog]
 --dbo.GD_R_Personaledata
-dbo.[GD_R_RejseIndtægter_Togsystem_FR]
+--dbo.[GD_R_RejseIndtægter_Togsystem_FR]
+--dbo.GD_R_RejserIndtægter_FR
+dbo.GD_R_RejserIndtægter_Stog
 --where [DI_Tid] between '20150301' and '20150331'
 --with cube
 go
@@ -31,7 +36,7 @@ go
 :CONNECT mssqlt01\alpha
 SELECT
 --*
-count(*)--,sum([Litrakm]),sum([Pladskm])
+count(*),sum([Værdi])--,sum([Litrakm]),sum([Pladskm])
 FROM poemaktuel.
 --dbo.GD_R_Baneafgifter_FR
 --dbo.GD_R_Togførertid_FR
@@ -39,7 +44,9 @@ FROM poemaktuel.
 --dbo.GD_R_LønsumAnsættelsetype
 --[dbo].[GD_R_Lokoførertid_STog]
 --dbo.GD_R_Personaledata
-dbo.[GD_R_RejseIndtægter_Togsystem_FR]
+--dbo.[GD_R_RejseIndtægter_Togsystem_FR]
+--dbo.GD_R_RejserIndtægter_FR
+dbo.GD_R_RejserIndtægter_Stog
 where [PeriodeIndlæst]='201503'
 --where [DI_Tid] between '20150301' and '20150331'
 --with cube
