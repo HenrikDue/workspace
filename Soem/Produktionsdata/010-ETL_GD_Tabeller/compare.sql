@@ -4,6 +4,7 @@ dbo.GD_R_Togførertid_FR
 dbo.GD_R_Lokoførertid_FR
 dbo.GD_R_LønsumAnsættelsetype
 [dbo].[GD_R_Lokoførertid_STog]
+dbo.GD_R_Personaledata
 
  */
  /*afvikles i SQLCMD mode. Query - SQLCMD*/
@@ -19,7 +20,8 @@ FROM  mdw_udv1.
 --dbo.GD_R_Togførertid_FR
 --dbo.GD_R_Lokoførertid_FR
 --dbo.GD_R_LønsumAnsættelsetype
-[dbo].[GD_R_Lokoførertid_STog]
+--[dbo].[GD_R_Lokoførertid_STog]
+dbo.GD_R_Personaledata
 --where [DI_Tid] between '20150301' and '20150331'
 --with cube
 go
@@ -33,7 +35,8 @@ FROM poemaktuel.
 --dbo.GD_R_Togførertid_FR
 --dbo.GD_R_Lokoførertid_FR
 --dbo.GD_R_LønsumAnsættelsetype
-[dbo].[GD_R_Lokoførertid_STog]
+--[dbo].[GD_R_Lokoførertid_STog]
+dbo.GD_R_Personaledata
 where [PeriodeIndlæst]='201503'
 --where [DI_Tid] between '20150301' and '20150331'
 --with cube
