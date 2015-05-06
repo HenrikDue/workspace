@@ -1,6 +1,8 @@
  /*
 dbo.GD_R_Baneafgifter_FR
 dbo.GD_R_Togførertid_FR
+dbo.GD_R_Lokoførertid_FR
+dbo.GD_R_LønsumAnsættelsetype
 
  */
  /*afvikles i SQLCMD mode. Query - SQLCMD*/
@@ -12,7 +14,10 @@ SELECT
 --*
 count(*)--,sum([Litrakm]),sum([Pladskm])  
 FROM  mdw_udv1.
-dbo.GD_R_Baneafgifter_FR
+--dbo.GD_R_Baneafgifter_FR
+--dbo.GD_R_Togførertid_FR
+--dbo.GD_R_Lokoførertid_FR
+dbo.GD_R_LønsumAnsættelsetype
 --where [DI_Tid] between '20150301' and '20150331'
 --with cube
 go
@@ -22,7 +27,10 @@ SELECT
 --*
 count(*)--,sum([Litrakm]),sum([Pladskm])
 FROM poemaktuel.
-dbo.GD_R_Baneafgifter_FR
+--dbo.GD_R_Baneafgifter_FR
+--dbo.GD_R_Togførertid_FR
+--dbo.GD_R_Lokoførertid_FR
+dbo.GD_R_LønsumAnsættelsetype
 where [PeriodeIndlæst]='201503'
 --where [DI_Tid] between '20150301' and '20150331'
 --with cube
