@@ -9,6 +9,11 @@ dbo.[GD_R_RejseIndtægter_Togsystem_FR]
 dbo.GD_R_RejserIndtægter_FR
 dbo.GD_R_RejserIndtægter_Stog
 [ods].[RD_Stog_Rejsedata]
+dbo.GD_R_Togproduktion_FR
+
+(views)
+edw.ft_togproduktion_tog_IssueId42
+edw.ft_togproduktion_litra_IssueId42
 
  */
  /*afvikles i SQLCMD mode. Query - SQLCMD*/
