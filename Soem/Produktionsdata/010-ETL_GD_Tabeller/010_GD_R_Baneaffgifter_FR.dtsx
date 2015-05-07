@@ -13,29 +13,11 @@
   DTS:ObjectName="010_GD_R_Baneaffgifter_FR"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="38"
-  DTS:VersionGUID="{B00A06DB-C00A-4ACA-BC49-3087DE778073}">
+  DTS:VersionBuild="40"
+  DTS:VersionGUID="{0FC8120B-7C68-4FC2-A252-51F185867D42}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:Variables>
-    <DTS:Variable
-      DTS:CreationName=""
-      DTS:DTSID="{F17FDE43-158F-4216-922F-7F7E53EAA009}"
-      DTS:IncludeInDebugDump="2345"
-      DTS:Namespace="User"
-      DTS:ObjectName="DATABASE">
-      <DTS:VariableValue
-        DTS:DataType="8">MDW_udv1</DTS:VariableValue>
-    </DTS:Variable>
-    <DTS:Variable
-      DTS:CreationName=""
-      DTS:DTSID="{AFC9C003-5C43-4F0D-9D00-BD09CDBCD38C}"
-      DTS:IncludeInDebugDump="2345"
-      DTS:Namespace="User"
-      DTS:ObjectName="SERVER">
-      <DTS:VariableValue
-        DTS:DataType="8">oesmsqlt01\soem</DTS:VariableValue>
-    </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
       DTS:DTSID="{AABB2676-10E7-47AF-88C7-2966E4F5B9DB}"
@@ -90,7 +72,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{7B4D929F-4283-4F16-BB2D-D45AB462E04F}"
+              SQLTask:Connection="{3D369588-24E5-411C-9879-EFAAB22A264F}"
               SQLTask:SqlStatementSource="SELECT convert(float,SUM(Afgift_kr)) As Afgift_kr&#xA;  FROM [edw].[FT_Togproduktion_Afgifter] d&#xA;join edw.DI_Tid t on (t.reference = d.FK_DI_Tid)&#xA;join -- Periode&#xA;(Select SUBSTRING(value,1,4) as År, CONVERT(Int, SUBSTRING(value,5,2)) as Måned , SUBSTRING(value,1,50) as Periode&#xA; from ods.ctl_dataload&#xA; Where kilde_system = 'Alle'&#xA; and variable = 'Model_Periode') p on (t.Aar = p.År&#xA;                                      and t.MaanedNum &lt;= p.måned)&#xA;where d.FK_DI_Togsystem NOT IN (&#xA;select ts.PK_DI_Togsystem&#xA;from edw.DI_Togsystem ts &#xA;left outer join ods.MD_G_STAM_Togsystem ms on (ms.Togsystemnummer = ts.Togsystemnummer)&#xA;where ISNULL(ms.Costobjekt, 'Ikke allokeret') = 'Ikke allokeret')&#xA;and d.AT_Afgiftstype = 'Bropassage'                                         "
               SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ResultBinding
@@ -112,7 +94,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{7B4D929F-4283-4F16-BB2D-D45AB462E04F}"
+              SQLTask:Connection="{3D369588-24E5-411C-9879-EFAAB22A264F}"
               SQLTask:SqlStatementSource="select sum(Værdi) As Afgift_kr&#xA;from [dbo].[GD_R_Baneafgifter_FR]&#xA;where PeriodeIndlæst = ?&#xA;and Enhed in ('TogkrBane', 'AntaltogKr')&#xA;&#xA;"
               SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ResultBinding
@@ -140,7 +122,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{7B4D929F-4283-4F16-BB2D-D45AB462E04F}"
+              SQLTask:Connection="{3D369588-24E5-411C-9879-EFAAB22A264F}"
               SQLTask:SqlStatementSource="select sum(CONVERT(Float, Værdi)) As Antal&#xA;from [dbo].[GD_R_Baneafgifter_FR]&#xA;where PeriodeIndlæst = ?&#xA;and Enhed in ('TogtimerBane', 'TogkmBane', 'AntalTog')&#xA;&#xA;"
               SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ResultBinding
@@ -168,7 +150,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{7B4D929F-4283-4F16-BB2D-D45AB462E04F}"
+              SQLTask:Connection="{3D369588-24E5-411C-9879-EFAAB22A264F}"
               SQLTask:SqlStatementSource="SELECT SUM(CONVERT(Float,Antal)) As Antal, SUM(CONVERT(Float, Afgift_kr)) As Afgift_kr&#xA;  FROM [edw].[FT_Togproduktion_Afgifter] d&#xA;join edw.DI_Tid t on (t.reference = d.FK_DI_Tid)&#xA;join -- Periode&#xA;(Select SUBSTRING(value,1,4) as År, CONVERT(Int, SUBSTRING(value,5,2)) as Måned , SUBSTRING(value,1,50) as Periode&#xA; from ods.ctl_dataload&#xA; Where kilde_system = 'Alle'&#xA; and variable = 'Model_Periode') p on (t.Aar = p.År&#xA;                                      and t.MaanedNum &lt;= p.måned)&#xA;where d.FK_DI_Togsystem IN (&#xA;select ts.PK_DI_Togsystem&#xA;from edw.DI_Togsystem ts &#xA;left outer join ods.MD_G_STAM_Togsystem ms on (ms.Togsystemnummer = ts.Togsystemnummer)&#xA;where ISNULL(ms.Costobjekt, 'Ikke allokeret') = 'Ikke allokeret')&#xA;&#xA;"
               SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ResultBinding
@@ -193,7 +175,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{7B4D929F-4283-4F16-BB2D-D45AB462E04F}"
+              SQLTask:Connection="{3D369588-24E5-411C-9879-EFAAB22A264F}"
               SQLTask:SqlStatementSource="SELECT  SUM(CONVERT(Float,Antal)) As Antal, SUM(CONVERT(Float, Afgift_kr)) As Afgift_kr&#xA;  FROM [edw].[FT_Togproduktion_Afgifter] d&#xA;join edw.DI_Tid t on (t.reference = d.FK_DI_Tid)&#xA;join -- Periode&#xA;(Select SUBSTRING(value,1,4) as År, CONVERT(Int, SUBSTRING(value,5,2)) as Måned , SUBSTRING(value,1,50) as Periode&#xA; from ods.ctl_dataload&#xA; Where kilde_system = 'Alle'&#xA; and variable = 'Model_Periode') p on (t.Aar = p.År&#xA;                                      and t.MaanedNum &lt;= p.måned)&#xA;"
               SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ResultBinding
@@ -218,7 +200,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{7B4D929F-4283-4F16-BB2D-D45AB462E04F}"
+              SQLTask:Connection="{3D369588-24E5-411C-9879-EFAAB22A264F}"
               SQLTask:SqlStatementSource="exec etl.Grl_DataLoadCheck_Log 102, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ParameterBinding
                 SQLTask:ParameterName="0"
@@ -248,7 +230,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{7B4D929F-4283-4F16-BB2D-D45AB462E04F}"
+              SQLTask:Connection="{3D369588-24E5-411C-9879-EFAAB22A264F}"
               SQLTask:SqlStatementSource="exec etl.Grl_DataLoadCheck_Log 99, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ParameterBinding
                 SQLTask:ParameterName="0"
@@ -278,7 +260,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{7B4D929F-4283-4F16-BB2D-D45AB462E04F}"
+              SQLTask:Connection="{3D369588-24E5-411C-9879-EFAAB22A264F}"
               SQLTask:SqlStatementSource="exec etl.Grl_DataLoadCheck_Log 98, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ParameterBinding
                 SQLTask:ParameterName="0"
@@ -308,7 +290,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{7B4D929F-4283-4F16-BB2D-D45AB462E04F}"
+              SQLTask:Connection="{3D369588-24E5-411C-9879-EFAAB22A264F}"
               SQLTask:SqlStatementSource="exec etl.Grl_DataLoadCheck_Log 101, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ParameterBinding
                 SQLTask:ParameterName="0"
@@ -338,7 +320,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{7B4D929F-4283-4F16-BB2D-D45AB462E04F}"
+              SQLTask:Connection="{3D369588-24E5-411C-9879-EFAAB22A264F}"
               SQLTask:SqlStatementSource="exec etl.Grl_DataLoadCheck_Log 97, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ParameterBinding
                 SQLTask:ParameterName="0"
@@ -368,7 +350,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{7B4D929F-4283-4F16-BB2D-D45AB462E04F}"
+              SQLTask:Connection="{3D369588-24E5-411C-9879-EFAAB22A264F}"
               SQLTask:SqlStatementSource="exec etl.Grl_DataLoadCheck_Log 96, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ParameterBinding
                 SQLTask:ParameterName="0"
@@ -398,7 +380,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{7B4D929F-4283-4F16-BB2D-D45AB462E04F}"
+              SQLTask:Connection="{3D369588-24E5-411C-9879-EFAAB22A264F}"
               SQLTask:SqlStatementSource="exec etl.Grl_DataLoadCheck_Log 100, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ParameterBinding
                 SQLTask:ParameterName="0"
@@ -520,7 +502,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{7B4D929F-4283-4F16-BB2D-D45AB462E04F}"
+          SQLTask:Connection="{3D369588-24E5-411C-9879-EFAAB22A264F}"
           SQLTask:SqlStatementSource="Select SUBSTRING(value,1,50) as Periode&#xA; from ods.ctl_dataload&#xA; Where kilde_system = 'Alle'&#xA; and variable = 'Model_Periode'"
           SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
           <SQLTask:ResultBinding
@@ -542,7 +524,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{7B4D929F-4283-4F16-BB2D-D45AB462E04F}"
+          SQLTask:Connection="{3D369588-24E5-411C-9879-EFAAB22A264F}"
           SQLTask:SqlStatementSource="DELETE &#xA;FROM dbo.GD_R_Baneafgifter_FR&#xA;WHERE PeriodeIndlæst = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
           <SQLTask:ParameterBinding
             SQLTask:ParameterName="0"
@@ -934,8 +916,8 @@ join -- Periode
               <connections>
                 <connection
                   refId="Package\Load FT data\FT_Togproduktion_Afgifter for periode.Connections[OleDbConnection]"
-                  connectionManagerID="{7B4D929F-4283-4F16-BB2D-D45AB462E04F}:invalid"
-                  connectionManagerRefId="{7B4D929F-4283-4F16-BB2D-D45AB462E04F}:invalid"
+                  connectionManagerID="{3D369588-24E5-411C-9879-EFAAB22A264F}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[MDW]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -1414,8 +1396,8 @@ join -- Periode
               <connections>
                 <connection
                   refId="Package\Load FT data\OLE DB Destination.Connections[OleDbConnection]"
-                  connectionManagerID="{7B4D929F-4283-4F16-BB2D-D45AB462E04F}:invalid"
-                  connectionManagerRefId="{7B4D929F-4283-4F16-BB2D-D45AB462E04F}:invalid"
+                  connectionManagerID="{3D369588-24E5-411C-9879-EFAAB22A264F}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[MDW]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -2268,8 +2250,8 @@ order by ts.PK_DI_Togsystem</property>
               <connections>
                 <connection
                   refId="Package\Load FT data\Togsystem.Connections[OleDbConnection]"
-                  connectionManagerID="{7B4D929F-4283-4F16-BB2D-D45AB462E04F}:invalid"
-                  connectionManagerRefId="{7B4D929F-4283-4F16-BB2D-D45AB462E04F}:invalid"
+                  connectionManagerID="{3D369588-24E5-411C-9879-EFAAB22A264F}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[MDW]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -5127,5 +5109,577 @@ order by ts.PK_DI_Togsystem</property>
       </GraphLayout>
     </LayoutInfo>
   </Package>
+  <TaskHost
+    design-time-name="Package\Load FT data">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="64" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Load FT data\OLE DB Destination"
+          TopLeft="390.103773584906,1015.91509433962" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Load FT data\Unpivot Strk uden afg"
+          TopLeft="757.801886792453,612.858490566038" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Load FT data\Data Conversion"
+          TopLeft="310.028301886792,96.0283018867925" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Load FT data\Togsystem"
+          TopLeft="520.707547169811,284.141509433962" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Load FT data\Unpivot Bropassage"
+          TopLeft="380.367924528302,612.066037735849" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Load FT data\Sorter FT data"
+          TopLeft="314.028301886792,283.084905660377" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Load FT data\Union All"
+          TopLeft="394.103773584906,836.028301886792" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Load FT data\Sumer Værdier"
+          TopLeft="309.009433962264,189.27358490566" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Load FT data\Unpivot Banetimer"
+          TopLeft="5.5,607.311320754717" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Load FT data\Påfør afgift uden"
+          TopLeft="757.839622641509,696.518867924528" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Load FT data\Unpivot Banekm"
+          TopLeft="183.688679245283,611.084905660377" />
+        <NodeLayout
+          Size="260,44"
+          Id="Package\Load FT data\FT_Togproduktion_Afgifter for periode"
+          TopLeft="248.103773584906,5.5" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Load FT data\Unpivot Strk med Afg"
+          TopLeft="568.103773584906,613.877358490566" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Load FT data\Merge Join"
+          TopLeft="412.858490566038,388.933962264151" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Load FT data\Afgift type opdeling"
+          TopLeft="412.858490566038,475.38679245283" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Load FT data\Påfør Afgift med"
+          TopLeft="567.122641509434,696.518867924528" />
+        <EdgeLayout
+          Id="Package\Load FT data.Paths[Banekm]"
+          TopLeft="459.990566037736,519.311320754717">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-208.415094339623,91.7735849056603"
+              Start="0,0"
+              End="-208.415094339623,84.2735849056603">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.566037735849" />
+                  <mssgle:LineSegment
+                    End="-208.415094339623,30.566037735849" />
+                  <mssgle:LineSegment
+                    End="-208.415094339623,84.2735849056603" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-122.205613576061,35.566037735849,35.9961328125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load FT data.Paths[Aggregate Output 1]"
+          TopLeft="376.896226415094,233.198113207547">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="5.01886792452831,49.8867924528302"
+              Start="0,0"
+              End="5.01886792452831,42.3867924528302">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.9433962264151" />
+                  <mssgle:LineSegment
+                    End="5.01886792452831,24.9433962264151" />
+                  <mssgle:LineSegment
+                    End="5.01886792452831,42.3867924528302" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load FT data.Paths[Unpivot Output4]"
+          TopLeft="635.990566037736,657.801886792453">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-0.981132075471692,38.7169811320755"
+              Start="0,0"
+              End="-0.981132075471692,31.2169811320755">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.3584905660377" />
+                  <mssgle:LineSegment
+                    End="-0.981132075471692,19.3584905660377" />
+                  <mssgle:LineSegment
+                    End="-0.981132075471692,31.2169811320755" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load FT data.Paths[Unpivot Output3]"
+          TopLeft="251.575471698113,655.009433962264">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="189.660377358491,181.018867924528"
+              Start="0,0"
+              End="189.660377358491,173.518867924528">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,90.4905660377358" />
+                  <mssgle:LineSegment
+                    End="189.660377358491,90.4905660377358" />
+                  <mssgle:LineSegment
+                    End="189.660377358491,173.518867924528" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load FT data.Paths[Unpivot Output2]"
+          TopLeft="448.254716981132,655.990566037736">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="13.7358490566038,180.037735849057"
+              Start="0,0"
+              End="13.7358490566038,172.537735849057">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,90" />
+                  <mssgle:LineSegment
+                    End="13.7358490566038,90" />
+                  <mssgle:LineSegment
+                    End="13.7358490566038,172.537735849057" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load FT data.Paths[Unpivot Output1]"
+          TopLeft="73.3867924528302,651.235849056604">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="347.094339622642,184.792452830189"
+              Start="0,0"
+              End="347.094339622642,177.292452830189">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,92.3773584905661" />
+                  <mssgle:LineSegment
+                    End="347.094339622642,92.3773584905661" />
+                  <mssgle:LineSegment
+                    End="347.094339622642,177.292452830189" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load FT data.Paths[Unpivot Output]"
+          TopLeft="825.688679245283,656.783018867925">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0.0377358490566166,39.7358490566038"
+              Start="0,0"
+              End="0.0377358490566166,32.2358490566038">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.8490566037736" />
+                  <mssgle:LineSegment
+                    End="0.0377358490566166,19.8490566037736" />
+                  <mssgle:LineSegment
+                    End="0.0377358490566166,32.2358490566038" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load FT data.Paths[Union All Output 1]"
+          TopLeft="461.990566037736,879.952830188679">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-4,135.962264150943"
+              Start="0,0"
+              End="-4,128.462264150943">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,67.9622641509433" />
+                  <mssgle:LineSegment
+                    End="-4,67.9622641509433" />
+                  <mssgle:LineSegment
+                    End="-4,128.462264150943" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load FT data.Paths[Strk uden afgift]"
+          TopLeft="522.254716981132,519.311320754717">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="303.433962264151,93.5471698113207"
+              Start="0,0"
+              End="303.433962264151,86.0471698113207">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.5849056603773" />
+                  <mssgle:LineSegment
+                    End="303.433962264151,15.5849056603773" />
+                  <mssgle:LineSegment
+                    End="303.433962264151,86.0471698113207" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="116.674930350825,20.5849056603773,70.0841015625,11.7119140625"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load FT data.Paths[Strk med afgift]"
+          TopLeft="501.5,519.311320754717">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="134.490566037736,94.566037735849"
+              Start="0,0"
+              End="134.490566037736,87.066037735849">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.5094339622641" />
+                  <mssgle:LineSegment
+                    End="134.490566037736,31.5094339622641" />
+                  <mssgle:LineSegment
+                    End="134.490566037736,87.066037735849" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="33.5832322376179,36.5094339622641,67.3241015625,11.7119140625"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load FT data.Paths[Sort Output]"
+          TopLeft="381.915094339623,327.009433962264">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="98.8301886792453,61.9245283018868"
+              Start="0,0"
+              End="98.8301886792453,54.4245283018868">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.9433962264151" />
+                  <mssgle:LineSegment
+                    End="98.8301886792453,30.9433962264151" />
+                  <mssgle:LineSegment
+                    End="98.8301886792453,54.4245283018868" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load FT data.Paths[OLE DB Source Output1]"
+          TopLeft="377.877358490566,49.4245283018868">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0.0377358490566166,46.6037735849057"
+              Start="0,0"
+              End="0.0377358490566166,39.1037735849057">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.2830188679245" />
+                  <mssgle:LineSegment
+                    End="0.0377358490566166,23.2830188679245" />
+                  <mssgle:LineSegment
+                    End="0.0377358490566166,39.1037735849057" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load FT data.Paths[OLE DB Source Output]"
+          TopLeft="588.594339622641,328.066037735849">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-87.0943396226415,60.8679245283018"
+              Start="0,0"
+              End="-87.0943396226415,53.3679245283018">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.4150943396226" />
+                  <mssgle:LineSegment
+                    End="-87.0943396226415,30.4150943396226" />
+                  <mssgle:LineSegment
+                    End="-87.0943396226415,53.3679245283018" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load FT data.Paths[Merge Join Output]"
+          TopLeft="480.745283018868,432.858490566038">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,42.5283018867924"
+              Start="0,0"
+              End="0,35.0283018867924">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.0283018867924" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load FT data.Paths[Derived Column Output1]"
+          TopLeft="825.72641509434,740.443396226415">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-322.22641509434,95.5849056603773"
+              Start="0,0"
+              End="-322.22641509434,88.0849056603773">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.7735849056604" />
+                  <mssgle:LineSegment
+                    End="-322.22641509434,47.7735849056604" />
+                  <mssgle:LineSegment
+                    End="-322.22641509434,88.0849056603773" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load FT data.Paths[Derived Column Output]"
+          TopLeft="635.009433962264,740.443396226415">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-152.264150943396,95.5849056603773"
+              Start="0,0"
+              End="-152.264150943396,88.0849056603773">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.7735849056604" />
+                  <mssgle:LineSegment
+                    End="-152.264150943396,47.7735849056604" />
+                  <mssgle:LineSegment
+                    End="-152.264150943396,88.0849056603773" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load FT data.Paths[Data Conversion Output]"
+          TopLeft="377.915094339623,139.952830188679">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-1.01886792452831,49.3207547169811"
+              Start="0,0"
+              End="-1.01886792452831,41.8207547169811">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.6415094339623" />
+                  <mssgle:LineSegment
+                    End="-1.01886792452831,24.6415094339623" />
+                  <mssgle:LineSegment
+                    End="-1.01886792452831,41.8207547169811" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load FT data.Paths[Bropassage]"
+          TopLeft="480.745283018868,519.311320754717">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-32.4905660377358,92.754716981132"
+              Start="0,0"
+              End="-32.4905660377358,85.254716981132">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.3773584905659" />
+                  <mssgle:LineSegment
+                    End="-32.4905660377358,46.3773584905659" />
+                  <mssgle:LineSegment
+                    End="-32.4905660377358,85.254716981132" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-42.0766306751179,51.3773584905659,51.6626953125,11.3359375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load FT data.Paths[Banetimer]"
+          TopLeft="439.235849056604,519.311320754717">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-365.849056603774,88"
+              Start="0,0"
+              End="-365.849056603774,80.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.6415094339623" />
+                  <mssgle:LineSegment
+                    End="-365.849056603774,14.6415094339623" />
+                  <mssgle:LineSegment
+                    End="-365.849056603774,80.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-205.968219708137,19.6415094339623,46.0873828125,9.470703125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
 </Objects>]]></DTS:DesignTimeProperties>
 </DTS:Executable>
