@@ -43,6 +43,7 @@ FROM  mdw_udv1.
 --dbo.GD_R_RejserIndtægter_Stog
 --dbo.GD_R_Togproduktion_FR
 [dbo].[GD_R_Togproduktion_STog]
+where [PeriodeIndlæst]='201504'
 --where [DI_Tid] between '20150301' and '20150331'
 --with cube
 go
