@@ -26,8 +26,8 @@ FROM  mdw_udv1.
 --[edw].[DI_Materiale]
 
 --where maaned='201503' /*Broafgifter Strkafgifter  */
---where fk_di_tid='201503' and [status]='oprindelig'/*Togproduktion_Afgifter*/
-where fk_di_tid between 20150301 and 20150331-- and [status]='oprindelig'/*Togproduktion_Litra*/
+where fk_di_tid='201503' --and [status]='oprindelig'/*Togproduktion_Afgifter*/
+--where fk_di_tid between 20150301 and 20150331-- and [status]='oprindelig'/*Togproduktion_Litra*/
 --group by AT_Togkategori
 --order by fk_di_togsystem,at_togkategori,at_afgiftsdriver
 --with  cube
@@ -59,8 +59,8 @@ FROM [mssqlp01\alpha].mdw.
 --[edw].[DI_Materiale]
 
 --where maaned='201503' /*Broafgifter Strkafgifter  */
---where fk_di_tid='201503' and [status]='oprindelig'/*Togproduktion_Afgifter*/
-where fk_di_tid between 20150301 and 20150331 --and [status]='oprindelig'/*Togproduktion_Litra*/
+where fk_di_tid='201503' --and [status]='oprindelig'/*Togproduktion_Afgifter*/
+--where fk_di_tid between 20150301 and 20150331 --and [status]='oprindelig'/*Togproduktion_Litra*/
 --group by AT_Togkategori
 --order by fk_di_togsystem,at_togkategori,at_afgiftsdriver
 --with cube
