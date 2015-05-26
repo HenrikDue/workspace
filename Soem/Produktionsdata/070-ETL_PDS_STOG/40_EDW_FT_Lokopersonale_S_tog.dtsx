@@ -13,8 +13,8 @@
   DTS:ObjectName="40_EDW_FT_Lokopersonale_S_tog"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="30"
-  DTS:VersionGUID="{AE617686-2384-418A-90A8-2071491B586C}">
+  DTS:VersionBuild="35"
+  DTS:VersionGUID="{38C60521-9D92-427F-BCCD-D6BC127CC653}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:Variables>
@@ -1217,7 +1217,8 @@ group by NetID</property>
                   dataType="System.String"
                   description="Specifies a SQL statement that uses parameters to generate the lookup table."
                   expressionType="Notify"
-                  name="SqlCommandParam"></property>
+                  name="SqlCommandParam">select * from (select PK_ID, Elementkode from edw.DI_S_Opgave_Lokofører) [refTable]
+where [refTable].[Elementkode] = ?</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the cache type of the lookup table."
@@ -1302,7 +1303,7 @@ group by NetID</property>
                 <output
                   refId="Package\FT_Lokopersonale_S_tog\Lookup DI_S_Opgave_Lokofører.Outputs[Lookup Match Output]"
                   errorOrTruncationOperation="Lookup"
-                  errorRowDisposition="FailComponent"
+                  errorRowDisposition="RedirectRow"
                   exclusionGroup="1"
                   name="Lookup Match Output"
                   synchronousInputId="Package\FT_Lokopersonale_S_tog\Lookup DI_S_Opgave_Lokofører.Inputs[Lookup Input]">
@@ -2116,7 +2117,7 @@ from ods.TD_Strækning_S_Lokofører_Opgaver</property>
           Id="Package\FT_Lokopersonale_S_tog\FT_Lokopersonale_S_tog"
           TopLeft="51.4622641509434,575.575471698113" />
         <NodeLayout
-          Size="136,44"
+          Size="129,42"
           Id="Package\FT_Lokopersonale_S_tog\Aggregate"
           TopLeft="84.8584905660377,82.3301886792453" />
         <NodeLayout
@@ -2125,26 +2126,24 @@ from ods.TD_Strækning_S_Lokofører_Opgaver</property>
           TopLeft="29.9528301886792,242.103773584906" />
         <EdgeLayout
           Id="Package\FT_Lokopersonale_S_tog.Paths[OLE DB Source Output]"
-          TopLeft="152.745283018868,49.4245283018868">
+          TopLeft="151.179245283019,49.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,32.9056603773585"
+              EndConnector="0,32.8301886792453"
               Start="0,0"
-              End="0,25.4056603773585">
+              End="0,25.3301886792453">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,25.4056603773585" />
+                    End="0,25.3301886792453" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -2219,7 +2218,7 @@ from ods.TD_Strækning_S_Lokofører_Opgaver</property>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-48.19138671875,11.9170106132075,96.3827734375,11.609375"
+              BoundingBox="-48.19138671875,11.9170106132076,96.3827734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -2243,7 +2242,7 @@ from ods.TD_Strækning_S_Lokofører_Opgaver</property>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-48.19138671875,7.42644457547169,96.3827734375,11.609375"
+              BoundingBox="-48.19138671875,7.4264445754717,96.3827734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -2270,37 +2269,43 @@ from ods.TD_Strækning_S_Lokofører_Opgaver</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\FT_Lokopersonale_S_tog.Paths[Aggregate Output 1]"
-          TopLeft="152.745283018868,126.254716981132">
+          TopLeft="151.13679245283,124.330188679245">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,37.9622641509434"
+              EndConnector="0,39.8867924528297"
               Start="0,0"
-              End="0,30.4622641509434">
+              End="0,32.3867924528297">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,30.4622641509434" />
+                    End="0,32.3867924528297" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\FT_Lokopersonale_S_tog\Lookup DI_S_Opgave_Lokofører">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
 </Objects>]]></DTS:DesignTimeProperties>
 </DTS:Executable>
