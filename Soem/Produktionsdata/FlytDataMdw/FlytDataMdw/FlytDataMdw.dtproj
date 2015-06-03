@@ -85,7 +85,6 @@
           <SSIS:Package SSIS:Name="RDH_Togproduktion_Litra.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="004_KOER_PERIODLOAD.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="005_KOER_OVERFOER_CD_DATA.dtsx" SSIS:EntryPoint="1" />
-          <SSIS:Package SSIS:Name="006_KOER_OVERFOERSEL_FT_DATA.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="007_KOER_OVERFOER_DATALOADCHECK_DATA.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="008_KOER_OVERFOER_TD_DATA.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="edw_di_omksted_ny.dtsx" SSIS:EntryPoint="1" />
@@ -105,10 +104,19 @@
           <SSIS:Package SSIS:Name="010_KOER_OVERFOER_Key_Dim.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="Key_Dim_Omkostningssted.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="Key_Dim_Profitcenter.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="Edw_TabRefLog.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="DIH_CostObject.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="999_KOER_OVERFOERSEL_FT_DATA.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="011_KOER_OVERFOER_GD_DATA.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="GD_A_Stamdata_OmkSted.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="GD_A_Stamdata_Profitcenter.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="GD_Dim_CostObject.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="GD_R_Baneafgifter_FR.dtsx" SSIS:EntryPoint="1" />
         </SSIS:Packages>
         <SSIS:ConnectionManagers>
           <SSIS:ConnectionManager SSIS:Name="MDWSource.conmgr" />
           <SSIS:ConnectionManager SSIS:Name="MDWDestination.conmgr" />
+          <SSIS:ConnectionManager SSIS:Name="GD_TABLE_Source.conmgr" />
         </SSIS:ConnectionManagers>
         <SSIS:DeploymentInfo>
           <SSIS:ProjectConnectionParameters>
@@ -215,6 +223,64 @@
               </SSIS:Properties>
             </SSIS:Parameter>
             <SSIS:Parameter SSIS:Name="CM.MDWDestination.UserName">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="CreationName">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
+              </SSIS:Properties>
+            </SSIS:Parameter>
+            <SSIS:Parameter SSIS:Name="CM.GD_TABLE_Source.ConnectionString">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="CreationName">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="Value">Data Source=mssqlt01\alpha;Initial Catalog=mdw;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;</SSIS:Property>
+                <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
+              </SSIS:Properties>
+            </SSIS:Parameter>
+            <SSIS:Parameter SSIS:Name="CM.GD_TABLE_Source.Password">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="CreationName">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="Sensitive">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
+              </SSIS:Properties>
+            </SSIS:Parameter>
+            <SSIS:Parameter SSIS:Name="CM.GD_TABLE_Source.RetainSameConnection">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="CreationName">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="Value">false</SSIS:Property>
+                <SSIS:Property SSIS:Name="DataType">3</SSIS:Property>
+              </SSIS:Properties>
+            </SSIS:Parameter>
+            <SSIS:Parameter SSIS:Name="CM.GD_TABLE_Source.UserName">
               <SSIS:Properties>
                 <SSIS:Property SSIS:Name="ID">
                 </SSIS:Property>
@@ -1090,10 +1156,10 @@
                 <SSIS:Property SSIS:Name="Name">001_KOER_ALLE_DIMENSIONS_PAKKER</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">35</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">36</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{7C471CA2-665B-45B1-9DA3-F96988F7FC00}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{CBDAB5B0-2417-417B-9195-7862FA33C9A9}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -1260,27 +1326,10 @@
                 <SSIS:Property SSIS:Name="Name">005_KOER_OVERFOER_CD_DATA</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">25</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">27</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{C2A7715A-7F08-4312-8295-73DB17277760}</SSIS:Property>
-                <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
-              </SSIS:Properties>
-              <SSIS:Parameters />
-            </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="006_KOER_OVERFOERSEL_FT_DATA.dtsx">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{97374DF0-3F99-4597-8911-088928EF2579}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">006_KOER_OVERFOERSEL_FT_DATA</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">46</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionComments">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{64BD0AF5-875F-4BD1-8679-1A95A423681E}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{5962F45A-2788-496D-AAF4-645E92AFCA01}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -1566,10 +1615,10 @@
                 <SSIS:Property SSIS:Name="Name">010_KOER_OVERFOER_Key_Dim</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">2</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">4</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{42199799-7CA7-4976-9BBE-D7C75CF594CA}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{714A6103-6FB8-40DB-B2F4-3D253FBB0E56}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -1604,6 +1653,142 @@
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionGUID">{CEFC64B3-6CED-45BF-B7B1-D0441EBC48A2}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="Edw_TabRefLog.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{F27443A4-18F6-43D7-8B13-E5A0E79ED24E}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">Edw_TabRefLog</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">13</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{8CC15BDE-B285-4DFD-8A92-48A4140B605A}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="DIH_CostObject.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{0B042FE5-55FC-4EBF-86DE-754E46B6EAAB}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">DIH_CostObject</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">7</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{709D2C11-9C6A-4B9D-A85B-9D9C182DD1E6}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="999_KOER_OVERFOERSEL_FT_DATA.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{4497925B-C62A-4977-888F-7D9E6C96F6F8}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">999_KOER_OVERFOERSEL_FT_DATA</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">50</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{CE9D7FF6-2C92-480F-86AE-640A2B485662}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="011_KOER_OVERFOER_GD_DATA.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{F8F3AB0C-97C5-4D9C-90DF-1E1D248FB684}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">011_KOER_OVERFOER_GD_DATA</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">4</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{ECD4EC6F-C903-4BA5-8DBC-33E7DAC348EF}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="GD_A_Stamdata_OmkSted.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{FFAD8C1A-A0B5-45CC-BDAC-3AC601C37EA7}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">GD_A_Stamdata_OmkSted</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">6</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{042F00EA-D05F-4531-BC6B-BD7E713ECCC8}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="GD_A_Stamdata_Profitcenter.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{D590CA5A-31F5-4B78-BB11-EEC5F57F74B3}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">GD_A_Stamdata_Profitcenter</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">7</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{D17D9630-854F-43ED-B393-A3AA783FFA36}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="GD_Dim_CostObject.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{73BBC3B0-5C3F-4A12-ADB2-3C2FC1842A50}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">GD_Dim_CostObject</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">10</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{ED03D81D-2FCB-4998-9D01-A70645693C4E}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="GD_R_Baneafgifter_FR.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{0EA9A669-6EFE-4C8B-B641-070C1CA16BAC}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">GD_R_Baneafgifter_FR</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">12</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{662DA2EF-481D-4EF4-BA06-B08E9A04F4AF}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
