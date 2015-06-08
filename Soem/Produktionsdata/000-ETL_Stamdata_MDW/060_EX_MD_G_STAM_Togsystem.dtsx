@@ -13,8 +13,8 @@
   DTS:ObjectName="060_EX_MD_G_STAM_Togsystem"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="16"
-  DTS:VersionGUID="{F04A1B12-B751-4CB2-8325-4E0A6B3E7A66}">
+  DTS:VersionBuild="20"
+  DTS:VersionGUID="{0D7333D0-7AEF-48B1-9676-146F5321D2CD}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -23,9 +23,11 @@
       DTS:CreationName="EXCEL"
       DTS:DTSID="{95BAA5DF-5BE8-4C00-A666-6F357920527C}"
       DTS:ObjectName="Excel Connection Manager">
+      <DTS:PropertyExpression
+        DTS:Name="ExcelFilePath">"\\\\"+@[$Project::MDWSERVER] +"\\files\\"+ @[$Project::MDWDATABASE]+"\\Stamdata\\EX_MD_G_STAM_Togsystem.xls"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\\gbdfs1\DSBDFS\Økonomi\KONC-POEM\70_BI\Projects\Files\StamData\EX_MD_G_STAM_Togsystem.xls;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\\oesmsqlt01\soem\files\MDW_udv4\Stamdata\EX_MD_G_STAM_Togsystem.xls;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -483,7 +485,8 @@
                     isUsed="True">
                     <externalMetadataColumn
                       refId="Package\Indlæs data\MD_G_STAM_Togsystem.Outputs[Excel Source Output].ExternalColumns[Togsystemnummer]"
-                      dataType="r8"
+                      dataType="wstr"
+                      length="255"
                       name="Togsystemnummer" />
                     <externalMetadataColumn
                       refId="Package\Indlæs data\MD_G_STAM_Togsystem.Outputs[Excel Source Output].ExternalColumns[Togsystemnavn]"
@@ -533,7 +536,8 @@
                   <outputColumns>
                     <outputColumn
                       refId="Package\Indlæs data\MD_G_STAM_Togsystem.Outputs[Excel Source Error Output].Columns[Togsystemnummer]"
-                      dataType="r8"
+                      dataType="wstr"
+                      length="255"
                       lineageId="Package\Indlæs data\MD_G_STAM_Togsystem.Outputs[Excel Source Error Output].Columns[Togsystemnummer]"
                       name="Togsystemnummer" />
                     <outputColumn
