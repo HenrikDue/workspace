@@ -13,8 +13,8 @@
   DTS:ObjectName="410_ODS_DL_RD_Togstandsninger"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="491"
-  DTS:VersionGUID="{AA13F05D-68A7-4700-BD58-9C2104AAF7D3}"
+  DTS:VersionBuild="492"
+  DTS:VersionGUID="{2A862FA3-A3EA-4518-821D-B3AB599DE593}"
   DTS:VersionMajor="0"
   DTS:VersionMinor="9">
   <DTS:Property
@@ -26,7 +26,7 @@
       DTS:DTSID="{111379d4-31d7-4a0b-9994-775959ce8f71}"
       DTS:ObjectName="protal_tabel4">
       <DTS:PropertyExpression
-        DTS:Name="ConnectionString">@[User::v_Filepath] + "protal_tabel4" +@[User::v_Load_period]+".csv"</DTS:PropertyExpression>
+        DTS:Name="ConnectionString">"\\\\"+@[$Project::MDWSERVER]+"\\files\\"+ @[$Project::MDWDATABASE]+"\\data\\aktuel\\"+ "protal_tabel4" +@[User::v_Load_period]+".csv"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:Format="Delimited"
@@ -36,7 +36,7 @@
           DTS:RowDelimiter=""
           DTS:TextQualifier="_x0022_"
           DTS:CodePage="1252"
-          DTS:ConnectionString="\\gbpoemprod\Data\Aktuel\protal_tabel40.csv">
+          DTS:ConnectionString="\\oesmsqlt01\soem\files\MDW_udv4\data\aktuel\protal_tabel40.csv">
           <DTS:FlatFileColumns>
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -239,7 +239,7 @@
           DTS:LocaleID="-1"
           DTS:ObjectName="Beregn Kontrol værdig fra RDH"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="0">
+          DTS:ThreadHint="1">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -267,7 +267,7 @@
           DTS:LocaleID="-1"
           DTS:ObjectName="Gem standsninger"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="0">
+          DTS:ThreadHint="1">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -297,7 +297,7 @@
           DTS:LocaleID="-1"
           DTS:ObjectName="Insert repeted rows into ODS CD_Togstandsninger"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="0">
+          DTS:ThreadHint="1">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -398,7 +398,7 @@
           DTS:LocaleID="-1"
           DTS:ObjectName="EXEC End loaderlog"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="0">
+          DTS:ThreadHint="1">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -440,7 +440,7 @@
           DTS:LocaleID="-1"
           DTS:ObjectName="EXEC Init loaderlog for RD_Togstandsninger"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="0">
+          DTS:ThreadHint="1">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -3277,7 +3277,7 @@
           DTS:LocaleID="-1"
           DTS:ObjectName="Set controlvariables"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="0">
+          DTS:ThreadHint="1">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -3304,7 +3304,7 @@
           DTS:LocaleID="-1"
           DTS:ObjectName="Truncate RD_Togstandsninger"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="0">
+          DTS:ThreadHint="1">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -4091,7 +4091,7 @@
       DTS:LocaleID="-1"
       DTS:ObjectName="Send mail if loaded period is not new"
       DTS:TaskContact="Send Mail Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="1">
+      DTS:ThreadHint="0">
       <DTS:Variables />
       <DTS:PropertyExpression
         DTS:Name="MessageSource">"Indlæst dataperiode er ikke nyere end den seneste periode i RDH hvilket indikerer at data allerede er indlæst.\n
