@@ -13,10 +13,10 @@ SET SOURCE_FILE5=P:\70_BI\Manuelle_data\Materieldatabasen\Materieldatabasen2012E
 SET SOURCE_FILE51=Materieldatabasen2012Excel2003
 SET SOURCE_FILE6=protal_tog_
 SET SOURCE_FILE7=protal_tabel4
-SET DEST_PATH=\\oesmsqlt01\soem\files\%DB_NAVN%\Data\Aktuel\
+SET DEST_PATH=\\%DB_SERVER%\files\%DB_NAVN%\Data\Aktuel\
 SET FILE_EXT=.csv
 rem ** der logges når KOERSEL=prod
-SET KOERSEL=prod
+SET KOERSEL=test
 
 :STARTEN
 CLS
@@ -56,11 +56,13 @@ IF %errorlevel%==3 GOTO ExitChosen
 IF %errorlevel%==2 SET ValgIndtastNyPeriode=1 & GOTO GenvalgPeriode
 
 :Valgslut
-
+ECHO ******************************************************************************
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "declare @periode varchar(50); select @periode = Value from ods.CTL_Dataload where kilde_system = 'Protal' and Variable = 'Load_Period'; print 'Starter job med Protal LoadPeriode: '+@periode"
+ECHO ******************************************************************************
+ECHO.
 for /f %%a in ('SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "SET NOCOUNT ON;select substring(Value,1,6) from ods.CTL_Dataload where kilde_system = 'Protal' and Variable = 'Load_Period'" -h -1') do set PERIODE=%%a
 
-SET LOGFILE=LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%.txt
+SET LOGFILE=LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%_%KOERSEL%.txt
 SET LOGFILE=%LOGFILE: =0%
 
 cd %LOG_PATH%
@@ -76,9 +78,10 @@ ECHO f | xcopy /y %SOURCE_FILE5%%FILE_EXT% %DEST_PATH%%SOURCE_FILE51%%FILE_EXT%
 ECHO f | xcopy /y %SOURCE_PATH%%SOURCE_FILE6%%PERIODE%%FILE_EXT% %DEST_PATH%%SOURCE_FILE6%%PERIODE%%FILE_EXT%
 ECHO f | xcopy /y %SOURCE_PATH%%SOURCE_FILE7%%PERIODE%%FILE_EXT% %DEST_PATH%%SOURCE_FILE7%%PERIODE%%FILE_EXT%
 
-SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_Togproduktion_Fjern_og_Regional %SSISDB_FOLDER%, ''" > Log\Log%KOERSEL%.txt
-
-Log\Log%KOERSEL%.txt
+SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_Togproduktion_Fjern_og_Regional %SSISDB_FOLDER%, ''" >> %LOGFILE%
+ECHO ******************************************************************************
+ECHO.
+%LOGFILE%
 pause
 
 %DEST_PATH%Log\logDiff.txt

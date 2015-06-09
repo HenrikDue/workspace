@@ -11,9 +11,9 @@ SET SOURCE_FILE4=EX_MD_G_STAM_Litra.xlsx
 SET SOURCE_FILE5=EX_MD_G_STAM_Stationer.xlsx
 SET SOURCE_FILE6=EX_MD_G_STAM_Timer_.xlsx
 SET SOURCE_FILE7=EX_MD_G_STAM_Togsystem.xls
-SET DEST_PATH=\\oesmsqlt01\soem\files\%DB_NAVN%\StamData\
+SET DEST_PATH=\\%DB_SERVER%\files\%DB_NAVN%\StamData\
 SET SSISDB_FOLDER=%DB_NAVN%
-
+SET LOG_PATH=\70_BI\Data_load_kontrol\Prod\Load_step_00_Manuelle_Data\
 
 ECHO ******************************************************************************
 ECHO *  Server: %DB_SERVER%
@@ -34,8 +34,8 @@ ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH%%SOURCE_FILE4% %DEST_PATH%%SOURCE_F
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH%%SOURCE_FILE5% %DEST_PATH%%SOURCE_FILE5%
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH%%SOURCE_FILE6% %DEST_PATH%%SOURCE_FILE6%
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH%%SOURCE_FILE7% %DEST_PATH%%SOURCE_FILE7%
-SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_stamdata_mdw %SSISDB_FOLDER%, ''" > Log\Log.txt
+SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_stamdata_mdw %SSISDB_FOLDER%, ''" > %SOURCE_DRIVE%%LOG_PATH%\Log\Log.txt
 ECHO *
 ECHO ******************************************************************************
-Log\Log.txt
+%SOURCE_DRIVE%%LOG_PATH%\Log\Log.txt
 pause
