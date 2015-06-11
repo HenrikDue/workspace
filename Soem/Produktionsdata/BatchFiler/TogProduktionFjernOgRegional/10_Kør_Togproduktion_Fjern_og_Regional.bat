@@ -15,7 +15,6 @@ SET SOURCE_FILE6=protal_tog_
 SET SOURCE_FILE7=protal_tabel4
 SET DEST_PATH=\\%DB_SERVER%\files\%DB_NAVN%\Togproduktion_FR\Data\Aktuel\
 SET FILE_EXT=.csv
-rem ** der logges når KOERSEL=prod
 SET KOERSEL=test
 
 :STARTEN
