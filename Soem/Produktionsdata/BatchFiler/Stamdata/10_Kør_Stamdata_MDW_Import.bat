@@ -27,6 +27,7 @@ ECHO *  %SOURCE_FILE5%
 ECHO *  %SOURCE_FILE6%
 ECHO *  %SOURCE_FILE7%
 ECHO *
+ECHO ******************************************************************************
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH%%SOURCE_FILE1% %DEST_PATH%%SOURCE_FILE1%
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH%%SOURCE_FILE2% %DEST_PATH%%SOURCE_FILE2%
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH%%SOURCE_FILE3% %DEST_PATH%%SOURCE_FILE3%
@@ -34,8 +35,7 @@ ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH%%SOURCE_FILE4% %DEST_PATH%%SOURCE_F
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH%%SOURCE_FILE5% %DEST_PATH%%SOURCE_FILE5%
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH%%SOURCE_FILE6% %DEST_PATH%%SOURCE_FILE6%
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH%%SOURCE_FILE7% %DEST_PATH%%SOURCE_FILE7%
+
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_stamdata_mdw %SSISDB_FOLDER%, ''" > %SOURCE_DRIVE%%LOG_PATH%\Log\Log.txt
-ECHO *
-ECHO ******************************************************************************
 %SOURCE_DRIVE%%LOG_PATH%\Log\Log.txt
 pause
