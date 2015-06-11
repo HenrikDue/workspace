@@ -13,8 +13,8 @@
   DTS:ObjectName="03_edw_tr1_dim_Omksted"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="68"
-  DTS:VersionGUID="{F203D314-6213-4A1A-9A0A-401E80953410}">
+  DTS:VersionBuild="69"
+  DTS:VersionGUID="{1F2CCE4C-450F-4F09-BB81-5A491CE6A612}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -23,6 +23,8 @@
       DTS:CreationName="FLATFILE"
       DTS:DTSID="{78B0241D-32F2-4778-9185-FBC407DB4F1B}"
       DTS:ObjectName="ErrorOutputConvFradatoOgTildata">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">"\\\\" +@[$Project::MDWSERVER] +"\\files\\"+ @[$Project::MDWDATABASE] + "\\SAP_Costobjekt_og_Stamdata\\Log\\ErrorOutput.txt"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:Format="Delimited"
@@ -31,7 +33,7 @@
           DTS:RowDelimiter=""
           DTS:TextQualifier="_x003C_none_x003E_"
           DTS:CodePage="1252"
-          DTS:ConnectionString="\\gbdfs1\DSBDFS\Økonomi\KONC-POEM\70_BI\Deployed_packages\Prod\Flow_SAP_Costobjekt_og_Stamdata\Log\ErrorOutput.txt">
+          DTS:ConnectionString="\\oesmsqlt01\soem\files\mdw_udv4\SAP_Costobjekt_og_Stamdata\Log\ErrorOutput.txt">
           <DTS:FlatFileColumns>
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -5342,44 +5344,44 @@ where [refTable].[Profitcenter] = ? and [refTable].[Aktiv] = 'j'</property>
                   startId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\CONV dates type.Outputs[Data Conversion Output]" />
                 <path
                   refId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output7]"
-                  endId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\CONV dates type.Inputs[Data Conversion Input]"
+                  endId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\Multicast.Inputs[Multicast Input 1]"
                   name="Derived Column Output"
-                  startId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\CONV dates.Outputs[Derived Column Output]" />
+                  startId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\CONV empty values.Outputs[Derived Column Output]" />
                 <path
                   refId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output6]"
-                  endId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\OLE DB Command.Inputs[OLE DB Command Input]"
-                  name="Derived Column Output"
-                  startId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\ADD GyldigTildato.Outputs[Derived Column Output]" />
-                <path
-                  refId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output4]"
-                  endId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input]"
-                  name="Derived Column Output"
-                  startId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\UPD Omksteder without profitcenter.Outputs[Derived Column Output]" />
-                <path
-                  refId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output5]"
-                  endId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\DI_Omksted.Inputs[OLE DB Destination Input]"
-                  name="Derived Column Output"
-                  startId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\UPD GyldigTildato Omksted &amp; Profcenter.Outputs[Derived Column Output]" />
-                <path
-                  refId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output2]"
-                  endId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\Union All 2.Inputs[Union All Input 1]"
-                  name="Derived Column Output"
-                  startId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\UPD Aktiv 1.Outputs[Derived Column Output]" />
-                <path
-                  refId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output3]"
-                  endId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\UPD GyldigTildato Omksted &amp; Profcenter.Inputs[Derived Column Input]"
-                  name="Derived Column Output"
-                  startId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\ADD Aktiv.Outputs[Derived Column Output]" />
-                <path
-                  refId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output1]"
                   endId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\Union All 2.Inputs[Union All Input 2]"
                   name="Derived Column Output"
                   startId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\UPD Aktiv 2.Outputs[Derived Column Output]" />
                 <path
-                  refId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output]"
-                  endId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\Multicast.Inputs[Multicast Input 1]"
+                  refId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output4]"
+                  endId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\Union All 2.Inputs[Union All Input 1]"
                   name="Derived Column Output"
-                  startId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\CONV empty values.Outputs[Derived Column Output]" />
+                  startId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\UPD Aktiv 1.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output5]"
+                  endId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\UPD GyldigTildato Omksted &amp; Profcenter.Inputs[Derived Column Input]"
+                  name="Derived Column Output"
+                  startId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\ADD Aktiv.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output2]"
+                  endId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input]"
+                  name="Derived Column Output"
+                  startId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\UPD Omksteder without profitcenter.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output3]"
+                  endId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\DI_Omksted.Inputs[OLE DB Destination Input]"
+                  name="Derived Column Output"
+                  startId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\UPD GyldigTildato Omksted &amp; Profcenter.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output1]"
+                  endId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\OLE DB Command.Inputs[OLE DB Command Input]"
+                  name="Derived Column Output"
+                  startId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\ADD GyldigTildato.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output]"
+                  endId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\CONV dates type.Inputs[Data Conversion Input]"
+                  name="Derived Column Output"
+                  startId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\CONV dates.Outputs[Derived Column Output]" />
                 <path
                   refId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Historical Attribute Inserts Output]"
                   endId="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted\ADD GyldigTildato.Inputs[Derived Column Input]"
@@ -6662,7 +6664,7 @@ where [refTable].[Profitcenter] = ? and [refTable].[Aktiv] = 'j'</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output]"
+          Id="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output7]"
           TopLeft="338.971698113208,476.745283018868">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -6688,7 +6690,7 @@ where [refTable].[Profitcenter] = ? and [refTable].[Aktiv] = 'j'</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output1]"
+          Id="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output6]"
           TopLeft="73.3867924528302,1213.72641509434">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -6710,7 +6712,7 @@ where [refTable].[Profitcenter] = ? and [refTable].[Aktiv] = 'j'</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output3]"
+          Id="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output5]"
           TopLeft="211.5,1544.17924528302">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -6736,7 +6738,7 @@ where [refTable].[Profitcenter] = ? and [refTable].[Aktiv] = 'j'</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output2]"
+          Id="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output4]"
           TopLeft="248.330188679245,1048.06603773585">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -6762,7 +6764,7 @@ where [refTable].[Profitcenter] = ? and [refTable].[Aktiv] = 'j'</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output5]"
+          Id="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output3]"
           TopLeft="204.933962264151,1456.70754716981">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -6788,7 +6790,7 @@ where [refTable].[Profitcenter] = ? and [refTable].[Aktiv] = 'j'</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output4]"
+          Id="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output2]"
           TopLeft="240.669811320755,656.367924528302">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -6814,7 +6816,7 @@ where [refTable].[Profitcenter] = ? and [refTable].[Aktiv] = 'j'</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output6]"
+          Id="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output1]"
           TopLeft="607.084905660377,657.38679245283">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -6840,7 +6842,7 @@ where [refTable].[Profitcenter] = ? and [refTable].[Aktiv] = 'j'</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output7]"
+          Id="Package\Load GD_A_Omksted table and Omksted dimension\LOAD DI_Omksted &amp; GD_A_Omksted.Paths[Derived Column Output]"
           TopLeft="412.933962264151,777.72641509434">
           <EdgeLayout.Curve>
             <mssgle:Curve

@@ -13,8 +13,8 @@
   DTS:ObjectName="02_ods_dl_SAP_Profitcenter"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="64"
-  DTS:VersionGUID="{F6FA4140-EEF2-4649-BC66-84134011A90D}">
+  DTS:VersionBuild="65"
+  DTS:VersionGUID="{8ADD3069-BC4F-4136-B1A6-68DB5C3AAE3D}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -25,7 +25,7 @@
       DTS:DTSID="{EB309E62-18D9-4DDD-A511-D06495394FA4}"
       DTS:ObjectName="SAP Profitcenter">
       <DTS:PropertyExpression
-        DTS:Name="ConnectionString">@[User::v_FilePath] + @[User::v_FileName]+ @[User::v_PeriodtoFile]+".csv"</DTS:PropertyExpression>
+        DTS:Name="ConnectionString">"\\\\"+ @[$Project::MDWSERVER]+"\\files\\"+ @[$Project::MDWDATABASE]+"\\Stamdata\\SAP\\"+ @[User::v_FileName]+ @[User::v_PeriodtoFile]+".csv"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:Format="Delimited"
@@ -35,7 +35,7 @@
           DTS:RowDelimiter=""
           DTS:TextQualifier="_x003C_none_x003E_"
           DTS:CodePage="1252"
-          DTS:ConnectionString="\\gbdfs1\DSBDFS\Økonomi\KONC-POEM\70_BI\Projects\Files\StamData\SAP\SAP_PROFITCENTER201402.csv">
+          DTS:ConnectionString="\\oesmsqlt01\soem\files\mdw_udv4\Stamdata\SAP\SAP_PROFITCENTER201402.csv">
           <DTS:FlatFileColumns>
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"

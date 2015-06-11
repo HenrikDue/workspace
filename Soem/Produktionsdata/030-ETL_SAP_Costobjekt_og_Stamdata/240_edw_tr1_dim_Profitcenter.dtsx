@@ -13,8 +13,8 @@
   DTS:ObjectName="04_edw_tr1_dim_Profitcenter"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="102"
-  DTS:VersionGUID="{975A3513-62A3-4D25-9996-C35165192647}">
+  DTS:VersionBuild="105"
+  DTS:VersionGUID="{92A20B4D-FC9A-4E04-80EF-1774CE0223D7}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -23,6 +23,8 @@
       DTS:CreationName="FLATFILE"
       DTS:DTSID="{A4DA17D0-A453-47EB-9A29-00269E9F4391}"
       DTS:ObjectName="Error_ProfitcenterConvert">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">"\\\\" +@[$Project::MDWSERVER] +"\\files\\"+ @[$Project::MDWDATABASE] + "\\SAP_Costobjekt_og_Stamdata\\Log\\Error_ProfitcenterConvert.txt"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:Format="Delimited"
@@ -32,7 +34,7 @@
           DTS:RowDelimiter=""
           DTS:TextQualifier="_x003C_none_x003E_"
           DTS:CodePage="1252"
-          DTS:ConnectionString="\\gbdfs1\DSBDFS\Økonomi\KONC-POEM\70_BI\Deployed_packages\Prod\Flow_SAP_Costobjekt_og_Stamdata\Log\Error_ProfitcenterConvert.txt">
+          DTS:ConnectionString="\\oesmsqlt01\soem\files\mdw_udv4\SAP_Costobjekt_og_Stamdata\Log\Error_ProfitcenterConvert.txt">
           <DTS:FlatFileColumns>
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -637,7 +639,7 @@
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{7E01F8E9-F1AE-45F7-9494-394DEDC3005D}"
-              SQLTask:SqlStatementSource="update ods.rd_sap_profitcenterstam&#xA;set Profitcenter = cast(cast(Profitcenter as integer) as varchar)&#xA;where isnumeric(Profitcenter) = 1&#xA;&#xA;update ods.rd_sap_profitcenterstam&#xA;set GyldigFradato = replace(GyldigFradato, '.', '-'), &#xA;    GyldigTildato = replace(GyldigTildato, '.', '-')&#xA;&#xA;update ods.rd_sap_profitcenterstam&#xA;set Enhed = ''&#xA;where isnull(Enhed, '-') = '-'" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStatementSource="update ods.rd_sap_profitcenterstam&#xA;set Profitcenter = cast(cast(Profitcenter as bigint) as varchar)&#xA;where isnumeric(Profitcenter) = 1&#xA;&#xA;update ods.rd_sap_profitcenterstam&#xA;set GyldigFradato = replace(GyldigFradato, '.', '-'), &#xA;    GyldigTildato = replace(GyldigTildato, '.', '-')&#xA;&#xA;update ods.rd_sap_profitcenterstam&#xA;set Enhed = ''&#xA;where isnull(Enhed, '-') = '-'" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable

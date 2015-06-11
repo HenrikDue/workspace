@@ -13,8 +13,8 @@
   DTS:ObjectName="01_ods_dl_SAP_Omksted"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="85"
-  DTS:VersionGUID="{4BFE8F9B-E6B9-454F-835D-850125CA88FE}">
+  DTS:VersionBuild="87"
+  DTS:VersionGUID="{6E2D7DCD-FF11-439F-A5F1-0E0FF596B7B1}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -25,7 +25,7 @@
       DTS:DTSID="{488db943-ceb1-41d2-ac5b-37a2e4f739b9}"
       DTS:ObjectName="SAP Omksted">
       <DTS:PropertyExpression
-        DTS:Name="ConnectionString">@[User::v_FilePath] + @[User::v_FileName]+ @[User::v_PeriodtoFile]+".csv"</DTS:PropertyExpression>
+        DTS:Name="ConnectionString">"\\\\"+ @[$Project::MDWSERVER]+"\\files\\"+ @[$Project::MDWDATABASE]+"\\Stamdata\\SAP\\"+ @[User::v_FileName]+ @[User::v_PeriodtoFile]+".csv"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:Format="Delimited"
@@ -35,7 +35,7 @@
           DTS:RowDelimiter=""
           DTS:TextQualifier="_x003C_none_x003E_"
           DTS:CodePage="1252"
-          DTS:ConnectionString="\\gbdfs1\DSBDFS\Økonomi\KONC-POEM\70_BI\Projects\Files\StamData\SAP\SAP_OMKOSTNINGSTED201401.csv">
+          DTS:ConnectionString="\\oesmsqlt01\soem\files\mdw_udv4\Stamdata\SAP\SAP_OMKOSTNINGSTED201401.csv">
           <DTS:FlatFileColumns>
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
