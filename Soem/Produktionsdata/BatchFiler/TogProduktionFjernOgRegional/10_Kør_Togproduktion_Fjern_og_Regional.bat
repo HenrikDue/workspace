@@ -77,7 +77,7 @@ ECHO f | xcopy /y %SOURCE_FILE5%%FILE_EXT% %DEST_PATH%%SOURCE_FILE51%%FILE_EXT%
 ECHO f | xcopy /y %SOURCE_PATH%%SOURCE_FILE6%%PERIODE%%FILE_EXT% %DEST_PATH%%SOURCE_FILE6%%PERIODE%%FILE_EXT%
 ECHO f | xcopy /y %SOURCE_PATH%%SOURCE_FILE7%%PERIODE%%FILE_EXT% %DEST_PATH%%SOURCE_FILE7%%PERIODE%%FILE_EXT%
 
-rem SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_Togproduktion_Fjern_og_Regional %SSISDB_FOLDER%, ''" >> %LOGFILE%
+SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_Togproduktion_Fjern_og_Regional %SSISDB_FOLDER%, ''" >> %LOGFILE%
 ECHO ******************************************************************************
 ECHO.
 %LOGFILE%
