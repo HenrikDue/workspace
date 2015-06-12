@@ -13,8 +13,8 @@
   DTS:ObjectName="110_ods_dl_FTE-HR"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="567"
-  DTS:VersionGUID="{80C40881-3F91-476B-BF7C-A08DE74A44F5}">
+  DTS:VersionBuild="569"
+  DTS:VersionGUID="{AAB00598-FB19-4B0E-A0B3-D5E4E6B5E9E1}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -25,7 +25,7 @@
       DTS:DTSID="{31D741C1-4AEE-4962-AE34-D7121C057348}"
       DTS:ObjectName="FTE HR definition">
       <DTS:PropertyExpression
-        DTS:Name="ConnectionString">@[User::v_Filepath] + @[User::v_FileName]+ @[User::v_CurrPeriod_char] + ".csv"</DTS:PropertyExpression>
+        DTS:Name="ConnectionString">"\\\\"+ @[$Project::MDWSERVER]+"\\files\\"+ @[$Project::MDWDATABASE]+"\\hr_fte\\fpc\\"+ @[User::v_FileName]+ @[User::v_CurrPeriod_char] +".csv"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:Format="Delimited"
@@ -35,7 +35,7 @@
           DTS:RowDelimiter=""
           DTS:TextQualifier="_x0022_"
           DTS:CodePage="1252"
-          DTS:ConnectionString="\\gbdfs1\DSBDFS\Økonomi\KONC-POEM\70_BI\Projects\Files\FPC\csv\HR_FTE_.csv">
+          DTS:ConnectionString="\\oesmsqlt01\soem\files\mdw_udv4\hr_fte\fpc\HR_FTE_.csv">
           <DTS:FlatFileColumns>
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"

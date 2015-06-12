@@ -21,7 +21,8 @@ CLS
 ECHO Script startet klokken: %time% 
 
 P:
-SET LOG_PATH=\70_BI\Deployed_packages\Prod\Flow_SAP_Costobjekt_og_Stamdata
+SET LOG_PATH=\70_BI\Deployed_packages\Prod\Load_step_03_SAP_Costobjekt_og_Stamdata
+md %LOG_PATH%\Log
 
 setlocal enabledelayedexpansion
 
@@ -57,7 +58,7 @@ IF %errorlevel%==2 SET ValgIndtastNyPeriode=1 & GOTO GenvalgPeriode
 ECHO.
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "declare @periode varchar(50); select @periode = Value from ods.CTL_Dataload where kilde_system = 'SAP' and Variable = 'PeriodtoFile'; print 'Starter job med SAP LoadPeriode: '+@periode"
 ECHO.
-for /f %%a in ('SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "SET NOCOUNT ON;select substring(Value,1,6) from ods.CTL_Dataload where kilde_system = 'Protal' and Variable = 'Load_Period'" -h -1') do set PERIODE=%%a
+for /f %%a in ('SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "SET NOCOUNT ON;select substring(Value,1,6) from ods.CTL_Dataload where kilde_system = 'SAP' and Variable = 'Load_Period'" -h -1') do set PERIODE=%%a
 
 SET LOGFILE=LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%_%KOERSEL%.txt
 SET LOGFILE=%LOGFILE: =0%
