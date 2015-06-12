@@ -12,8 +12,8 @@
   DTS:LocaleID="1030"
   DTS:ObjectName="30_ODS_TR2_load Stog stationer"
   DTS:PackageType="5"
-  DTS:VersionBuild="15"
-  DTS:VersionGUID="{F799640E-4C95-4FD1-9659-302CD0DC9BC6}">
+  DTS:VersionBuild="19"
+  DTS:VersionGUID="{5F5DA5E0-2FFB-44A8-8DC9-CAEC677BBFD1}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -22,9 +22,11 @@
       DTS:CreationName="EXCEL"
       DTS:DTSID="{65A019D0-F5DD-4ABD-AB10-219A2A4B6CE1}"
       DTS:ObjectName="Excel Connection Manager">
+      <DTS:PropertyExpression
+        DTS:Name="ExcelFilePath">"\\\\"+ @[$Project::MDWSERVER]+"\\files\\"+ @[$Project::MDWDATABASE]+"\\Togproduktion_STOG\\Manuelle_data\\STog\\Stamdata station og straekning.xls"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\\gbdfs1\Dsbdfs\Økonomi\Konc-poem\70_BI\Manuelle_data\STog\Stamdata station og straekning.xls;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\\oesmsqlt01\soem\files\mdw_udv4\Togproduktion_STOG\Manuelle_data\STog\Stamdata station og straekning.xls;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -729,5 +731,18 @@
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load STog Stationer\Stamdata station og straekning xls">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
 </Objects>]]></DTS:DesignTimeProperties>
 </DTS:Executable>
