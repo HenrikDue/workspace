@@ -13,8 +13,8 @@
   DTS:ObjectName="100_ods_dl_LTD2"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="616"
-  DTS:VersionGUID="{8A75A077-DCDE-45E5-86BE-DFBAAA866B5C}">
+  DTS:VersionBuild="618"
+  DTS:VersionGUID="{9E4A38CD-C6E1-46E6-B4A5-83DBCB97FC31}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -35,7 +35,7 @@
           DTS:RowDelimiter=""
           DTS:TextQualifier="_x0022_"
           DTS:CodePage="1252"
-          DTS:ConnectionString="\\gbpoemprod\Data\Aktuel\lokofoerer_md_v2.csv">
+          DTS:ConnectionString="\\oesmsqlt01\soem\files\mdw_udv4\LTD\Data\Aktuel\lokofoerer_md_v2.csv">
           <DTS:FlatFileColumns>
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -228,7 +228,7 @@
           DTS:RowDelimiter=""
           DTS:TextQualifier="_x0022_"
           DTS:CodePage="1252"
-          DTS:ConnectionString="\\gbpoemprod\Data\Aktuel\lokofravaer_md_v2.csv">
+          DTS:ConnectionString="\\oesmsqlt01\soem\files\mdw_udv4\LTD\Data\Aktuel\lokofravaer_md_v2.csv">
           <DTS:FlatFileColumns>
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -383,11 +383,13 @@
     <DTS:Variable
       DTS:CreationName=""
       DTS:DTSID="{B0206B68-4920-46E5-B74A-80BC00B5D557}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;\\\\&quot;+ @[$Project::MDWSERVER]+&quot;\\files\\&quot;+ @[$Project::MDWDATABASE]+&quot;\\LTD\\Data\\Aktuel\\&quot;"
       DTS:IncludeInDebugDump="2345"
       DTS:Namespace="User"
       DTS:ObjectName="v_Filepath">
       <DTS:VariableValue
-        DTS:DataType="8">\\gbpoemprod\Data\Aktuel\</DTS:VariableValue>
+        DTS:DataType="8">\\oesmsqlt01\soem\files\mdw_udv4\LTD\Data\Aktuel\</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -643,7 +645,7 @@
               SendMailTask:SMTPServer="{AC1FEFF5-B3C2-4873-8A6D-66B3A2D785E3}"
               SendMailTask:From="pama@dsb.dk"
               SendMailTask:To="pama@dsb.dk"
-              SendMailTask:Subject="Kørsel af 100_ods_dl_LTD2 report double lines in data file \\gbpoemprod\Data\Aktuel\lokofoerer_md_v2.csv"
+              SendMailTask:Subject="Kørsel af 100_ods_dl_LTD2 report double lines in data file \\oesmsqlt01\soem\files\mdw_udv4\LTD\Data\Aktuel\lokofoerer_md_v2.csv"
               SendMailTask:MessageSource="Check double lines at table CD_LTD2_Lokopersonale!!!" xmlns:SendMailTask="www.microsoft.com/sqlserver/dts/tasks/sendmailtask" />
           </DTS:ObjectData>
         </DTS:Executable>
@@ -3649,7 +3651,7 @@
               SendMailTask:From="datawarehouse@dsb.dk"
               SendMailTask:To="pama@dsb.dk"
               SendMailTask:Subject="Kørsel af 100_ods_dl_LTD2 for periode  er afsluttet"
-              SendMailTask:MessageSource="Data blev indlæst fra kilde: \\gbpoemprod\Data\Aktuel\ Fil navn og periode: lokofoerer_md_v2&#xA;Det blev indlæst fra filen: &#xA;0 Antal rækker &#xA;&#xA;Data blev indlæst fra kilde: \\gbpoemprod\Data\Aktuel\ Fil navn og periode: lokofravaer_md_v2 &#xA;Det blev indlæst fra filen: &#xA;0 Antal rækker &#xA;&#xA;Det blev insert til ods.RD_LTD2_Lokopersonale:&#xA;0 Antal rækker &#xA;0 Total Turminutter &#xA;Ud af overstående totaler, kun følgende totaler tilhører til periode :&#xA;0 Antal rækker&#xA;0 Total Antalminutter  for Lokopersonale&#xA;&#xA;Det blev insert til ods.RD_LTD2_Lokofravaer: &#xA;0 Antal rækker &#xA;0 Total Turminutter &#xA;Ud af overstående totaler, kun følgende totaler tilhører til periode :&#xA;0 Antal rækker&#xA;0 Total Antalminutter  for Lokofravær&#xA;&#xA;Der er 0 afvigelse i Turtimer mellem historik data fra FT_Lokopersonale (dvs. tidligere månader fra nuværende år) og historik data fra ods.RD_LTD2_Lokopersonale." xmlns:SendMailTask="www.microsoft.com/sqlserver/dts/tasks/sendmailtask" />
+              SendMailTask:MessageSource="Data blev indlæst fra kilde: \\oesmsqlt01\soem\files\mdw_udv4\LTD\Data\Aktuel\ Fil navn og periode: lokofoerer_md_v2&#xA;Det blev indlæst fra filen: &#xA;0 Antal rækker &#xA;&#xA;Data blev indlæst fra kilde: \\oesmsqlt01\soem\files\mdw_udv4\LTD\Data\Aktuel\ Fil navn og periode: lokofravaer_md_v2 &#xA;Det blev indlæst fra filen: &#xA;0 Antal rækker &#xA;&#xA;Det blev insert til ods.RD_LTD2_Lokopersonale:&#xA;0 Antal rækker &#xA;0 Total Turminutter &#xA;Ud af overstående totaler, kun følgende totaler tilhører til periode :&#xA;0 Antal rækker&#xA;0 Total Antalminutter  for Lokopersonale&#xA;&#xA;Det blev insert til ods.RD_LTD2_Lokofravaer: &#xA;0 Antal rækker &#xA;0 Total Turminutter &#xA;Ud af overstående totaler, kun følgende totaler tilhører til periode :&#xA;0 Antal rækker&#xA;0 Total Antalminutter  for Lokofravær&#xA;&#xA;Der er 0 afvigelse i Turtimer mellem historik data fra FT_Lokopersonale (dvs. tidligere månader fra nuværende år) og historik data fra ods.RD_LTD2_Lokopersonale." xmlns:SendMailTask="www.microsoft.com/sqlserver/dts/tasks/sendmailtask" />
           </DTS:ObjectData>
         </DTS:Executable>
       </DTS:Executables>
