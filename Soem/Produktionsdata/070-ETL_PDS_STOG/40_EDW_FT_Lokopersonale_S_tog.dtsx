@@ -13,8 +13,8 @@
   DTS:ObjectName="40_EDW_FT_Lokopersonale_S_tog"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="35"
-  DTS:VersionGUID="{38C60521-9D92-427F-BCCD-D6BC127CC653}">
+  DTS:VersionBuild="37"
+  DTS:VersionGUID="{02FB9CE0-97EA-410E-B33B-8EA6324004E4}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:Variables>
@@ -899,7 +899,8 @@
                   dataType="System.String"
                   description="Specifies a SQL statement that uses parameters to generate the lookup table."
                   expressionType="Notify"
-                  name="SqlCommandParam"></property>
+                  name="SqlCommandParam">select * from (select * from [edw].[DI_Depot]) [refTable]
+where [refTable].[Depot] = ?</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the cache type of the lookup table."
@@ -935,7 +936,7 @@
                   dataType="System.Int32"
                   description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
                   name="NoMatchBehavior"
-                  typeConverter="LookupNoMatchBehavior">0</property>
+                  typeConverter="LookupNoMatchBehavior">1</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
@@ -984,7 +985,6 @@
                 <output
                   refId="Package\FT_Lokopersonale_S_tog\Lookup DI_Depot.Outputs[Lookup Match Output]"
                   errorOrTruncationOperation="Lookup"
-                  errorRowDisposition="FailComponent"
                   exclusionGroup="1"
                   name="Lookup Match Output"
                   synchronousInputId="Package\FT_Lokopersonale_S_tog\Lookup DI_Depot.Inputs[Lookup Input]">
@@ -1303,7 +1303,7 @@ where [refTable].[Elementkode] = ?</property>
                 <output
                   refId="Package\FT_Lokopersonale_S_tog\Lookup DI_S_Opgave_Lokofører.Outputs[Lookup Match Output]"
                   errorOrTruncationOperation="Lookup"
-                  errorRowDisposition="RedirectRow"
+                  errorRowDisposition="FailComponent"
                   exclusionGroup="1"
                   name="Lookup Match Output"
                   synchronousInputId="Package\FT_Lokopersonale_S_tog\Lookup DI_S_Opgave_Lokofører.Inputs[Lookup Input]">
@@ -2297,6 +2297,16 @@ from ods.TD_Strækning_S_Lokofører_Opgaver</property>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\FT_Lokopersonale_S_tog\Lookup DI_Depot">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\FT_Lokopersonale_S_tog\Lookup DI_S_Opgave_Lokofører">
     <Properties>
