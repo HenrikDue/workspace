@@ -50,8 +50,8 @@ ECHO ***************************************************************************
 ECHO *
 ECHO *  Alle loadperioder er sat som master periode 
 ECHO *  Login på server: %DB_SERVER% og naviger til database: %DB_NAVN%
-ECHO *  Naviger til og eksekver SSIS pakke: 001_KOER_LOAD_FRA_GBMSSQLP04 placeret i 
-ECHO *  Integration Services Catalog i projekt: 001-Load_Af_Proddata_Fra_GBMSSQLP04
+ECHO *  Naviger til og eksekver SSIS pakke: 001_KOER_LOAD_FRA_DWMART_APS placeret i 
+ECHO *  Integration Services Catalog i projekt: 001-Load_Af_Proddata_Fra_DWMART_APS
 ECHO *  Data vedr. PDS F og R og S-tog overføres til database: %DB_NAVN%  
 ECHO *
 ECHO ******************************************************************************
