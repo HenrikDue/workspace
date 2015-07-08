@@ -5,10 +5,11 @@ SET DB_SERVER=Oesmsqlt01\soem
 SET DB_NAVN=MDW_UDV4
 SET SSISDB_FOLDER=%DB_NAVN%
 SET SOURCE_DRIVE=P:
-SET SOURCE_PATH=P:\70_BI\Projects\Files\FPC_L›nsum\
-SET SOURCE_FILE1="RD_R_L›nsumAns‘ttelsetype "
+SET SOURCE_PATH=P:\70_BI\Projects\Files\RejseData_RIM\
+SET SOURCE_FILE1=GD_R_REJSERINDT’GTER
+SET SOURCE_FILE2=GD_R_RejseIndt‘gter_Togsystem_FR
 
-SET DEST_PATH=\\%DB_SERVER%\files\%DB_NAVN%\FPC_L›nsum\
+SET DEST_PATH=\\%DB_SERVER%\files\%DB_NAVN%\RejseData_RIM\
 SET FILE_EXT=.xlsx
 SET KOERSEL=test
 
@@ -55,16 +56,17 @@ SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "declare @periode varchar(50); select @
 ECHO.
 for /f %%a in ('SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "SET NOCOUNT ON;select Value from ods.CTL_Dataload where kilde_system = 'Alle' and Variable = 'Model_Periode'" -h -1') do set PERIODE=%%a
 
-SET LOGFILE=LOG\Log_FPC_L›nsum_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%_%KOERSEL%.txt
+SET LOGFILE=LOG\Log_RejseData_RIM_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%_%KOERSEL%.txt
 SET LOGFILE=%LOGFILE: =0%
 
 cd %LOG_PATH%
 ECHO Folder:  %cd%  >> %LOGFILE%
-
 pause
-ECHO f | xcopy /y %SOURCE_PATH%%SOURCE_FILE1%%PERIODE%%FILE_EXT% %DEST_PATH%%SOURCE_FILE1%%PERIODE%%FILE_EXT% >> %LOGFILE%
 
-SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_FPC_Loensum %SSISDB_FOLDER%, ''" >> %LOGFILE%
+ECHO f | xcopy /y %SOURCE_PATH%%SOURCE_FILE1%%FILE_EXT% %DEST_PATH%%SOURCE_FILE1%%FILE_EXT% >> %LOGFILE%
+ECHO f | xcopy /y %SOURCE_PATH%%SOURCE_FILE2%%FILE_EXT% %DEST_PATH%%SOURCE_FILE2%%FILE_EXT% >> %LOGFILE%
+
+SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_RIM_RejseData %SSISDB_FOLDER%, ''" >> %LOGFILE%
 ECHO ******************************************************************************
 ECHO.
 %LOGFILE%
