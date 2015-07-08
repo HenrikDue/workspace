@@ -13,30 +13,18 @@
   DTS:ObjectName="10_ODS_RD_Loensum"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="43"
-  DTS:VersionGUID="{CB8C8668-7CDA-43F9-9B3A-F64EBBC244AC}">
+  DTS:VersionBuild="54"
+  DTS:VersionGUID="{C7247BCD-8D22-4D34-85CF-B65D1A73A9AF}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[Excel Connection Manager]"
-      DTS:CreationName="EXCEL"
-      DTS:DTSID="{900CD9C7-0992-4ED7-831F-052A24321C58}"
-      DTS:ObjectName="Excel Connection Manager">
-      <DTS:PropertyExpression
-        DTS:Name="ExcelFilePath">@[User::v_Folder_path] +  @[User::v_fil_navn] + " " + @[User::v_Periode] + ".xlsx"</DTS:PropertyExpression>
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\\gbdfs1\DSBDFS\Økonomi\KONC-POEM\70_BI\Projects\Files\FPC_Lønsum\RD_R_LønsumAnsættelsetype 201401.xlsx;Extended Properties=&quot;EXCEL 12.0 XML;HDR=NO&quot;;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
     <DTS:ConnectionManager
       DTS:refId="Package.ConnectionManagers[RD_R_LønsumAnsættelsetype_yyyymm_csv]"
       DTS:CreationName="FLATFILE"
       DTS:DTSID="{2C8E915D-35F8-43E8-91DA-C311EA337C9B}"
       DTS:ObjectName="RD_R_LønsumAnsættelsetype_yyyymm_csv">
       <DTS:PropertyExpression
-        DTS:Name="ConnectionString">"\\\\gbdfs1\\DSBDFS\\Økonomi\\KONC-POEM\\70_BI\\Projects\\Files\\FPC_Lønsum\\CSV\\RD_R_LønsumAnsættelsetype_"+ @[User::v_Periode]+".csv"</DTS:PropertyExpression>
+        DTS:Name="ConnectionString">"\\\\"+@[$Project::MDWSERVER] +"\\Files\\"+ @[$Project::MDWDATABASE]+ "\\FPC_Lønsum\\CSV\\"+ @[User::v_fil_navn]+ @[User::v_Periode]+".csv"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:Format="Delimited"
@@ -46,7 +34,7 @@
           DTS:RowDelimiter=""
           DTS:TextQualifier="_x003C_none_x003E_"
           DTS:CodePage="1252"
-          DTS:ConnectionString="\\gbdfs1\DSBDFS\Økonomi\KONC-POEM\70_BI\Projects\Files\FPC_Lønsum\CSV\RD_R_LønsumAnsættelsetype_201401.csv">
+          DTS:ConnectionString="\\oesmsqlt01\soem\Files\mdw_udv4\FPC_Lønsum\CSV\RD_R_LønsumAnsættelsetype_201401.csv">
           <DTS:FlatFileColumns>
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -55,7 +43,7 @@
               DTS:DataType="129"
               DTS:TextQualified="True"
               DTS:ObjectName="Profitcenter"
-              DTS:DTSID="{7C3C5512-BF1A-4E9E-A53C-B76E3E9FB32C}"
+              DTS:DTSID="{F4AEA9F9-0604-4AA4-BE5C-69D0C31A8015}"
               DTS:CreationName="" />
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -64,7 +52,7 @@
               DTS:DataType="129"
               DTS:TextQualified="True"
               DTS:ObjectName="Column 1"
-              DTS:DTSID="{66755991-91B3-4EC1-9923-5864E65847AC}"
+              DTS:DTSID="{B5575483-B4C7-45BB-A152-96DFD31F175B}"
               DTS:CreationName="" />
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -73,7 +61,7 @@
               DTS:DataType="129"
               DTS:TextQualified="True"
               DTS:ObjectName="Kontonummer"
-              DTS:DTSID="{31CE4523-9B7D-4BB8-B3A0-275B2553B50D}"
+              DTS:DTSID="{E28D6F1E-B56A-414F-BABF-677FEE657996}"
               DTS:CreationName="" />
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -82,7 +70,7 @@
               DTS:DataType="129"
               DTS:TextQualified="True"
               DTS:ObjectName="Column 3"
-              DTS:DTSID="{212BC18F-60D2-4835-BB87-945465A8967A}"
+              DTS:DTSID="{AD09883D-4D4E-4736-9DEA-4D613594838E}"
               DTS:CreationName="" />
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -91,7 +79,7 @@
               DTS:DataType="129"
               DTS:TextQualified="True"
               DTS:ObjectName="Medarb gruppe"
-              DTS:DTSID="{E45D05DB-AE4F-4FC2-AB81-C42A22E819CF}"
+              DTS:DTSID="{AE656A09-5674-4FB7-BB25-B73DA6EEF4C1}"
               DTS:CreationName="" />
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -100,7 +88,7 @@
               DTS:DataType="129"
               DTS:TextQualified="True"
               DTS:ObjectName="Column 5"
-              DTS:DTSID="{FD606D21-C120-4BAB-AB27-DFCFF72436AD}"
+              DTS:DTSID="{E6D1F1F9-36F0-4B2C-9055-BFC810CEFB4E}"
               DTS:CreationName="" />
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -109,7 +97,7 @@
               DTS:DataType="129"
               DTS:TextQualified="True"
               DTS:ObjectName="Regnskabsperiode år"
-              DTS:DTSID="{956E960C-804A-485E-898E-BAAFB39E7720}"
+              DTS:DTSID="{E22699A7-7916-4EE4-8DF3-71ECC2973460}"
               DTS:CreationName="" />
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -118,7 +106,7 @@
               DTS:DataType="129"
               DTS:TextQualified="True"
               DTS:ObjectName="DKK"
-              DTS:DTSID="{0E555B96-0A42-455C-8E50-014B998001F6}"
+              DTS:DTSID="{CC23D9D3-4E59-4300-AC1C-566459A15122}"
               DTS:CreationName="" />
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -127,7 +115,7 @@
               DTS:DataType="129"
               DTS:TextQualified="True"
               DTS:ObjectName="Column 8"
-              DTS:DTSID="{65747F06-7271-4ED7-B57A-A245637B9763}"
+              DTS:DTSID="{29A074C0-020F-4921-B3D8-AF863A7AFBD2}"
               DTS:CreationName="" />
           </DTS:FlatFileColumns>
         </DTS:ConnectionManager>
@@ -142,7 +130,7 @@
       DTS:Namespace="User"
       DTS:ObjectName="v_fil_navn">
       <DTS:VariableValue
-        DTS:DataType="8">RD_R_LønsumAnsættelsetype</DTS:VariableValue>
+        DTS:DataType="8">RD_R_LønsumAnsættelsetype_</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -1226,7 +1214,7 @@
     design-time-name="Package\Load RD data\Data Flow Task">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="151,44"
           Id="Package\Load RD data\Data Flow Task\RD_FPC_Lønsum"
@@ -1258,9 +1246,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -1282,13 +1268,24 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load RD data\Data Flow Task\RD_FPC_Lønsum">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
 </Objects>]]></DTS:DesignTimeProperties>
 </DTS:Executable>
