@@ -58,7 +58,7 @@ IF %errorlevel%==2 SET ValgIndtastNyPeriode=1 & GOTO GenvalgPeriode
 ECHO.
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "declare @periode varchar(50); select @periode = Value from ods.CTL_Dataload where kilde_system = 'SAP' and Variable = 'PeriodtoFile'; print 'Starter job med SAP LoadPeriode: '+@periode"
 ECHO.
-for /f %%a in ('SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "SET NOCOUNT ON;select substring(Value,1,6) from ods.CTL_Dataload where kilde_system = 'SAP' and Variable = 'Load_Period'" -h -1') do set PERIODE=%%a
+for /f %%a in ('SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "SET NOCOUNT ON;select substring(Value,1,6) from ods.CTL_Dataload where kilde_system = 'SAP' and Variable = 'PeriodtoFile'" -h -1') do set PERIODE=%%a
 
 SET LOGFILE=LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%_%KOERSEL%.txt
 SET LOGFILE=%LOGFILE: =0%
@@ -67,6 +67,7 @@ cd %LOG_PATH%
 ECHO Folder:  %cd%  >> %LOGFILE%
 
 pause
+
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH1%%SOURCE_FILE1% %DEST_PATH1%%SOURCE_FILE1%
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH2%%SOURCE_FILE2%%PERIODE%%FILE_EXT% %DEST_PATH2%%SOURCE_FILE2%%PERIODE%%FILE_EXT%
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH2%%SOURCE_FILE3%%PERIODE%%FILE_EXT% %DEST_PATH2%%SOURCE_FILE3%%PERIODE%%FILE_EXT%
