@@ -1,17 +1,26 @@
 ECHO OFF
 SET GenstartMedForrigeMaanedSomPeriodeValgt=0
 SET GenstartMedIndtastNyPriode=0
-SET DB_SERVER=Oesmsqlt01\soem
-SET DB_NAVN=MDW_UDV4
+rem /* henter server og database konfiguration fra ekstern fil */ 
+set config_file_path=..\Konfiguration\
+setlocal enabledelayedexpansion
+set COUNTER=1
+for /f "tokens=3 delims=><" %%a in ('type %config_file_path%\ServerOgDatabase.dtsConfig ^| find "<ConfiguredValue>"') do (
+  IF !COUNTER!==1 (SET DB_NAVN=%%a)
+  IF !COUNTER!==2 (SET DB_SERVER=%%a)
+  REM /* hvis der er flere variabel indsættes de her */
+  SET /a COUNTER=!COUNTER!+1
+  )
+  
 SET SSISDB_FOLDER=%DB_NAVN%
-set LOG_DRIVE=P:
-SET LOG_PATH=\70_BI\Data_load_kontrol\Prod\Load_step_01_Togproduktion_Fjern_og_Regional
-set LOG_FILE=\Log\LogLoadPeriode.txt
+SET KOERSEL=test
+
+rem /* konfigurerer log */
+md %cd%\Log
+SET LOGFILE=%cd%\LOG\LogLoadPeriode_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%_%KOERSEL%.txt
+SET LOGFILE=%LOGFILE: =0%
 :STARTEN
 CLS
-REM ECHO Script startet klokken: %time% 
- 
-setlocal enabledelayedexpansion
 
 REM Hvis genstart med forrige maaned som periode er valgt udfør da exec [etl].[loadperiod_master], der uden parametre sætter loadperioden til forrige maaned
 ECHO.
@@ -43,16 +52,16 @@ pause
 :ExitChosen
 
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "declare @periode varchar(50); select @periode = Value from ods.CTL_Dataload where kilde_system = 'Alle' and Variable = 'Master_periode'; print 'Aslutter med Master loadperiode sat til '+@periode + '.'" 
-SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_load_period_all %SSISDB_FOLDER%, ''" > %LOG_DRIVE%%LOG_PATH%%LOG_FILE%
-%LOG_DRIVE%%LOG_PATH%%LOG_FILE%
+SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_load_period_all %SSISDB_FOLDER%, ''" >> %LOGFILE%
+%LOGFILE%
 
 ECHO ******************************************************************************
 ECHO *
 ECHO *  Alle loadperioder er sat som master periode 
-ECHO *  Login på server: %DB_SERVER% og naviger til database: %DB_NAVN%
+ECHO *  Login p† server: %DB_SERVER% og naviger til database: %DB_NAVN%
 ECHO *  Naviger til og eksekver SSIS pakke: 001_KOER_LOAD_FRA_DWMART_APS placeret i 
 ECHO *  Integration Services Catalog i projekt: 001-Load_Af_Proddata_Fra_DWMART_APS
-ECHO *  Data vedr. PDS F og R og S-tog overføres til database: %DB_NAVN%  
+ECHO *  Data vedr. PDS F og R og S-tog overf›res til database: %DB_NAVN%  
 ECHO *
 ECHO ******************************************************************************
 PAUSE

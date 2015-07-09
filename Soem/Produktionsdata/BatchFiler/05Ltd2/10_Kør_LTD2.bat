@@ -1,8 +1,16 @@
 ECHO OFF
 SET ValgIndtastNyPeriode=0
 SET ValgMasterPeriode=0
-SET DB_SERVER=Oesmsqlt01\soem
-SET DB_NAVN=MDW_UDV4
+rem /* henter server og database konfiguration fra ekstern fil */ 
+set config_file_path=..\Konfiguration\
+setlocal enabledelayedexpansion
+set COUNTER=1
+for /f "tokens=3 delims=><" %%a in ('type %config_file_path%\ServerOgDatabase.dtsConfig ^| find "<ConfiguredValue>"') do (
+  IF !COUNTER!==1 (SET DB_NAVN=%%a)
+  IF !COUNTER!==2 (SET DB_SERVER=%%a)
+  REM /* hvis der er flere variabel indsµttes de her */
+  SET /a COUNTER=!COUNTER!+1
+  )
 SET SSISDB_FOLDER=%DB_NAVN%
 SET SOURCE_DRIVE=P:
 SET SOURCE_PATH=\\gbpoemprod\Data\Aktuel\
@@ -13,17 +21,21 @@ SET DEST_PATH=\\%DB_SERVER%\files\%DB_NAVN%\LTD\Data\Aktuel\
 SET FILE_EXT=.csv
 SET KOERSEL=test
 
+:: /* konfigurerer log */
+md %cd%\Log
+SET LOGFILE=%cd%\LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%_%KOERSEL%.txt
+SET LOGFILE=%LOGFILE: =0%
+ECHO Folder:  %cd%  >> %LOGFILE%
+ECHO. >> %LOGFILE%
+
 :STARTEN
 CLS
 ECHO Script startet klokken: %time% 
 
-P:
-SET LOG_PATH=\70_BI\Data_load_kontrol\Prod\Load_step_05_LTD\
-md %LOG_PATH%\Log
-
-setlocal enabledelayedexpansion
-
 ECHO ******************************************************************************
+ECHO *
+ECHO *  Server: %DB_SERVER%
+ECHO *  Database: %DB_NAVN%
 ECHO *
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "declare @periode varchar(50); select @periode = Value from ods.CTL_Dataload where kilde_system = 'Alle' and Variable = 'Master_periode'; print '*  Master LoadPeriode:  ---> '+@periode + ' <--- Tjek periode her.'" 
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "declare @periode varchar(50); select @periode = substring(value,1,10) from ods.CTL_Dataload where kilde_system = 'LTD2' and Variable = 'Last_Period_Load'; print '*  LTD2 LoadPeriode: '+@periode"
@@ -58,16 +70,12 @@ for /f %%a in ('SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "SET NOCOUNT ON;select 
 SET tmp1=%PERIODE:~6,4%
 SET tmp2=%PERIODE:~3,2%
 SET PERIODE=%tmp1%%tmp2%
-SET LOGFILE=LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%_%KOERSEL%.txt
-SET LOGFILE=%LOGFILE: =0%
 
-cd %LOG_PATH%
-ECHO Folder:  %cd%  >> %LOGFILE%
 pause
-
-ECHO f | xcopy /y %SOURCE_PATH%%SOURCE_FILE1%%PERIODE%%FILE_EXT% %DEST_PATH%%SOURCE_FILE1%%PERIODE%%FILE_EXT%
-ECHO f | xcopy /y %SOURCE_PATH%%SOURCE_FILE2%%PERIODE%%FILE_EXT% %DEST_PATH%%SOURCE_FILE2%%PERIODE%%FILE_EXT%
-
+echo Overfører filer til sqlserver og afvikler pakker
+ECHO f | xcopy /y %SOURCE_PATH%%SOURCE_FILE1%%PERIODE%%FILE_EXT% %DEST_PATH%%SOURCE_FILE1%%PERIODE%%FILE_EXT% >> %LOGFILE%
+ECHO f | xcopy /y %SOURCE_PATH%%SOURCE_FILE2%%PERIODE%%FILE_EXT% %DEST_PATH%%SOURCE_FILE2%%PERIODE%%FILE_EXT% >> %LOGFILE%
+ECHO. >> %LOGFILE%
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_LTD2 %SSISDB_FOLDER%, ''" >> %LOGFILE%
 ECHO ******************************************************************************
 ECHO.

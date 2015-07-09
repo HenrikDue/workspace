@@ -1,7 +1,15 @@
-echo off
+ECHO OFF
+CLS
+set config_file_path=..\Konfiguration\
+setlocal enabledelayedexpansion
+set COUNTER=1
+for /f "tokens=3 delims=><" %%a in ('type %config_file_path%\ServerOgDatabase.dtsConfig ^| find "<ConfiguredValue>"') do (
+  IF !COUNTER!==1 (SET DB_NAVN=%%a)
+  IF !COUNTER!==2 (SET DB_SERVER=%%a)
+  REM /* hvis der er flere variabel indsættes de her */
+  SET /a COUNTER=!COUNTER!+1
+  )
 
-SET DB_SERVER=Oesmsqlt01\soem
-SET DB_NAVN=MDW_UDV4
 SET SOURCE_DRIVE=P:
 SET SOURCE_PATH=\70_BI\Projects\Files\StamData\
 SET SOURCE_FILE1=EX_MD_G_STAM_Depoter.xlsx
@@ -13,7 +21,12 @@ SET SOURCE_FILE6=EX_MD_G_STAM_Timer_.xlsx
 SET SOURCE_FILE7=EX_MD_G_STAM_Togsystem.xls
 SET DEST_PATH=\\%DB_SERVER%\files\%DB_NAVN%\StamData\
 SET SSISDB_FOLDER=%DB_NAVN%
-SET LOG_PATH=\70_BI\Data_load_kontrol\Prod\Load_step_00_Manuelle_Data\
+SET KOERSEL=test
+
+rem /* konfigurerer log */
+md %cd%\Log
+SET LOGFILE=%cd%\LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%_%KOERSEL%.txt
+SET LOGFILE=%LOGFILE: =0%
 
 ECHO ******************************************************************************
 ECHO *  Server: %DB_SERVER%
@@ -36,6 +49,6 @@ ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH%%SOURCE_FILE5% %DEST_PATH%%SOURCE_F
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH%%SOURCE_FILE6% %DEST_PATH%%SOURCE_FILE6%
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH%%SOURCE_FILE7% %DEST_PATH%%SOURCE_FILE7%
 
-SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_stamdata_mdw %SSISDB_FOLDER%, ''" > %SOURCE_DRIVE%%LOG_PATH%\Log\Log.txt
-%SOURCE_DRIVE%%LOG_PATH%\Log\Log.txt
+SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_stamdata_mdw %SSISDB_FOLDER%, ''" >> %LOGFILE%
+%LOGFILE%
 pause
