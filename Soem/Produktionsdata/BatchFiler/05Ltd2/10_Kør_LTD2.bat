@@ -75,6 +75,7 @@ pause
 echo Overfører filer til sqlserver og afvikler pakker
 ECHO f | xcopy /y %SOURCE_PATH%%SOURCE_FILE1%%PERIODE%%FILE_EXT% %DEST_PATH%%SOURCE_FILE1%%PERIODE%%FILE_EXT% >> %LOGFILE%
 ECHO f | xcopy /y %SOURCE_PATH%%SOURCE_FILE2%%PERIODE%%FILE_EXT% %DEST_PATH%%SOURCE_FILE2%%PERIODE%%FILE_EXT% >> %LOGFILE%
+echo til %DEST_PATH% >> %LOGFILE%
 ECHO. >> %LOGFILE%
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_LTD2 %SSISDB_FOLDER%, ''" >> %LOGFILE%
 ECHO ******************************************************************************

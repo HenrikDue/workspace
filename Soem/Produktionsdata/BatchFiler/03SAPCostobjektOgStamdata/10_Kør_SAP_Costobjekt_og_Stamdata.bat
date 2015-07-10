@@ -73,8 +73,10 @@ for /f %%a in ('SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "SET NOCOUNT ON;select 
 pause
 echo Overfører filer til sqlserver og afvikler pakker
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH1%%SOURCE_FILE1% %DEST_PATH1%%SOURCE_FILE1% >> %LOGFILE%
+echo til %DEST_PATH1% >> %LOGFILE%
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH2%%SOURCE_FILE2%%PERIODE%%FILE_EXT% %DEST_PATH2%%SOURCE_FILE2%%PERIODE%%FILE_EXT% >> %LOGFILE%
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH2%%SOURCE_FILE3%%PERIODE%%FILE_EXT% %DEST_PATH2%%SOURCE_FILE3%%PERIODE%%FILE_EXT% >> %LOGFILE%
+echo til %DEST_PATH2% >> %LOGFILE%
 ECHO. >> %LOGFILE%
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_SAP_Costobjekt_og_Stamdata %SSISDB_FOLDER%, ''" >> %LOGFILE%
 ECHO ******************************************************************************
