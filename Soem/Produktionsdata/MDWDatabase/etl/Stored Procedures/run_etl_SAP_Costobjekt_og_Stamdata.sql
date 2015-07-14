@@ -4,14 +4,16 @@
 -- Description:	<Description,,>
 -- =============================================
 CREATE PROCEDURE [etl].[run_etl_SAP_Costobjekt_og_Stamdata]
-	@ssisdb_folder varchar(50),
 	@output_status varchar(50) output
 AS
 BEGIN
 declare @status varchar(50);
 declare @execution_id bigint;
+declare @databasename sysname;
+set @databasename = db_name();
+
  exec ssisdb.catalog.create_execution 
-  @folder_name = @ssisdb_folder
+  @folder_name = @databasename
  ,@project_name = '030-ETL_SAP_Costobjekt_og_Stamdata'
  ,@package_name = '001_KOER_ALLE_PAKKER_ETL_SAP_Costobjekt_og_Stamdata.dtsx'
  ,@reference_id=NULL
@@ -22,7 +24,19 @@ declare @execution_id bigint;
         @execution_id=@execution_id,  
         @object_type=50, 
         @parameter_name=N'SYNCHRONIZED', 
-        @parameter_value=1; -- true
+        @parameter_value=1;
+		
+ EXEC [SSISDB].[catalog].[set_execution_parameter_value] 
+        @execution_id=@execution_id,  
+        @object_type=20, 
+        @parameter_name=N'MDWDATABASE', 
+        @parameter_value=@databasename;
+
+ EXEC [SSISDB].[catalog].[set_execution_parameter_value] 
+        @execution_id=@execution_id,  
+        @object_type=20, 
+        @parameter_name=N'MDWSERVER', 
+        @parameter_value=@@SERVERNAME;
 
  exec ssisdb.catalog.start_execution @execution_id
  --set @output_execution_id = @execution_id

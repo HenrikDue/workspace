@@ -4,27 +4,41 @@
 -- Description:	<Description,,>
 -- =============================================
 CREATE PROCEDURE [etl].[run_etl_stamdata_mdw]
-	@ssisdb_folder varchar(50),
 	@output_status varchar(50) output
 AS
 BEGIN
 declare @status varchar(50);
 declare @execution_id bigint;
- exec ssisdb.catalog.create_execution 
-  @folder_name = @ssisdb_folder
+declare @databasename sysname;
+set @databasename = db_name();
+
+exec ssisdb.catalog.create_execution 
+  @folder_name = @databasename
  ,@project_name = '000-ETL_Stamdata_MDW'
- ,@package_name = '001_KOER_STAM_PAKKER.dtsx'--'001_KOER_ALLE_PAKKER_ETL_PDS_STOG.dtsx'
+ ,@package_name = '001_KOER_STAM_PAKKER.dtsx'
  ,@reference_id=NULL
  ,@use32bitruntime=FALSE    
  ,@execution_id = @execution_id output
 
- EXEC [SSISDB].[catalog].[set_execution_parameter_value] 
+EXEC [SSISDB].[catalog].[set_execution_parameter_value] 
         @execution_id=@execution_id,  
         @object_type=50, 
         @parameter_name=N'SYNCHRONIZED', 
         @parameter_value=1; -- true
 
- exec ssisdb.catalog.start_execution @execution_id
+EXEC [SSISDB].[catalog].[set_execution_parameter_value] 
+        @execution_id=@execution_id,  
+        @object_type=20, 
+        @parameter_name=N'MDWDATABASE', 
+        @parameter_value=@databasename;
+
+EXEC [SSISDB].[catalog].[set_execution_parameter_value] 
+        @execution_id=@execution_id,  
+        @object_type=20, 
+        @parameter_name=N'MDWSERVER', 
+        @parameter_value=@@SERVERNAME;
+
+exec ssisdb.catalog.start_execution @execution_id
  --set @output_execution_id = @execution_id
 
 /*hent resultat af kørsel*/
@@ -44,7 +58,7 @@ FROM [SSISDB].[internal].[operations]
 WHERE operation_id = @execution_id;
 set @output_status = @status;
 
---/* eksempel til logning
+--/* eksempel til logning - batch fil
 select
  Pakkenavn = '001_KOER_STAM_PAKKER',
   Resultat = convert(char(20), CASE in_op.[status]
