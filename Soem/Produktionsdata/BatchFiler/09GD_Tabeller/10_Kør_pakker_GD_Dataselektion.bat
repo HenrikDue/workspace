@@ -10,12 +10,10 @@ for /f "tokens=3 delims=><" %%a in ('type %config_file_path%\ServerOgDatabase.dt
   REM /* hvis der er flere variabel inds‘ttes de her */
   SET /a COUNTER=!COUNTER!+1
   )
-SET SSISDB_FOLDER=%DB_NAVN%
-SET KOERSEL=test
 
 :: /* konfigurerer log */
 md %cd%\Log
-SET LOGFILE=%cd%\LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%_%KOERSEL%.txt
+SET LOGFILE=%cd%\LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%.txt
 SET LOGFILE=%LOGFILE: =0%
 ECHO Folder:  %cd%  >> %LOGFILE%
 ECHO. >> %LOGFILE%
@@ -37,7 +35,7 @@ ECHO.
 CHOICE /C SF /N /M "Tast S (Start) eller F (Fortryd)"
 IF %errorlevel%==2 GOTO ExitChosen
 
-SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_Load_GD_tabeller %SSISDB_FOLDER%, ''" >> %LOGFILE%
+SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_Load_GD_tabeller ''" >> %LOGFILE%
 ECHO ******************************************************************************
 ECHO.
 %LOGFILE%

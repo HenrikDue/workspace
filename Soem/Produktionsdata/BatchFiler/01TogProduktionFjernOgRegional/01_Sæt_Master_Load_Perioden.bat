@@ -11,13 +11,10 @@ for /f "tokens=3 delims=><" %%a in ('type %config_file_path%\ServerOgDatabase.dt
   REM /* hvis der er flere variabel indsættes de her */
   SET /a COUNTER=!COUNTER!+1
   )
-  
-SET SSISDB_FOLDER=%DB_NAVN%
-SET KOERSEL=test
 
 rem /* konfigurerer log */
 md %cd%\Log
-SET LOGFILE=%cd%\LOG\LogLoadPeriode_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%_%KOERSEL%.txt
+SET LOGFILE=%cd%\LOG\LogLoadPeriode_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%.txt
 SET LOGFILE=%LOGFILE: =0%
 :STARTEN
 CLS
@@ -52,7 +49,7 @@ pause
 :ExitChosen
 
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "declare @periode varchar(50); select @periode = Value from ods.CTL_Dataload where kilde_system = 'Alle' and Variable = 'Master_periode'; print 'Aslutter med Master loadperiode sat til '+@periode + '.'" 
-SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_load_period_all %SSISDB_FOLDER%, ''" >> %LOGFILE%
+SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_load_period_all ''" >> %LOGFILE%
 %LOGFILE%
 
 ECHO ******************************************************************************

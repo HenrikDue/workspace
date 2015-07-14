@@ -20,12 +20,10 @@ SET SOURCE_FILE5=EX_MD_G_STAM_Stationer.xlsx
 SET SOURCE_FILE6=EX_MD_G_STAM_Timer_.xlsx
 SET SOURCE_FILE7=EX_MD_G_STAM_Togsystem.xls
 SET DEST_PATH=\\%DB_SERVER%\files\%DB_NAVN%\StamData\
-SET SSISDB_FOLDER=%DB_NAVN%
-SET KOERSEL=test
 
 rem /* konfigurerer log */
 md %cd%\Log
-SET LOGFILE=%cd%\LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%_%KOERSEL%.txt
+SET LOGFILE=%cd%\LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%.txt
 SET LOGFILE=%LOGFILE: =0%
 ECHO Folder:  %cd%  >> %LOGFILE%
 ECHO. >> %LOGFILE%
@@ -53,6 +51,6 @@ ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH%%SOURCE_FILE7% %DEST_PATH%%SOURCE_F
 echo til %DEST_PATH% >> %LOGFILE%
 ECHO. >> %LOGFILE%
 
-SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_stamdata_mdw %SSISDB_FOLDER%, ''" >> %LOGFILE%
+SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_stamdata_mdw ''" >> %LOGFILE%
 %LOGFILE%
 pause

@@ -11,7 +11,7 @@ for /f "tokens=3 delims=><" %%a in ('type %config_file_path%\ServerOgDatabase.dt
   REM /* hvis der er flere variabel indsµttes de her */
   SET /a COUNTER=!COUNTER!+1
   )
-SET SSISDB_FOLDER=%DB_NAVN%
+  
 SET SOURCE_DRIVE=P:
 SET SOURCE_PATH=\\gbpoemprod\Data\Aktuel\
 SET SOURCE_FILE1=lokofoerer_md_v2
@@ -19,11 +19,10 @@ SET SOURCE_FILE2=lokofravaer_md_v2
 
 SET DEST_PATH=\\%DB_SERVER%\files\%DB_NAVN%\LTD\Data\Aktuel\
 SET FILE_EXT=.csv
-SET KOERSEL=test
 
 :: /* konfigurerer log */
 md %cd%\Log
-SET LOGFILE=%cd%\LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%_%KOERSEL%.txt
+SET LOGFILE=%cd%\LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%.txt
 SET LOGFILE=%LOGFILE: =0%
 ECHO Folder:  %cd%  >> %LOGFILE%
 ECHO. >> %LOGFILE%
@@ -77,7 +76,7 @@ ECHO f | xcopy /y %SOURCE_PATH%%SOURCE_FILE1%%PERIODE%%FILE_EXT% %DEST_PATH%%SOU
 ECHO f | xcopy /y %SOURCE_PATH%%SOURCE_FILE2%%PERIODE%%FILE_EXT% %DEST_PATH%%SOURCE_FILE2%%PERIODE%%FILE_EXT% >> %LOGFILE%
 echo til %DEST_PATH% >> %LOGFILE%
 ECHO. >> %LOGFILE%
-SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_LTD2 %SSISDB_FOLDER%, ''" >> %LOGFILE%
+SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_LTD2 ''" >> %LOGFILE%
 ECHO ******************************************************************************
 ECHO.
 %LOGFILE%

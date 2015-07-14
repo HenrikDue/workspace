@@ -11,13 +11,12 @@ for /f "tokens=3 delims=><" %%a in ('type %config_file_path%\ServerOgDatabase.dt
   REM /* hvis der er flere variabel indsµttes de her */
   SET /a COUNTER=!COUNTER!+1
   )
-SET SSISDB_FOLDER=%DB_NAVN%
+  
 SET DEST_LOG_PATH=\\%DB_SERVER%\files\%DB_NAVN%\Togpersonale_FR_PDS\
-SET KOERSEL=test
 
 :: /* konfigurerer log */
 md %cd%\Log
-SET LOGFILE=%cd%\LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%_%KOERSEL%.txt
+SET LOGFILE=%cd%\LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%.txt
 SET LOGFILE=%LOGFILE: =0%
 ECHO Folder:  %cd%  >> %LOGFILE%
 ECHO. >> %LOGFILE%
@@ -64,7 +63,7 @@ ECHO.
 
 pause
 
-SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_Togpersonale_FR_PDS %SSISDB_FOLDER%, ''" >> %LOGFILE%
+SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_Togpersonale_FR_PDS ''" >> %LOGFILE%
 ECHO ******************************************************************************
 ECHO.
 %LOGFILE%

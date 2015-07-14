@@ -11,7 +11,7 @@ for /f "tokens=3 delims=><" %%a in ('type %config_file_path%\ServerOgDatabase.dt
   REM /* hvis der er flere variabel indsµttes de her */
   SET /a COUNTER=!COUNTER!+1
   )
-SET SSISDB_FOLDER=%DB_NAVN%
+  
 SET SOURCE_DRIVE=P:
 SET SOURCE_PATH=\70_BI\Manuelle_data\STog\
 SET SOURCE_FILE1="Stamdata station og straekning"
@@ -19,11 +19,10 @@ SET SOURCE_FILE2=lokofravaer_md_v2
 
 SET DEST_PATH=\\%DB_SERVER%\files\%DB_NAVN%\Togproduktion_STOG\Manuelle_data\STog\
 SET FILE_EXT=.xls
-SET KOERSEL=test
 
 :: /* konfigurerer log */
 md %cd%\Log
-SET LOGFILE=%cd%\LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%_%KOERSEL%.txt
+SET LOGFILE=%cd%\LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%.txt
 SET LOGFILE=%LOGFILE: =0%
 ECHO Folder:  %cd%  >> %LOGFILE%
 ECHO. >> %LOGFILE%
@@ -72,7 +71,7 @@ pause
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH%%SOURCE_FILE1%%FILE_EXT% %DEST_PATH%%SOURCE_FILE1%%FILE_EXT% >> %LOGFILE%
 echo til %DEST_PATH% >> %LOGFILE%
 ECHO. >> %LOGFILE%
-SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_Togproduktion_STOG %SSISDB_FOLDER%, ''" >> %LOGFILE%
+SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_Togproduktion_STOG ''" >> %LOGFILE%
 ECHO ******************************************************************************
 ECHO.
 %LOGFILE%

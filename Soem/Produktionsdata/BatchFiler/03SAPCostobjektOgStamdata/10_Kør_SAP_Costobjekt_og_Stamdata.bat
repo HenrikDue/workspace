@@ -11,7 +11,7 @@ for /f "tokens=3 delims=><" %%a in ('type %config_file_path%\ServerOgDatabase.dt
   REM /* hvis der er flere variabel indsµttes de her */
   SET /a COUNTER=!COUNTER!+1
   )
-SET SSISDB_FOLDER=%DB_NAVN%
+  
 SET SOURCE_DRIVE=P:
 SET SOURCE_PATH1="\99_Arkiv\2013 01_Modeldrift\Alle\01_Manuelle_data\"
 SET SOURCE_PATH2=\70_BI\Projects\Files\StamData\
@@ -22,11 +22,10 @@ SET DEST_PATH1=\\%DB_SERVER%\files\%DB_NAVN%\StamData\01_Manuelle_data\
 SET DEST_PATH2=\\%DB_SERVER%\files\%DB_NAVN%\StamData\SAP\Excel\
 SET DEST_LOG_PATH=\\%DB_SERVER%\files\%DB_NAVN%\SAP_Costobjekt_og_Stamdata\
 SET FILE_EXT=.xlsx
-SET KOERSEL=test
 
 :: /* konfigurerer log */
 md %cd%\Log
-SET LOGFILE=%cd%\LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%_%KOERSEL%.txt
+SET LOGFILE=%cd%\LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%.txt
 SET LOGFILE=%LOGFILE: =0%
 ECHO Folder:  %cd%  >> %LOGFILE%
 ECHO. >> %LOGFILE%
@@ -78,7 +77,7 @@ ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH2%%SOURCE_FILE2%%PERIODE%%FILE_EXT% 
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH2%%SOURCE_FILE3%%PERIODE%%FILE_EXT% %DEST_PATH2%%SOURCE_FILE3%%PERIODE%%FILE_EXT% >> %LOGFILE%
 echo til %DEST_PATH2% >> %LOGFILE%
 ECHO. >> %LOGFILE%
-SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_SAP_Costobjekt_og_Stamdata %SSISDB_FOLDER%, ''" >> %LOGFILE%
+SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_SAP_Costobjekt_og_Stamdata ''" >> %LOGFILE%
 ECHO ******************************************************************************
 %LOGFILE%
 pause
