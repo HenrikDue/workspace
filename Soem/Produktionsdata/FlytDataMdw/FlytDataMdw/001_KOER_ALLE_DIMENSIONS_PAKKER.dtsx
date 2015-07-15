@@ -12,8 +12,8 @@
   DTS:ObjectName="001_KOER_ALLE_DIMENSIONS_PAKKER"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="36"
-  DTS:VersionGUID="{CBDAB5B0-2417-417B-9195-7862FA33C9A9}">
+  DTS:VersionBuild="37"
+  DTS:VersionGUID="{FF0E80F4-444D-4786-99CF-81992F31E5BA}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:Variables />
@@ -117,6 +117,23 @@
         <ExecutePackageTask>
           <UseProjectReference>True</UseProjectReference>
           <PackageName>edw_DI_Elementkode_ltf.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Execute DI_Flag"
+      DTS:CreationName="SSIS.ExecutePackageTask.3"
+      DTS:Description="Execute Package Task"
+      DTS:DTSID="{C0E6B3D0-B0D4-4A7C-915C-6334DBB664CF}"
+      DTS:ExecutableType="SSIS.ExecutePackageTask.3"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute DI_Flag"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>edw_DI_Flag.dtsx</PackageName>
         </ExecutePackageTask>
       </DTS:ObjectData>
     </DTS:Executable>
@@ -657,6 +674,14 @@
       DTS:ObjectName="Constraint 26"
       DTS:To="Package\Execute DIH_CostObject" />
     <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 27]"
+      DTS:CreationName=""
+      DTS:DTSID="{324A114E-4E14-4E05-8915-B9162802E05F}"
+      DTS:From="Package\Execute DIH_CostObject"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 27"
+      DTS:To="Package\Execute DI_Flag" />
+    <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
       DTS:CreationName=""
       DTS:DTSID="{A90B42D9-ABE5-4A1A-8289-9FAAC4F1CC47}"
@@ -821,6 +846,10 @@
           Size="262,42"
           Id="Package\Execute DI_Turdepot"
           TopLeft="80.288888888889,506.333333333333" />
+        <NodeLayout
+          Size="242,42"
+          Id="Package\Execute DIH_CostObject"
+          TopLeft="761.427777777778,380" />
         <NodeLayout
           Size="242,42"
           Id="Package\Execute edw_di_omksted_ny"
@@ -1468,6 +1497,40 @@
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 26]"
+          TopLeft="761.427777777778,354.095238095238">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,46.9047619047619"
+              Start="0,0"
+              End="-7.5,46.9047619047619">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-18.5,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-18.5,0"
+                    Point2="-22.5,0"
+                    Point3="-22.5,4" />
+                  <mssgle:LineSegment
+                    End="-22.5,42.9047619047619" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-22.5,42.9047619047619"
+                    Point2="-22.5,46.9047619047619"
+                    Point3="-18.5,46.9047619047619" />
+                  <mssgle:LineSegment
+                    End="-7.5,46.9047619047619" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 3]"
           TopLeft="80.288888888889,201.444444444444">
           <EdgeLayout.Curve>
@@ -1706,35 +1769,35 @@
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
-          Size="242,42"
-          Id="Package\Execute DIH_CostObject"
-          TopLeft="761.427777777778,380" />
+          Size="244,42"
+          Id="Package\Execute DI_Flag"
+          TopLeft="761,433" />
         <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 26]"
-          TopLeft="761.427777777778,354.095238095238">
+          Id="Package.PrecedenceConstraints[Constraint 27]"
+          TopLeft="761.427777777778,406.666666666667">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,46.9047619047619"
+              EndConnector="-0.427777777778033,47.3333333333333"
               Start="0,0"
-              End="-7.5,46.9047619047619">
+              End="-7.92777777777803,47.3333333333333">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="-18.5,0" />
+                    End="-18.927777777778,0" />
                   <mssgle:CubicBezierSegment
-                    Point1="-18.5,0"
-                    Point2="-22.5,0"
-                    Point3="-22.5,4" />
+                    Point1="-18.927777777778,0"
+                    Point2="-22.927777777778,0"
+                    Point3="-22.927777777778,4" />
                   <mssgle:LineSegment
-                    End="-22.5,42.9047619047619" />
+                    End="-22.927777777778,43.3333333333333" />
                   <mssgle:CubicBezierSegment
-                    Point1="-22.5,42.9047619047619"
-                    Point2="-22.5,46.9047619047619"
-                    Point3="-18.5,46.9047619047619" />
+                    Point1="-22.927777777778,43.3333333333333"
+                    Point2="-22.927777777778,47.3333333333333"
+                    Point3="-18.927777777778,47.3333333333333" />
                   <mssgle:LineSegment
-                    End="-7.5,46.9047619047619" />
+                    End="-7.92777777777803,47.3333333333333" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
