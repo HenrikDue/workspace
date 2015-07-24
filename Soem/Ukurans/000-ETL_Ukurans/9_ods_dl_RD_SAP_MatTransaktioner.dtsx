@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
   DTS:CreationDate="3/20/2011 1:31:42 PM"
@@ -13,46 +13,11 @@
   DTS:ObjectName="9_ods_dl_RD_SAP_MatTransaktioner"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="390"
-  DTS:VersionGUID="{28998524-0B1A-4323-A7EF-25FEF2BF63C6}">
+  DTS:VersionBuild="394"
+  DTS:VersionGUID="{398B9353-5F95-4E54-BD35-727A5EA8587E}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[DOTNET_Ukurans]"
-      DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
-      DTS:DTSID="{B73D5338-3940-486D-B40C-B84BD5F73FE3}"
-      DTS:ObjectName="DOTNET_Ukurans">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectionString="Data Source=mssqlp01\ALPHA;Initial Catalog=Ukurans;Integrated Security=True;Application Name=SSIS-ods_dl_RD_SAP_MatTransaktionerc-{B73D5338-3940-486D-B40C-B84BD5F73FE3}DOTNET;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[DSB EmailServer]"
-      DTS:CreationName="SMTP"
-      DTS:Description="DSB Email Server"
-      DTS:DTSID="{CB1784F4-128A-48BC-90A7-2FD0877042DB}"
-      DTS:ObjectName="DSB EmailServer">
-      <DTS:ObjectData>
-        <SmtpConnectionManager
-          ConnectionString="SmtpServer=10.35.13.100;UseWindowsAuthentication=False;EnableSsl=False;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[mssqlp01\ALPHA.Ukurans]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{F658EF04-118B-4F56-B4FA-D530EBA5C91D}"
-      DTS:ObjectName="mssqlp01\ALPHA.Ukurans">
-      <DTS:PropertyExpression
-        DTS:Name="InitialCatalog">@[User::DATABASE]</DTS:PropertyExpression>
-      <DTS:PropertyExpression
-        DTS:Name="ServerName">@[User::SERVER]</DTS:PropertyExpression>
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectionString="Data Source=mssqlp01\alpha;Initial Catalog=Ukurans;Provider=SQLNCLI11;Integrated Security=SSPI;Auto Translate=False;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
     <DTS:ConnectionManager
       DTS:refId="Package.ConnectionManagers[Ukurans transactioner filer]"
       DTS:CreationName="FLATFILE"
@@ -84,14 +49,6 @@
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
-  <DTS:Configurations>
-    <DTS:Configuration
-      DTS:ConfigurationString="\\gbdfs1\DSBDFS\Økonomi\KONC-POEM\70_BI\Projekter - debug\Ukurans\ServerOgDatabase.dtsConfig"
-      DTS:ConfigurationType="1"
-      DTS:CreationName=""
-      DTS:DTSID="{98BDD2BF-D2C4-4F2A-A174-BEDFA0526A9D}"
-      DTS:ObjectName="ServerogDatabase" />
-  </DTS:Configurations>
   <DTS:Variables>
     <DTS:Variable
       DTS:CreationName=""
@@ -249,7 +206,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{F658EF04-118B-4F56-B4FA-D530EBA5C91D}"
+          SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
           SQLTask:SqlStatementSource="select cast(left(vaerdi, 8) + '01' as datetime) v_BeregnDato  from edw.md_styringstabel where parameter = 'RegnOpdtDato'"
           SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
           <SQLTask:ResultBinding
@@ -298,7 +255,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{F658EF04-118B-4F56-B4FA-D530EBA5C91D}"
+              SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
               SQLTask:SqlStatementSource="delete from ods.TD_indlaes_useq&#xA;where substring(Række, 1,18) = '|Overførte records'&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
@@ -315,7 +272,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{F658EF04-118B-4F56-B4FA-D530EBA5C91D}"
+              SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
               SQLTask:SqlStatementSource="select ltrim(replace(replace(right(Række, 12), '|', ''), '.', ''))  v_AntalRec&#xA;from ods.TD_indlaes_useq&#xA;where substring(Række, 1,18) = '|Overførte records'&#xA;Group by replace(right(Række, 12), '|', '') &#xA;GO&#xA;"
               SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ResultBinding
@@ -337,7 +294,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{F658EF04-118B-4F56-B4FA-D530EBA5C91D}"
+              SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
               SQLTask:SqlStatementSource="truncate table ods.TD1_SAP_Transaktioner&#xA;&#xA;truncate table  ods.TD_indlaes_useq&#xA;GO&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
@@ -354,7 +311,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{F658EF04-118B-4F56-B4FA-D530EBA5C91D}"
+              SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
               SQLTask:SqlStatementSource="select convert(varchar(50), sum(Maengde)) v_Sum_maengde, convert(varchar(50), sum(Vaerdi_SP)) v_Sum_beloeb&#xA;from ods.TD1_SAP_Transaktioner&#xA;&#xA;"
               SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ResultBinding
@@ -521,8 +478,8 @@
                   <connections>
                     <connection
                       refId="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans\TD useq.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[mssqlp01\ALPHA.Ukurans]"
-                      connectionManagerRefId="Package.ConnectionManagers[mssqlp01\ALPHA.Ukurans]"
+                      connectionManagerID="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[Ukurans]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -1912,8 +1869,8 @@
                   <connections>
                     <connection
                       refId="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans 1\ods TD1_SAP_Trans.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[mssqlp01\ALPHA.Ukurans]"
-                      connectionManagerRefId="Package.ConnectionManagers[mssqlp01\ALPHA.Ukurans]"
+                      connectionManagerID="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[Ukurans]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -2241,8 +2198,8 @@
                   <connections>
                     <connection
                       refId="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans 1\ods TD_indlaes_useq.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[mssqlp01\ALPHA.Ukurans]"
-                      connectionManagerRefId="Package.ConnectionManagers[mssqlp01\ALPHA.Ukurans]"
+                      connectionManagerID="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[Ukurans]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -2361,7 +2318,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{B73D5338-3940-486D-B40C-B84BD5F73FE3}"
+              SQLTask:Connection="{2562EF84-7EC9-4FCD-BB4D-B747966D8964}"
               SQLTask:SqlStatementSource="DECLARE @sql        varchar(800)&#xA;&#xA;set @sql =&#xA;'insert into ods.CTL_loader values ( ''SAP Transaktioner'' , ' + quotename(right(@v_FileName,200), '''') + ' , ' &#xA;+ quotename(substring(right(@v_FileName, 16),1, 12), '''')+ ' , '  + '''Maengde'' , '+ quotename(@v_Sum_maengde, '''') + ' , ''Vaerdi_SP'' , ' +  quotename(@v_Sum_beloeb, '''')  + ',  ''Antal  Records'' , ' + quotename(@v_AntalRec, '''') + ', getdate() , ' + quotename(convert(varchar(10),@v_BeregnDato,121), '''') +'  )'   &#xA;&#xA;exec (@sql)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ParameterBinding
                 SQLTask:ParameterName="v_FileName"
@@ -2409,7 +2366,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{F658EF04-118B-4F56-B4FA-D530EBA5C91D}"
+              SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
               SQLTask:SqlStatementSource="insert into ods.RD_SAP_MatTransaktioner&#xA;select &#xA;Fabrik, Materiale, OmkArt, BevArt, Maengde, Vaerdi_SP, RefBilagNr, IndkBilag, BogDato, Periode, Aar, RegistrDato, RegistrDatoKl, Brugernavn, BilagNr, Profitcenter, Partner&#xA;from ods.TD1_SAP_Transaktioner&#xA;GO&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
@@ -2494,7 +2451,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{F658EF04-118B-4F56-B4FA-D530EBA5C91D}"
+          SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
           SQLTask:SqlStatementSource="-- sum antal Records i header&#xA;Delete from edw.CD_TjekTabeller&#xA;Where&#x9;ProcesNr&#x9;=&#x9;'34a'&#xA;&#x9;and&#x9;Tabel&#x9;&#x9;=&#x9;'ods.CTL_loader'&#xA;&#x9;and&#x9;BeregnDato&#x9;=&#x9;(select cast(left(vaerdi, 8) + '01' as datetime) from edw.md_styringstabel where parameter = 'RegnOpdtDato')&#x9;&#xA;Insert into edw.CD_TjekTabeller&#xA;Select&#x9;'34a' as ProcesNr&#xA;&#x9;&#x9;,(select cast(left(vaerdi, 8) + '01' as datetime) from edw.md_styringstabel where parameter = 'RegnOpdtDato') as BeregnDato&#xA;&#x9;&#x9;,'ods.CTL_loader' as Tabel&#xA;&#x9;&#x9;,'Vaerdi_kolonne3' as Felt &#xA;&#x9;&#x9;,'Sum af antal records jf. CTL_loader' as Forklaring&#xA;&#x9;&#x9;,(Select sum(convert(float, replace(replace(vaerdi_kolonne3, '.', ''),',', '.'))) as vaerdi from ods.CTL_loader&#xA;&#x9;&#x9;&#x9;where BeregnDato = (select cast(left(vaerdi, 8) + '01' as datetime) from edw.md_styringstabel where parameter = 'RegnOpdtDato')&#xA;&#x9;&#x9;&#x9;and Kilde = 'SAP Transaktioner'&#xA;&#x9;&#x9;&#x9;and [timestamp] = (select max([timestamp]) from ods.CTL_loader where Kilde = 'SAP Transaktioner'))&#xA;&#xA;-- sum af antal materialer i filer&#x9;&#x9;&#x9;&#xA;Delete from edw.CD_TjekTabeller&#xA;Where&#x9;ProcesNr&#x9;=&#x9;'34b'&#xA;&#x9;and&#x9;Tabel&#x9;&#x9;=&#x9;'ods.RD_SAP_MatTransaktioner'&#xA;&#x9;and&#x9;BeregnDato&#x9;=&#x9;(select cast(left(vaerdi, 8) + '01' as datetime) from edw.md_styringstabel where parameter = 'RegnOpdtDato')&#xA;Insert into edw.CD_TjekTabeller&#xA;Select&#x9;'34b' as ProcesNr&#xA;&#x9;&#x9;,(select cast(left(vaerdi, 8) + '01' as datetime) from edw.md_styringstabel where parameter = 'RegnOpdtDato') as BeregnDato&#xA;&#x9;&#x9;,'ods.RD_SAP_MatTransaktioner' as Tabel&#xA;&#x9;&#x9;,'AntalMaterialer' as Felt &#xA;&#x9;&#x9;,'Sum af antal materialer indlæst fra T-filerne' as Forklaring&#xA;&#x9;&#x9;,(Select count(materiale) as Antal from ods.RD_SAP_MatTransaktioner) as Sum&#xA;&#xA;Go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -2522,7 +2479,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{F658EF04-118B-4F56-B4FA-D530EBA5C91D}"
+              SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
               SQLTask:SqlStatementSource="select count(q3.materiale) v_NyeMat&#xA;from &#xA;(&#xA;select distinct materiale&#xA;from ods.RD_SAP_MatTransaktioner&#xA;where substring(convert(varchar, BogfDato, 102), 3, 2) = (select substring(convert(varchar, GyldigFra, 102), 3, 2)&#xA;                                                          FROM [UKURANS].[edw].[MD_Styringstabel]&#xA;                                                          where parameter = 'OpdaterDato')&#xA;EXCEPT&#xA;select materiale&#xA;from edw.DI_Materialer_LitraGr_StatusGr&#xA;) q3&#xA;"
               SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ResultBinding
@@ -2549,7 +2506,7 @@
             DTS:Name="ToLine">@v_Email_To</DTS:PropertyExpression>
           <DTS:ObjectData>
             <SendMailTask:SendMailTaskData
-              SendMailTask:SMTPServer="{CB1784F4-128A-48BC-90A7-2FD0877042DB}"
+              SendMailTask:SMTPServer="{B8CAFD9C-25F4-4315-824C-68E8BCEB22C7}"
               SendMailTask:From="datawarehouse@dsb.dk"
               SendMailTask:To="datawarehouse@dsb.dk"
               SendMailTask:Subject="&quot;Indlæsning af Transaktions fil (package &quot; +  @[System::PackageName]  + &quot;) for periode &quot; + @v_CurrPeriod + &quot; er afsluttet og ny(e) material(er) blev tilføjt til Material dimension&quot;"
@@ -2569,7 +2526,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{F658EF04-118B-4F56-B4FA-D530EBA5C91D}"
+              SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
               SQLTask:SqlStatementSource="DECLARE @sql as varchar(1000)&#xA;set @sql = &#xA;--'insert into edw.DI_Materialer_LitraGr_StatusGr&#xA;'&#xA;select q1.materiale, q2.materialeTekst, &#xA;(select right(convert(varchar, GyldigFra, 105) , 4)  &#xA;&#x9;From [UKURANS].[edw].[MD_Styringstabel]&#xA;&#x9;where parameter = ''OpdaterDato''),&#xA;&#x9;(select right(convert(varchar, GyldigFra, 105) , 4)  &#xA;&#x9;From [UKURANS].[edw].[MD_Styringstabel]&#xA;&#x9;where parameter = ''OpdaterDato'')&#xA;--''NYMAT''&#xA;, ''MGL'', ''USN'', &#xA;(select GyldigFra&#xA;FROM [UKURANS].[edw].[MD_Styringstabel]&#xA;where parameter = ''OpdaterDato''),&#xA;Cast(''9999-12-31'' as datetime),&#xA;&#xA;null, null, null&#xA;&#xA;from &#xA;&#xA;(&#xA;select distinct materiale&#xA;from ods.RD_SAP_MatTransaktioner&#xA;where substring(convert(varchar, BogfDato, 102), 3, 2) = substring(convert(varchar, (select GyldigFra&#xA;FROM [UKURANS].[edw].[MD_Styringstabel]&#xA;where parameter = ''OpdaterDato''), 102), 3, 2)&#xA;EXCEPT&#xA;select materiale&#xA;from edw.DI_Materialer_LitraGr_StatusGr&#xA;) q1&#xA;left join &#xA;(select distinct Materiale, MaterialeTekst&#xA;from ods.RD_SAP_MatBehold&#xA;) q2&#xA;on q1.materiale = q2.materiale &#xA;'&#xA;&#xA;exec (@sql)&#xA;Go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
@@ -2608,7 +2565,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{F658EF04-118B-4F56-B4FA-D530EBA5C91D}"
+          SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
           SQLTask:SqlStatementSource="truncate table ods.TD1_SAP_Transaktioner&#xA;GO&#xA;&#xA;truncate table ods.RD_SAP_MatTransaktioner&#xA;GO&#xA;&#xA;truncate table ods.TD_indlaes_useq&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -2625,7 +2582,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{F658EF04-118B-4F56-B4FA-D530EBA5C91D}"
+          SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
           SQLTask:SqlStatementSource="select replace(left(vaerdi, 8) + '01', '-', '.') v_CurrPeriod from edw.md_styringstabel where parameter = 'RegnOpdtDato'"
           SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
           <SQLTask:ResultBinding
@@ -2647,7 +2604,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{F658EF04-118B-4F56-B4FA-D530EBA5C91D}"
+          SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
           SQLTask:SqlStatementSource="select vaerdi v_Email_To&#xA;from [edw].[MD_Styringstabel]&#xA;where Parameter = 'Email_to'"
           SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
           <SQLTask:ResultBinding
@@ -2726,7 +2683,7 @@
         <NodeLayout
           Size="136,44"
           Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Delete titler"
-          TopLeft="46.5660377358491,309.264150943396" />
+          TopLeft="35.5660377358491,333.264150943396" />
         <NodeLayout
           Size="136,44"
           Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Hent antal records"
@@ -2742,7 +2699,7 @@
         <NodeLayout
           Size="136,44"
           Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans"
-          TopLeft="41.6981132075472,163.415094339623" />
+          TopLeft="41.6981132075472,119.415094339623" />
         <NodeLayout
           Size="136,44"
           Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans 1"
@@ -2757,22 +2714,18 @@
           TopLeft="218.339622641509,329.377358490566" />
         <EdgeLayout
           Id="Package\Iteration til at indlæse Materiale transactioner (T) filer.PrecedenceConstraints[Constraint]"
-          TopLeft="109.132075471698,72.5471698113208">
+          TopLeft="109.471698113208,72.622641509434">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0.452830188679229,90.8679245283019"
+              EndConnector="0,46.792452830189"
               Start="0,0"
-              End="0.452830188679229,83.3679245283019">
+              End="0,39.292452830189">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,45.4339622641509" />
-                  <mssgle:LineSegment
-                    End="0.452830188679229,45.4339622641509" />
-                  <mssgle:LineSegment
-                    End="0.452830188679229,83.3679245283019" />
+                    End="0,39.292452830189" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2783,22 +2736,18 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Iteration til at indlæse Materiale transactioner (T) filer.PrecedenceConstraints[Constraint 1]"
-          TopLeft="109.584905660377,207.339622641509">
+          TopLeft="106.132075471698,163.415094339623">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-7.1320754716981,28.7547169811321"
+              EndConnector="0,72.679245283019"
               Start="0,0"
-              End="-7.1320754716981,21.2547169811321">
+              End="0,65.179245283019">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,14.3773584905661" />
-                  <mssgle:LineSegment
-                    End="-7.1320754716981,14.3773584905661" />
-                  <mssgle:LineSegment
-                    End="-7.1320754716981,21.2547169811321" />
+                    End="0,65.179245283019" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2861,22 +2810,30 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Iteration til at indlæse Materiale transactioner (T) filer.PrecedenceConstraints[Constraint 5]"
-          TopLeft="102.452830188679,280.018867924528">
+          TopLeft="102.566037735849,280.094339622642">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-8.75471698113205,29.2452830188679"
+              EndConnector="-20.3333333333333,53.169811320754"
               Start="0,0"
-              End="-8.75471698113205,21.7452830188679">
+              End="-20.3333333333333,45.669811320754">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,14.6037735849057" />
+                    End="0,27.5309346204471" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27.5309346204471"
+                    Point2="0,31.5309346204471"
+                    Point3="-4,31.5309346204471" />
                   <mssgle:LineSegment
-                    End="-8.75471698113205,14.6037735849057" />
+                    End="-16.3333333333333,31.5309346204471" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-16.3333333333333,31.5309346204471"
+                    Point2="-20.3333333333333,31.5309346204471"
+                    Point3="-20.3333333333333,35.5309346204471" />
                   <mssgle:LineSegment
-                    End="-8.75471698113205,21.7452830188679" />
+                    End="-20.3333333333333,45.669811320754" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2913,22 +2870,30 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Iteration til at indlæse Materiale transactioner (T) filer.PrecedenceConstraints[Constraint 7]"
-          TopLeft="114.452830188679,309.264150943396">
+          TopLeft="124.899371069182,333.264150943396">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="158.792452830189,-186.150943396226"
+              EndConnector="147.880503144654,-210.075471698113"
               Start="0,0"
-              End="158.792452830189,-178.650943396226">
+              End="147.880503144654,-202.575471698113">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,-93.0943396226415" />
+                    End="0,-101.037735849056" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,-101.037735849056"
+                    Point2="0,-105.037735849056"
+                    Point3="4,-105.037735849056" />
                   <mssgle:LineSegment
-                    End="158.792452830189,-93.0943396226415" />
+                    End="143.880503144654,-105.037735849056" />
+                  <mssgle:CubicBezierSegment
+                    Point1="143.880503144654,-105.037735849056"
+                    Point2="147.880503144654,-105.037735849056"
+                    Point3="147.880503144654,-109.037735849056" />
                   <mssgle:LineSegment
-                    End="158.792452830189,-178.650943396226" />
+                    End="147.880503144654,-202.575471698113" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2940,8 +2905,8 @@
         <ContainerLayout
           HeaderHeight="43.924528301886795"
           IsExpanded="True"
-          PanelSize="399,386"
-          Size="399,430"
+          PanelSize="399,428"
+          Size="399,472"
           Id="Package\Iteration til at indlæse Materiale transactioner (T) filer"
           TopLeft="290.179245283019,5.5" />
         <NodeLayout
@@ -3113,22 +3078,30 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 3]"
-          TopLeft="489.764150943396,435.688679245283">
+          TopLeft="689.179245283019,241.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-8.67924528301887,26.5660377358491"
+              EndConnector="-16.7924528301891,330.754716981132"
               Start="0,0"
-              End="-8.67924528301887,19.0660377358491">
+              End="-9.29245283018906,330.754716981132">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,13.2830188679246" />
+                    End="18.5,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="18.5,0"
+                    Point2="22.5,0"
+                    Point3="22.5,4" />
                   <mssgle:LineSegment
-                    End="-8.67924528301887,13.2830188679246" />
+                    End="22.5,326.754716981132" />
+                  <mssgle:CubicBezierSegment
+                    Point1="22.5,326.754716981132"
+                    Point2="22.5,330.754716981132"
+                    Point3="18.5,330.754716981132" />
                   <mssgle:LineSegment
-                    End="-8.67924528301887,19.0660377358491" />
+                    End="-9.29245283018906,330.754716981132" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3139,22 +3112,30 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 4]"
-          TopLeft="146.481132075472,281.72641509434">
+          TopLeft="146.707547169811,281.764150943396">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="143.698113207547,-61.1320754716981"
+              EndConnector="143.471698113208,-40.264150943396"
               Start="0,0"
-              End="136.198113207547,-61.1320754716981">
+              End="135.971698113208,-40.264150943396">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="71.8490566037736,0" />
+                    End="67.7358490566038,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="67.7358490566038,0"
+                    Point2="71.7358490566038,0"
+                    Point3="71.7358490566038,-4" />
                   <mssgle:LineSegment
-                    End="71.8490566037736,-61.1320754716981" />
+                    End="71.7358490566038,-36.264150943396" />
+                  <mssgle:CubicBezierSegment
+                    Point1="71.7358490566038,-36.264150943396"
+                    Point2="71.7358490566038,-40.264150943396"
+                    Point3="75.7358490566038,-40.264150943396" />
                   <mssgle:LineSegment
-                    End="136.198113207547,-61.1320754716981" />
+                    End="135.971698113208,-40.264150943396" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3192,5 +3173,293 @@
       </GraphLayout>
     </LayoutInfo>
   </Package>
+  <TaskHost
+    design-time-name="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="120,42"
+          Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans\TD useq"
+          TopLeft="37.5,209.5" />
+        <NodeLayout
+          Size="184,42"
+          Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans\Ukurans transactioner"
+          TopLeft="5.50000000000001,5.5" />
+        <NodeLayout
+          Size="158,42"
+          Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans\Data Conversion"
+          TopLeft="18.5,107.5" />
+        <EdgeLayout
+          Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans.Paths[Flat File Source Output]"
+          TopLeft="97.5,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans.Paths[Data Conversion Output]"
+          TopLeft="97.5,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <TaskHost
+    design-time-name="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans 1">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="235,42"
+          Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans 1\Convert text to decimal and time"
+          TopLeft="5.50000000000009,617.5" />
+        <NodeLayout
+          Size="181,42"
+          Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans 1\ods TD_indlaes_useq"
+          TopLeft="32.5,5.5" />
+        <NodeLayout
+          Size="167,42"
+          Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans 1\Data Conversion 1"
+          TopLeft="39.5000000000001,413.5" />
+        <NodeLayout
+          Size="176,42"
+          Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans 1\ods TD1_SAP_Trans"
+          TopLeft="35.0000000000001,821.5" />
+        <NodeLayout
+          Size="129,42"
+          Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans 1\Filtre titler"
+          TopLeft="58.5,209.5" />
+        <NodeLayout
+          Size="138,42"
+          Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans 1\Filtre totaler"
+          TopLeft="54.0000000000001,515.5" />
+        <NodeLayout
+          Size="158,42"
+          Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans 1\Data Conversion"
+          TopLeft="44,107.5" />
+        <NodeLayout
+          Size="235,42"
+          Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans 1\Behandle sign Mængde og beløb"
+          TopLeft="5.5000000000001,719.5" />
+        <NodeLayout
+          Size="155,42"
+          Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans 1\Danne kolonner"
+          TopLeft="45.5,311.5" />
+        <EdgeLayout
+          Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans 1.Paths[Data Conversion Output]"
+          TopLeft="123,659.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans 1.Paths[Rækker uden totaler]"
+          TopLeft="123,557.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-45.88369140625,21.37548828125,91.7673828125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans 1.Paths[Rækker uden titler]"
+          TopLeft="123,251.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-41.68869140625,21.37548828125,83.3773828125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans 1.Paths[OLE DB Source Output]"
+          TopLeft="123,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans 1.Paths[Derived Column Output1]"
+          TopLeft="123,353.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans 1.Paths[Derived Column Output]"
+          TopLeft="123,761.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans 1.Paths[Data Conversion Output2]"
+          TopLeft="123,455.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Iteration til at indlæse Materiale transactioner (T) filer\Update ods TD1_SAP_Trans 1.Paths[Data Conversion Output1]"
+          TopLeft="123,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
 </Objects>]]></DTS:DesignTimeProperties>
 </DTS:Executable>
