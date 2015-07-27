@@ -13,8 +13,8 @@
   DTS:ObjectName="4_ods_dl_RD_SAP_MatRID"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="226"
-  DTS:VersionGUID="{653757E7-6238-4227-93B9-B8F4B1BD7803}">
+  DTS:VersionBuild="230"
+  DTS:VersionGUID="{5997D027-D0D4-4EC8-BAFD-3A50AF81E2D2}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -1137,6 +1137,50 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyVersion("1.0.0.0")> 
 <Assembly: AssemblyFileVersion("1.0.0.0")> ]]></ProjectItem>
               <ProjectItem
+                Name="ScriptMain.vb"
+                Encoding="UTF8"><![CDATA[' Microsoft SQL Server Integration Services Script Task
+' Write scripts using Microsoft Visual Basic
+' The ScriptMain class is the entry point of the Script Task.
+
+Imports System
+Imports System.Data
+Imports System.Math
+Imports Microsoft.SqlServer.Dts.Runtime
+
+<Microsoft.SqlServer.Dts.Tasks.ScriptTask.SSISScriptTaskEntryPointAttribute> _
+<System.CLSCompliantAttribute(False)> _
+Partial Public Class ScriptMain
+	Inherits Microsoft.SqlServer.Dts.Tasks.ScriptTask.VSTARTScriptObjectModelBase
+
+	Enum ScriptResults
+		Success = Microsoft.SqlServer.Dts.Runtime.DTSExecResult.Success
+		Failure = Microsoft.SqlServer.Dts.Runtime.DTSExecResult.Failure
+	End Enum
+
+	' The execution engine calls this method when the task executes.
+	' To access the object model, use the Dts object. Connections, variables, events,
+	' and logging features are available as static members of the Dts class.
+	' Before returning from this method, set the value of Dts.TaskResult to indicate success or failure.
+	' 
+	' To open Code and Text Editor Help, press F1.
+	' To open Object Browser, press Ctrl+Alt+J.
+
+	Public Sub Main()
+		'
+		' Add your code here
+        '
+        Dim variables As Variables
+        If Dts.Variables.Contains("v_FileName") = True Then
+            Dts.VariableDispenser.LockOneForRead("v_FileName", variables)
+        End If
+
+        MsgBox(CStr(variables("v_FileName").Value))
+
+		Dts.TaskResult = ScriptResults.Success
+	End Sub
+
+End Class]]></ProjectItem>
+              <ProjectItem
                 Name="My Project\Settings.settings"
                 Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
 <SettingsFile xmlns="uri:settings" CurrentProfile="(Default)" GeneratedClassNamespace="$safeprojectname" GeneratedClassName="MySettings">
@@ -1361,50 +1405,6 @@ End Class]]></ProjectItem>
 		<msb:File Include="My Project\Settings.Designer.vb"/>
 	</msb:ItemGroup>
 </c:Project>]]></ProjectItem>
-              <ProjectItem
-                Name="ScriptMain.vb"
-                Encoding="UTF8"><![CDATA[' Microsoft SQL Server Integration Services Script Task
-' Write scripts using Microsoft Visual Basic
-' The ScriptMain class is the entry point of the Script Task.
-
-Imports System
-Imports System.Data
-Imports System.Math
-Imports Microsoft.SqlServer.Dts.Runtime
-
-<Microsoft.SqlServer.Dts.Tasks.ScriptTask.SSISScriptTaskEntryPointAttribute> _
-<System.CLSCompliantAttribute(False)> _
-Partial Public Class ScriptMain
-	Inherits Microsoft.SqlServer.Dts.Tasks.ScriptTask.VSTARTScriptObjectModelBase
-
-	Enum ScriptResults
-		Success = Microsoft.SqlServer.Dts.Runtime.DTSExecResult.Success
-		Failure = Microsoft.SqlServer.Dts.Runtime.DTSExecResult.Failure
-	End Enum
-
-	' The execution engine calls this method when the task executes.
-	' To access the object model, use the Dts object. Connections, variables, events,
-	' and logging features are available as static members of the Dts class.
-	' Before returning from this method, set the value of Dts.TaskResult to indicate success or failure.
-	' 
-	' To open Code and Text Editor Help, press F1.
-	' To open Object Browser, press Ctrl+Alt+J.
-
-	Public Sub Main()
-		'
-		' Add your code here
-        '
-        Dim variables As Variables
-        If Dts.Variables.Contains("v_FileName") = True Then
-            Dts.VariableDispenser.LockOneForRead("v_FileName", variables)
-        End If
-
-        MsgBox(CStr(variables("v_FileName").Value))
-
-		Dts.TaskResult = ScriptResults.Success
-	End Sub
-
-End Class]]></ProjectItem>
               <ProjectItem
                 Name="My Project\Resources.resx"
                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
@@ -2032,71 +2032,67 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
       <GraphLayout
         Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="136,44"
+          Size="221,42"
           Id="Package\Ajourfør CD_TjekTabeller"
-          TopLeft="53.6132075471698,464.971698113208" />
+          TopLeft="947.198113207547,15.971698113208" />
         <NodeLayout
-          Size="136,44"
+          Size="218,42"
           Id="Package\CLEAN TD_SAP_Raekkevidde"
-          TopLeft="5.5,41.6509433962264" />
+          TopLeft="6.08490566037736,11.6509433962264" />
         <NodeLayout
-          Size="136,44"
+          Size="218,44"
           Id="Package\Hent BeregnDato"
-          TopLeft="6.66981132075472,147.38679245283" />
+          TopLeft="6.08490566037736,85.38679245283" />
         <NodeLayout
-          Size="136,44"
+          Size="209,42"
           Id="Package\Iteration trough Ukurans_R files\CLEAN ods_rd_ukur_L1720"
-          TopLeft="102.377358490566,95.2641509433962" />
+          TopLeft="315.391509433963,26.2641509433962" />
         <NodeLayout
-          Size="136,44"
+          Size="209,44"
           Id="Package\Iteration trough Ukurans_R files\Data Flow Task"
-          TopLeft="104.415094339623,173.150943396226" />
+          TopLeft="315.391509433963,113.018867924528" />
         <NodeLayout
-          Size="136,44"
+          Size="193,44"
           Id="Package\Iteration trough Ukurans_R files\Få Dato"
-          TopLeft="291.622641509434,270.094339622641" />
+          TopLeft="30.8566037735849,200.066037735849" />
         <NodeLayout
-          Size="136,44"
+          Size="193,44"
           Id="Package\Iteration trough Ukurans_R files\Få fabrik"
-          TopLeft="107.735849056604,238.735849056604" />
+          TopLeft="30.8566037735849,110.287735849057" />
         <NodeLayout
-          Size="136,44"
+          Size="193,42"
           Id="Package\Iteration trough Ukurans_R files\Read txt files"
-          TopLeft="99.5849056603774,16.5094339622642" />
+          TopLeft="30.8566037735849,22.5094339622642" />
         <NodeLayout
-          Size="136,44"
+          Size="193,44"
           Id="Package\Iteration trough Ukurans_R files\Udfylder totaler"
-          TopLeft="105.962264150943,437.490566037736" />
+          TopLeft="30.8566037735849,289.844339622642" />
         <NodeLayout
-          Size="136,44"
+          Size="209,44"
           Id="Package\Iteration trough Ukurans_R files\UPD ods_TD_SAP_Raekkevidde"
-          TopLeft="107.735849056604,293.792452830189" />
+          TopLeft="315.391509433963,201.77358490566" />
         <NodeLayout
-          Size="136,44"
+          Size="209,44"
           Id="Package\Iteration trough Ukurans_R files\UPD RD_SAP_MatRID"
-          TopLeft="106.037735849057,369.528301886792" />
+          TopLeft="315.391509433963,290.528301886792" />
         <NodeLayout
-          Size="136,44"
+          Size="193,42"
           Id="Package\Iteration trough Ukurans_R files\Update ods_CTL_loader"
-          TopLeft="106.377358490566,506.622641509434" />
+          TopLeft="30.8566037735849,379.622641509434" />
         <EdgeLayout
           Id="Package\Iteration trough Ukurans_R files.PrecedenceConstraints[Constraint]"
-          TopLeft="170.264150943396,139.188679245283">
+          TopLeft="419.891509433963,68.2641509433962">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="2.03773584905659,33.9622641509434"
+              EndConnector="0,44.7547169811319"
               Start="0,0"
-              End="2.03773584905659,26.4622641509434">
+              End="0,37.2547169811319">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,16.9811320754717" />
-                  <mssgle:LineSegment
-                    End="2.03773584905659,16.9811320754717" />
-                  <mssgle:LineSegment
-                    End="2.03773584905659,26.4622641509434" />
+                    End="0,37.2547169811319" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2107,22 +2103,18 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Iteration trough Ukurans_R files.PrecedenceConstraints[Constraint 1]"
-          TopLeft="172.301886792453,217.075471698113">
+          TopLeft="315.391509433963,133.653301886792">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="3.32075471698113,21.6603773584906"
+              EndConnector="-91.5349056603776,0"
               Start="0,0"
-              End="3.32075471698113,14.1603773584906">
+              End="-84.0349056603776,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,10.8301886792453" />
-                  <mssgle:LineSegment
-                    End="3.32075471698113,10.8301886792453" />
-                  <mssgle:LineSegment
-                    End="3.32075471698113,14.1603773584906" />
+                    End="-84.0349056603776,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2133,22 +2125,18 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Iteration trough Ukurans_R files.PrecedenceConstraints[Constraint 2]"
-          TopLeft="167.471698113208,60.4339622641509">
+          TopLeft="223.856603773585,45.3867924528302">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="2.79245283018869,34.8301886792453"
+              EndConnector="91.5349056603776,0"
               Start="0,0"
-              End="2.79245283018869,27.3301886792453">
+              End="84.0349056603776,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,17.3962264150943" />
-                  <mssgle:LineSegment
-                    End="2.79245283018869,17.3962264150943" />
-                  <mssgle:LineSegment
-                    End="2.79245283018869,27.3301886792453" />
+                    End="84.0349056603776,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2159,18 +2147,18 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Iteration trough Ukurans_R files.PrecedenceConstraints[Constraint 3]"
-          TopLeft="174.886792452831,337.792452830189">
+          TopLeft="419.891509433963,245.77358490566">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,31.735849056603"
+              EndConnector="0,44.7547169811319"
               Start="0,0"
-              End="0,24.235849056603">
+              End="0,37.2547169811319">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,24.235849056603" />
+                    End="0,37.2547169811319" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2181,22 +2169,18 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Iteration trough Ukurans_R files.PrecedenceConstraints[Constraint 4]"
-          TopLeft="243.509433962264,260.698113207547">
+          TopLeft="127.356603773585,154.287735849057">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="48.1132075471698,31.3584905660377"
+              EndConnector="0,45.7783018867925"
               Start="0,0"
-              End="40.6132075471698,31.3584905660377">
+              End="0,38.2783018867925">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="24.0377358490566,0" />
-                  <mssgle:LineSegment
-                    End="24.0377358490566,31.3584905660377" />
-                  <mssgle:LineSegment
-                    End="40.6132075471698,31.3584905660377" />
+                    End="0,38.2783018867925" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2207,22 +2191,18 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Iteration trough Ukurans_R files.PrecedenceConstraints[Constraint 5]"
-          TopLeft="173.924528301887,413.452830188679">
+          TopLeft="315.391509433963,312.186320754717">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-0.0754716981132049,24.0377358490566"
+              EndConnector="-91.5349056603776,0"
               Start="0,0"
-              End="-0.0754716981132049,16.5377358490566">
+              End="-84.0349056603776,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,12" />
-                  <mssgle:LineSegment
-                    End="-0.0754716981132049,12" />
-                  <mssgle:LineSegment
-                    End="-0.0754716981132049,16.5377358490566" />
+                    End="-84.0349056603776,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2233,30 +2213,18 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Iteration trough Ukurans_R files.PrecedenceConstraints[Constraint 6]"
-          TopLeft="291.622641509434,298.094339622641">
+          TopLeft="223.856603773585,222.919811320755">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-47.88679245283,17.698113207548"
+              EndConnector="91.5349056603776,0"
               Start="0,0"
-              End="-40.38679245283,17.698113207548">
+              End="84.0349056603776,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="-16.1628599801389,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-16.1628599801389,0"
-                    Point2="-20.1628599801389,0"
-                    Point3="-20.1628599801389,4" />
-                  <mssgle:LineSegment
-                    End="-20.1628599801389,13.698113207548" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-20.1628599801389,13.698113207548"
-                    Point2="-20.1628599801389,17.698113207548"
-                    Point3="-24.1628599801389,17.698113207548" />
-                  <mssgle:LineSegment
-                    End="-40.38679245283,17.698113207548" />
+                    End="84.0349056603776,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2267,22 +2235,18 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Iteration trough Ukurans_R files.PrecedenceConstraints[Constraint 7]"
-          TopLeft="173.849056603774,481.415094339623">
+          TopLeft="127.356603773585,333.844339622642">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0.415094339622641,25.2075471698113"
+              EndConnector="0,45.7783018867925"
               Start="0,0"
-              End="0.415094339622641,17.7075471698113">
+              End="0,38.2783018867925">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,12.6037735849056" />
-                  <mssgle:LineSegment
-                    End="0.415094339622641,12.6037735849056" />
-                  <mssgle:LineSegment
-                    End="0.415094339622641,17.7075471698113" />
+                    End="0,38.2783018867925" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2294,40 +2258,40 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         <ContainerLayout
           HeaderHeight="43.924528301886795"
           IsExpanded="True"
-          PanelSize="457,606"
-          Size="457,650"
+          PanelSize="562,606"
+          Size="562,650"
           Id="Package\Iteration trough Ukurans_R files"
           TopLeft="291.424528301887,5.5" />
         <NodeLayout
-          Size="136,44"
+          Size="221,42"
           Id="Package\Overfør data til historisk tabel"
-          TopLeft="76.7830188679245,550.141509433962" />
+          TopLeft="947.198113207547,87.141509433962" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="142.669811320755,169.38679245283">
+          TopLeft="224.084905660377,107.38679245283">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="148.754716981132,54.11320754717"
+              EndConnector="67.3396226415096,223.11320754717"
               Start="0,0"
-              End="141.254716981132,54.11320754717">
+              End="59.8396226415096,223.11320754717">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="85.0336703846556,0" />
+                    End="29.6698113207548,0" />
                   <mssgle:CubicBezierSegment
-                    Point1="85.0336703846556,0"
-                    Point2="89.0336703846556,0"
-                    Point3="89.0336703846556,4" />
+                    Point1="29.6698113207548,0"
+                    Point2="33.6698113207548,0"
+                    Point3="33.6698113207548,4" />
                   <mssgle:LineSegment
-                    End="89.0336703846556,50.11320754717" />
+                    End="33.6698113207548,219.11320754717" />
                   <mssgle:CubicBezierSegment
-                    Point1="89.0336703846556,50.11320754717"
-                    Point2="89.0336703846556,54.11320754717"
-                    Point3="93.0336703846556,54.11320754717" />
+                    Point1="33.6698113207548,219.11320754717"
+                    Point2="33.6698113207548,223.11320754717"
+                    Point3="37.6698113207548,223.11320754717" />
                   <mssgle:LineSegment
-                    End="141.254716981132,54.11320754717" />
+                    End="59.8396226415096,223.11320754717" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2338,22 +2302,18 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="73.3867924528302,85.5754716981132">
+          TopLeft="115.084905660377,53.6509433962264">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="1.16981132075472,61.811320754717"
+              EndConnector="0,31.7358490566036"
               Start="0,0"
-              End="1.16981132075472,54.311320754717">
+              End="0,24.2358490566036">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,30.9056603773585" />
-                  <mssgle:LineSegment
-                    End="1.16981132075472,30.9056603773585" />
-                  <mssgle:LineSegment
-                    End="1.16981132075472,54.311320754717" />
+                    End="0,24.2358490566036" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2364,30 +2324,30 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="291.424528301887,437.5">
+          TopLeft="853.424528301887,330.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-101.811320754717,49.471698113208"
+              EndConnector="93.7735849056601,-293.528301886792"
               Start="0,0"
-              End="-94.3113207547172,49.471698113208">
+              End="86.2735849056601,-293.528301886792">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="-36.8745265645089,0" />
+                    End="42.88679245283,0" />
                   <mssgle:CubicBezierSegment
-                    Point1="-36.8745265645089,0"
-                    Point2="-40.8745265645089,0"
-                    Point3="-40.8745265645089,4" />
+                    Point1="42.88679245283,0"
+                    Point2="46.88679245283,0"
+                    Point3="46.88679245283,-4" />
                   <mssgle:LineSegment
-                    End="-40.8745265645089,45.471698113208" />
+                    End="46.88679245283,-289.528301886792" />
                   <mssgle:CubicBezierSegment
-                    Point1="-40.8745265645089,45.471698113208"
-                    Point2="-40.8745265645089,49.471698113208"
-                    Point3="-44.8745265645089,49.471698113208" />
+                    Point1="46.88679245283,-289.528301886792"
+                    Point2="46.88679245283,-293.528301886792"
+                    Point3="50.88679245283,-293.528301886792" />
                   <mssgle:LineSegment
-                    End="-94.3113207547172,49.471698113208" />
+                    End="86.2735849056601,-293.528301886792" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2398,22 +2358,18 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 3]"
-          TopLeft="121.5,508.896226415094">
+          TopLeft="1057.69811320755,57.971698113208">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="23.1698113207547,41.2452830188679"
+              EndConnector="0,29.169811320754"
               Start="0,0"
-              End="23.1698113207547,33.7452830188679">
+              End="0,21.669811320754">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,20.6037735849056" />
-                  <mssgle:LineSegment
-                    End="23.1698113207547,20.6037735849056" />
-                  <mssgle:LineSegment
-                    End="23.1698113207547,33.7452830188679" />
+                    End="0,21.669811320754" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2537,7 +2493,9 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -2559,7 +2517,9 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -2613,7 +2573,9 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
