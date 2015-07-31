@@ -1,4 +1,5 @@
 ECHO OFF
+COLOR 9F
 SET ValgIndtastNyPeriode=0
 SET ValgMasterPeriode=0
 rem /* henter server og database konfiguration fra ekstern fil */ 
@@ -62,13 +63,13 @@ IF %errorlevel%==3 GOTO ExitChosen
 IF %errorlevel%==2 SET ValgIndtastNyPeriode=1 & GOTO GenvalgPeriode
 
 :Valgslut
-
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "declare @periode varchar(50); select @periode = substring(value,1,6) from ods.CTL_Dataload where kilde_system = 'Alle' and Variable = 'Model_Periode'; print '*  GD LoadPeriode: '+@periode"
 ECHO.
 for /f %%a in ('SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "SET NOCOUNT ON;select Value from ods.CTL_Dataload where kilde_system = 'Alle' and Variable = 'Model_Periode'" -h -1') do set PERIODE=%%a
 
 pause
-
+COLOR E0
+echo Overfører filer til sqlserver og afvikler pakker
 ECHO f | xcopy /y %SOURCE_PATH%%SOURCE_FILE1%%FILE_EXT% %DEST_PATH%%SOURCE_FILE1%%FILE_EXT% >> %LOGFILE%
 ECHO f | xcopy /y %SOURCE_PATH%%SOURCE_FILE2%%FILE_EXT% %DEST_PATH%%SOURCE_FILE2%%FILE_EXT% >> %LOGFILE%
 echo til %DEST_PATH% >> %LOGFILE%
@@ -77,6 +78,7 @@ SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_RIM_RejseData ''" >> 
 ECHO ******************************************************************************
 ECHO.
 %LOGFILE%
+COLOR A0
 pause
 
 :ExitChosen

@@ -1,4 +1,5 @@
 ECHO OFF
+COLOR 9F
 SET ValgIndtastNyPeriode=0
 SET ValgMasterPeriode=0
 rem /* henter server og database konfiguration fra ekstern fil */ 
@@ -61,11 +62,13 @@ IF %errorlevel%==2 SET ValgIndtastNyPeriode=1 & GOTO GenvalgPeriode
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "declare @periode varchar(50); select @periode = substring(value,1,6) from ods.CTL_Dataload where kilde_system = 'S-tog PDS' and Variable = 'Load_Period'; print 'Starter med LoadPeriode: '+@periode"
 ECHO.
 pause
-
+COLOR E0
+echo Afvikler pakker
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_PDS_STOG ''" >> %LOGFILE%
 ECHO ******************************************************************************
 ECHO.
 %LOGFILE%
+COLOR A0
 pause
 
 %DEST_LOG_PATH%Log\logDiff.txt

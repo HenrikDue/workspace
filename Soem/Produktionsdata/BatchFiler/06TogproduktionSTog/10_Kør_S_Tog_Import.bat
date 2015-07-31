@@ -1,4 +1,5 @@
 ECHO OFF
+COLOR 9F
 SET ValgIndtastNyPeriode=0
 SET ValgMasterPeriode=0
 rem /* henter server og database konfiguration fra ekstern fil */ 
@@ -67,7 +68,8 @@ SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "declare @periode varchar(50); select @
 ECHO.
 
 pause
-
+COLOR E0
+echo Afvikler pakker
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH%%SOURCE_FILE1%%FILE_EXT% %DEST_PATH%%SOURCE_FILE1%%FILE_EXT% >> %LOGFILE%
 echo til %DEST_PATH% >> %LOGFILE%
 ECHO. >> %LOGFILE%
@@ -75,6 +77,7 @@ SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_Togproduktion_STOG ''
 ECHO ******************************************************************************
 ECHO.
 %LOGFILE%
+COLOR A0
 pause
 
 :ExitChosen

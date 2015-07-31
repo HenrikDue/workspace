@@ -69,7 +69,7 @@ for /f %%a in ('SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "SET NOCOUNT ON;select 
 
 pause
 COLOR E0
-
+echo Overfører filer til sqlserver og afvikler pakker
 ECHO f | xcopy /y %SOURCE_PATH%%SOURCE_FILE1%%FILE_EXT% %DEST_PATH%%SOURCE_FILE1%%FILE_EXT% >> %LOGFILE%
 echo til %DEST_PATH% >> %LOGFILE%
 ECHO. >> %LOGFILE%

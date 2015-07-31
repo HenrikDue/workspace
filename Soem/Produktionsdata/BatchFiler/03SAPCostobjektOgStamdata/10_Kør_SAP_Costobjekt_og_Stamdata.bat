@@ -1,4 +1,5 @@
 ECHO OFF
+COLOR 9F
 SET ValgIndtastNyPeriode=0
 SET ValgMasterPeriode=0
 rem /* henter server og database konfiguration fra ekstern fil */ 
@@ -71,6 +72,7 @@ SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "declare @periode varchar(50); select @
 for /f %%a in ('SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "SET NOCOUNT ON;select substring(Value,1,6) from ods.CTL_Dataload where kilde_system = 'SAP' and Variable = 'PeriodtoFile'" -h -1') do set PERIODE=%%a
 
 pause
+COLOR E0
 echo Overfører filer til sqlserver og afvikler pakker
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH1%%SOURCE_FILE1% %DEST_PATH1%%SOURCE_FILE1% >> %LOGFILE%
 echo til %DEST_PATH1% >> %LOGFILE%
@@ -81,6 +83,7 @@ ECHO. >> %LOGFILE%
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_SAP_Costobjekt_og_Stamdata ''" >> %LOGFILE%
 ECHO ******************************************************************************
 %LOGFILE%
+COLOR A0
 pause
 
 %DEST_LOG_PATH%\Log\ErrorOutput.txt

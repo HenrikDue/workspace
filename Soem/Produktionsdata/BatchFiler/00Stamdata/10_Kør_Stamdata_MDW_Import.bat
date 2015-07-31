@@ -1,4 +1,5 @@
 ECHO OFF
+COLOR 9F
 CLS
 set config_file_path=..\Konfiguration\
 setlocal enabledelayedexpansion
@@ -50,7 +51,9 @@ ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH%%SOURCE_FILE6% %DEST_PATH%%SOURCE_F
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH%%SOURCE_FILE7% %DEST_PATH%%SOURCE_FILE7% >> %LOGFILE%
 echo til %DEST_PATH% >> %LOGFILE%
 ECHO. >> %LOGFILE%
+COLOR E0
 
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_stamdata_mdw ''" >> %LOGFILE%
 %LOGFILE%
+COLOR A0
 pause

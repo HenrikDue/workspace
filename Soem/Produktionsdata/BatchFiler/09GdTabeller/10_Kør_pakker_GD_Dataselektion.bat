@@ -34,8 +34,8 @@ ECHO.
 
 CHOICE /C SF /N /M "Tast S (Start) eller F (Fortryd)"
 IF %errorlevel%==2 GOTO ExitChosen
-
 COLOR E0
+echo Afvikler pakker
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_Load_GD_tabeller ''" >> %LOGFILE%
 ECHO ******************************************************************************
 ECHO.

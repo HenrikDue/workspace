@@ -1,4 +1,5 @@
 ECHO OFF
+COLOR 9F
 SET GenstartMedForrigeMaanedSomPeriodeValgt=0
 SET GenstartMedIndtastNyPriode=0
 rem /* henter server og database konfiguration fra ekstern fil */ 
@@ -47,10 +48,12 @@ IF %errorlevel%==3 SET GenstartMedIndtastNyPriode=1 & GOTO Starten
 pause
 
 :ExitChosen
+COLOR E0
 
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "declare @periode varchar(50); select @periode = Value from ods.CTL_Dataload where kilde_system = 'Alle' and Variable = 'Master_periode'; print 'Aslutter med Master loadperiode sat til '+@periode + '.'" 
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_load_period_all ''" >> %LOGFILE%
 %LOGFILE%
+COLOR A0
 
 ECHO ******************************************************************************
 ECHO *
