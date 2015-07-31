@@ -84,10 +84,9 @@ SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_SAP_Costobjekt_og_Sta
 ECHO ******************************************************************************
 %LOGFILE%
 COLOR A0
-pause
-
 %DEST_LOG_PATH%\Log\ErrorOutput.txt
 %DEST_LOG_PATH%\Log\Error_ProfitcenterConvert.txt
+pause
 
 :ExitChosen
 

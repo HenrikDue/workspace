@@ -65,7 +65,7 @@ ECHO.
 
 pause
 COLOR E0
-
+ECHO Afvikler pakker
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_Togpersonale_FR_PDS ''" >> %LOGFILE%
 ECHO ******************************************************************************
 ECHO.
