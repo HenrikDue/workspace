@@ -25,6 +25,7 @@ SET DEST_LOG_PATH=\\%DB_SERVER%\files\%DB_NAVN%\Togproduktion_FR\
 SET FILE_EXT=.csv
 
 rem /* konfigurerer log */
+md %DEST_LOG_PATH%\Log
 md %cd%\Log
 SET LOGFILE=%cd%\LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%.txt
 SET LOGFILE=%LOGFILE: =0%

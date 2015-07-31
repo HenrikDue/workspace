@@ -17,6 +17,7 @@ SET SOURCE_PATH=P:\70_BI\Projects\Files\FPC_L›nsum\
 SET SOURCE_FILE1="RD_R_L›nsumAns‘ttelsetype "
 
 SET DEST_PATH=\\%DB_SERVER%\files\%DB_NAVN%\FPC_L›nsum\
+md %DEST_PATH%\CSV
 SET FILE_EXT=.xlsx
 
 :: /* konfigurerer log */

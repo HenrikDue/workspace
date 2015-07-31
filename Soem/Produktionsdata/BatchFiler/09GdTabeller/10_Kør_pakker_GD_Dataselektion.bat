@@ -1,5 +1,5 @@
 ECHO OFF
-color 5a
+COLOR 9F
 rem /* henter server og database konfiguration fra ekstern fil */ 
 set config_file_path=..\Konfiguration\
 setlocal enabledelayedexpansion
@@ -35,10 +35,12 @@ ECHO.
 CHOICE /C SF /N /M "Tast S (Start) eller F (Fortryd)"
 IF %errorlevel%==2 GOTO ExitChosen
 
+COLOR E0
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_Load_GD_tabeller ''" >> %LOGFILE%
 ECHO ******************************************************************************
 ECHO.
 %LOGFILE%
+COLOR A0
 pause
 
 :ExitChosen
