@@ -7,6 +7,8 @@
     [DimID]          SMALLINT      NULL,
     [DimRef]         NVARCHAR (64) NOT NULL,
     [DimName]        NVARCHAR (64) NULL,
-    CONSTRAINT [PK_ABM_KEY_DimensionOrder] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [ModuleType] ASC, [SequenceNumber] ASC, [DimRef] ASC) WITH (FILLFACTOR = 90)
+    CONSTRAINT [PK_ABM_KEY_DimensionOrder] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [ModuleType] ASC, [SequenceNumber] ASC, [DimRef] ASC) WITH (FILLFACTOR = 90, DATA_COMPRESSION = PAGE)
 );
+
+
 

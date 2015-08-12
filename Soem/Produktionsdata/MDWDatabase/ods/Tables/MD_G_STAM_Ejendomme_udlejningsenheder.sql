@@ -46,5 +46,8 @@
     [Renovation]          FLOAT (53)   NULL,
     [Ren Leje_gml_aftale] FLOAT (53)   NULL,
     [Fællesleje]          FLOAT (53)   NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

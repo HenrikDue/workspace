@@ -4,5 +4,8 @@
     [membername]        VARCHAR (100) NULL,
     [created_datetime]  DATETIME      DEFAULT (getdate()) NULL,
     [created_username]  [sysname]     DEFAULT (suser_sname()) NOT NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

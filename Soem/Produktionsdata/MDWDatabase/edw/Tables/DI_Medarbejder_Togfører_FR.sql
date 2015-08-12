@@ -5,7 +5,9 @@
     [TurDepot]    VARCHAR (30) NOT NULL,
     [Aktiv]       CHAR (1)     CONSTRAINT [DV_DI_Medarbejder_Togfører_FR_Aktiv] DEFAULT ('J') NOT NULL,
     [Tidsstempel] DATETIME     CONSTRAINT [DV_DI_Medarbejder_Togfører_FR] DEFAULT (getdate()) NOT NULL,
-    CONSTRAINT [PK_DI_Medarbejder_Togfører_FR] PRIMARY KEY CLUSTERED ([PK_ID] ASC),
+    CONSTRAINT [PK_DI_Medarbejder_Togfører_FR] PRIMARY KEY CLUSTERED ([PK_ID] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [UK_DI_Medarbejder_Togfører_FR] UNIQUE NONCLUSTERED ([NetId] ASC, [TurDepot] ASC)
 );
+
+
 

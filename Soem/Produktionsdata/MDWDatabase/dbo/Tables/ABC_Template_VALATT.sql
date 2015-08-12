@@ -6,6 +6,8 @@
     [Type]            NVARCHAR (50)  NULL,
     [Comments]        NVARCHAR (255) NULL,
     [DocRef]          NVARCHAR (50)  NULL,
-    CONSTRAINT [PK_ABC_ValueAttribute] PRIMARY KEY CLUSTERED ([Reference] ASC) WITH (FILLFACTOR = 90)
+    CONSTRAINT [PK_ABC_ValueAttribute] PRIMARY KEY CLUSTERED ([Reference] ASC) WITH (FILLFACTOR = 90, DATA_COMPRESSION = PAGE)
 );
+
+
 

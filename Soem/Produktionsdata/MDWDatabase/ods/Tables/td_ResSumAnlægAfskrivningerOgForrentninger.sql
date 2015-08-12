@@ -2,5 +2,8 @@
     [ressource_key]  INT        NOT NULL,
     [sumAfskrivning] FLOAT (53) NULL,
     [sumForrentning] FLOAT (53) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

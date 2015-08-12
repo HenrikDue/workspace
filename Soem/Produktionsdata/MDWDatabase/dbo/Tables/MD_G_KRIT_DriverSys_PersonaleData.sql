@@ -13,5 +13,8 @@
     [indlæstTidspunkt]      DATETIME     CONSTRAINT [DF_MD_G_KRIT_DriverSys_PersonaleData_indlæstTidspunkt] DEFAULT (getdate()) NULL,
     [indlæstAf]             [sysname]    CONSTRAINT [DF_MD_G_KRIT_DriverSys_PersonaleData_indlæstAf] DEFAULT (suser_sname()) NULL,
     [Periode]               VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

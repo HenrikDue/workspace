@@ -27,5 +27,8 @@
     [ItemDimMemberRef4]      NVARCHAR (64) NULL,
     [ItemDimRef5]            NVARCHAR (64) NULL,
     [ItemDimMemberRef5]      NVARCHAR (64) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

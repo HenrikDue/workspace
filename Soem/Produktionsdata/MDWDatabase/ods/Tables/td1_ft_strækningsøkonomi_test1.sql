@@ -19,6 +19,8 @@
 );
 
 
+
+
 GO
 CREATE NONCLUSTERED INDEX [r2refnum]
     ON [ods].[td1_ft_strækningsøkonomi_test1]([R2Refnum] ASC);
@@ -51,5 +53,7 @@ CREATE NONCLUSTERED INDEX [a1refnum]
 
 GO
 CREATE CLUSTERED INDEX [co1refnum]
-    ON [ods].[td1_ft_strækningsøkonomi_test1]([Co1Refnum] ASC);
+    ON [ods].[td1_ft_strækningsøkonomi_test1]([Co1Refnum] ASC) WITH (DATA_COMPRESSION = PAGE);
+
+
 

@@ -4,5 +4,8 @@
     [OmkostningsstedNavn] VARCHAR (50) NULL,
     [Created]             DATETIME     DEFAULT (getdate()) NULL,
     [Profitcenter]        VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

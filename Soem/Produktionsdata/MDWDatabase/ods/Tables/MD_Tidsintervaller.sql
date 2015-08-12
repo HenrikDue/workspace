@@ -2,5 +2,8 @@
     [Interval_Id] INT          NOT NULL,
     [Navn]        VARCHAR (50) NOT NULL,
     [Prioritet]   INT          NOT NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

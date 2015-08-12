@@ -8,5 +8,8 @@
     [AT_Status]              VARCHAR (50) NULL,
     [AntalTog]               BIGINT       NULL,
     [Timestamp]              DATETIME     NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

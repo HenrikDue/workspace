@@ -8,5 +8,8 @@
     [Tidsinterval]       CHAR (1)     NULL,
     [Tidsinterval_tekst] VARCHAR (10) NULL,
     [Prioritet]          INT          NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

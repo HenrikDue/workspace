@@ -20,5 +20,8 @@
     [Status]           VARCHAR (50)    NULL,
     [DsbId]            VARCHAR (50)    NULL,
     [Fravaer]          CHAR (1)        NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

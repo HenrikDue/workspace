@@ -7,7 +7,9 @@
     [Tilstation_Tekst]                VARCHAR (100) NOT NULL,
     [Retningsbestemt_Straekning]      VARCHAR (100) NOT NULL,
     [Ikke_retningsbestemt_Straekning] VARCHAR (100) NOT NULL,
-    CONSTRAINT [PK_DI_Straekning] PRIMARY KEY CLUSTERED ([PK_ID] ASC),
+    CONSTRAINT [PK_DI_Straekning] PRIMARY KEY CLUSTERED ([PK_ID] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [UK_DI_Straekning_Kode] UNIQUE NONCLUSTERED ([Straekningskode] ASC)
 );
+
+
 

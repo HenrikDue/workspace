@@ -10,6 +10,8 @@
     [GyldigTildato]           DATETIME     NULL,
     [Aktiv]                   VARCHAR (50) NULL,
     [Timestamp]               DATETIME     NULL,
-    CONSTRAINT [PK_DI_Profitcenter] PRIMARY KEY CLUSTERED ([PK_ID] ASC)
+    CONSTRAINT [PK_DI_Profitcenter] PRIMARY KEY CLUSTERED ([PK_ID] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 

@@ -4,6 +4,8 @@
     [ModelName] NVARCHAR (64) NULL,
     [LevelNo]   SMALLINT      NOT NULL,
     [Name]      NVARCHAR (64) NOT NULL,
-    CONSTRAINT [PK_PeriodLevel] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [LevelNo] ASC, [Name] ASC) WITH (FILLFACTOR = 90)
+    CONSTRAINT [PK_PeriodLevel] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [LevelNo] ASC, [Name] ASC) WITH (FILLFACTOR = 90, DATA_COMPRESSION = PAGE)
 );
+
+
 

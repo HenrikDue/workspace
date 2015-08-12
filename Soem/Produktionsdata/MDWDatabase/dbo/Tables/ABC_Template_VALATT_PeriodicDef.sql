@@ -6,5 +6,8 @@
     [Formula]      VARCHAR (2048) NULL,
     [Comments]     NVARCHAR (255) NULL,
     [DocRef]       NVARCHAR (50)  NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

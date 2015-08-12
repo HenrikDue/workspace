@@ -5,6 +5,8 @@
     [ParentReference] NVARCHAR (64) NULL,
     [Name]            NVARCHAR (64) NULL,
     [Description]     NTEXT         NULL,
-    CONSTRAINT [PK_Scenario] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [Reference] ASC) WITH (FILLFACTOR = 90)
+    CONSTRAINT [PK_Scenario] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [Reference] ASC) WITH (FILLFACTOR = 90, DATA_COMPRESSION = PAGE)
 );
+
+
 

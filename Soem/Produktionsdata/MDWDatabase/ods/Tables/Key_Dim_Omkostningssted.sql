@@ -7,5 +7,8 @@
     [Updated]              DATETIME      NULL,
     [Gyldigtil_tilrettet]  BIT           NULL,
     [omkostningssted_kort] VARCHAR (50)  NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

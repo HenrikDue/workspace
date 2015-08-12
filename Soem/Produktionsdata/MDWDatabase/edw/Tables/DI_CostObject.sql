@@ -3,6 +3,8 @@
     [Name]            VARCHAR (50) NOT NULL,
     [ParentReference] VARCHAR (50) NULL,
     [FK_DI_Togsystem] INT          NULL,
-    CONSTRAINT [PK_DI_CostObject] PRIMARY KEY CLUSTERED ([Reference] ASC)
+    CONSTRAINT [PK_DI_CostObject] PRIMARY KEY CLUSTERED ([Reference] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 

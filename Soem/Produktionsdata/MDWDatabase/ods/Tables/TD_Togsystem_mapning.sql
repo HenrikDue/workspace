@@ -7,5 +7,8 @@
     [Tiltidspunkt] DATETIME     NULL,
     [Togsystem]    INT          NULL,
     [Kilde]        VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

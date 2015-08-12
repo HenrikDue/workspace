@@ -4,5 +4,8 @@
     [ReversibilietNavn] VARCHAR (50) NULL,
     [ATT_ResArt]        VARCHAR (50) NULL,
     [Ansættelsestype]   VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

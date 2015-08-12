@@ -11,5 +11,8 @@
     [TidsintervalNavn] VARCHAR (50) NULL,
     [Enhed]            VARCHAR (50) NULL,
     [Værdi]            FLOAT (53)   NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

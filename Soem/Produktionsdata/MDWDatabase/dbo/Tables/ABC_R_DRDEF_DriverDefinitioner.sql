@@ -6,5 +6,8 @@
     [FixedDriverQuantityOverride] VARCHAR (50)  NULL,
     [UseWeightedQuantities]       INT           NULL,
     [Periode]                     VARCHAR (50)  NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

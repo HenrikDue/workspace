@@ -7,5 +7,8 @@
     [Litrakm]             FLOAT (53)   NULL,
     [Litratimer]          FLOAT (53)   NULL,
     [Pladskm]             FLOAT (53)   NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

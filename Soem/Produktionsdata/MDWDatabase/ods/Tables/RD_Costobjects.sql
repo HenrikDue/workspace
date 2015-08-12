@@ -18,5 +18,8 @@
     [Timestamp]       DATETIME       NULL,
     [Period]          VARCHAR (50)   NULL,
     CONSTRAINT [IX_RD_Costobjects_1] UNIQUE NONCLUSTERED ([Reference] ASC, [Aktiv] ASC)
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

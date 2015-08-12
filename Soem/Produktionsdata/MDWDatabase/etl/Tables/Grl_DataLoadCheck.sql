@@ -5,6 +5,8 @@
     [Beskrivelse]       VARCHAR (256)   NOT NULL,
     [Tilladt_Afvigelse] DECIMAL (24, 6) NOT NULL,
     [Aktiv]             VARCHAR (3)     NOT NULL,
-    CONSTRAINT [PK_Grl_DataLoadCheck_Hoved] PRIMARY KEY CLUSTERED ([Id] ASC)
+    CONSTRAINT [PK_Grl_DataLoadCheck_Hoved] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 

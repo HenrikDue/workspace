@@ -11,5 +11,8 @@
     CONSTRAINT [FK_FT_Arbejdstimer_DI_Omksted] FOREIGN KEY ([DI_Omksted]) REFERENCES [edw].[DI_Omksted] ([PK_ID]),
     CONSTRAINT [FK_FT_Arbejdstimer_DI_Tid_Maaned] FOREIGN KEY ([DI_Tid_Maaned]) REFERENCES [edw].[DI_Tid_Maaned] ([PK_ID]),
     CONSTRAINT [FK_FT_Arbejdstimer_DI_Tjenestested] FOREIGN KEY ([DI_Tjenestested]) REFERENCES [edw].[DI_Tjenestested] ([PK_ID])
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

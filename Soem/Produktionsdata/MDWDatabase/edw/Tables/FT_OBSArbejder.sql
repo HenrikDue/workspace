@@ -6,5 +6,8 @@
     CONSTRAINT [FK_DI_Medarbejder_Togfører_FR] FOREIGN KEY ([DI_Medarbejder_Togfører_FR]) REFERENCES [edw].[DI_Medarbejder_Togfører_FR] ([PK_ID]),
     CONSTRAINT [FK_FT_OMSArbejder_DI_Arbejdskode] FOREIGN KEY ([DI_Arbejdskode]) REFERENCES [edw].[DI_Arbejdskode] ([Kode]),
     CONSTRAINT [FK_FT_OMSArbejder_DI_Tid] FOREIGN KEY ([DI_Tid]) REFERENCES [edw].[DI_Tid] ([Reference])
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

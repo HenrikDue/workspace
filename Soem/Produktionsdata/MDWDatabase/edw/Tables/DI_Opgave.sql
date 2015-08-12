@@ -11,7 +11,9 @@
     [GyldigTildato]     DATETIME      NULL,
     [Aktiv]             CHAR (1)      NULL,
     [Timestamp]         DATETIME      NULL,
-    CONSTRAINT [PK_DI_Opgave] PRIMARY KEY CLUSTERED ([PK_ID] ASC),
+    CONSTRAINT [PK_DI_Opgave] PRIMARY KEY CLUSTERED ([PK_ID] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [UK_DI_Opgave_Kode] UNIQUE NONCLUSTERED ([OpgaveKode] ASC)
 );
+
+
 

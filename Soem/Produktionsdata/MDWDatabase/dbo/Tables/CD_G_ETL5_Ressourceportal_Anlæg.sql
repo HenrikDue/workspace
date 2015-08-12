@@ -38,5 +38,8 @@
     [ATT_ResType]                               VARCHAR (50) NULL,
     [IndlæstTidspunktEX_MD_G_ACCHIER_Ressource] DATETIME     NULL,
     [KildeArk]                                  VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

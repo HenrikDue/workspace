@@ -8,5 +8,8 @@
     [AntalMin]     DECIMAL (24, 6) NULL,
     [Periode]      VARCHAR (50)    NULL,
     [DsbId]        VARCHAR (50)    NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

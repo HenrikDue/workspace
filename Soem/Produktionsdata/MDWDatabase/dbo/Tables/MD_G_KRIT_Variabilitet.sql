@@ -5,5 +5,8 @@
     [ATT_VarArt]       VARCHAR (50) NULL,
     [ATT_ResType]      VARCHAR (50) NULL,
     [Periode]          VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

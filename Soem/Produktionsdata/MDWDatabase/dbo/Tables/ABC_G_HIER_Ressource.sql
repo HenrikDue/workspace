@@ -7,5 +7,8 @@
     [ParentReference] VARCHAR (50)  NULL,
     [Periode]         VARCHAR (50)  NULL,
     [DataSerie]       VARCHAR (50)  NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

@@ -35,5 +35,8 @@
     [ATT_ResType]           VARCHAR (50) NULL,
     [Periode]               VARCHAR (50) NULL,
     [KildeArk]              VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

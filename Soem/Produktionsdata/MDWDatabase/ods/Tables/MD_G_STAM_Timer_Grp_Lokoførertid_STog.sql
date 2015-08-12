@@ -9,5 +9,8 @@
     [TypeNavn]         VARCHAR (50)  NULL,
     [indlæstTidspunkt] DATETIME      DEFAULT (getdate()) NULL,
     [indlæstAf]        [sysname]     DEFAULT (suser_sname()) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

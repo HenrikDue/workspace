@@ -31,6 +31,8 @@
     [DestinationDimMemberRef4] NVARCHAR (64) NULL,
     [DestinationDimRef5]       NVARCHAR (64) NULL,
     [DestinationDimMemberRef5] NVARCHAR (64) NULL,
-    CONSTRAINT [PK_ABM_KEY_Assignment] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [Period] ASC, [Scenario] ASC, [SourceReference] ASC, [DestinationReference] ASC) WITH (FILLFACTOR = 90)
+    CONSTRAINT [PK_ABM_KEY_Assignment] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [Period] ASC, [Scenario] ASC, [SourceReference] ASC, [DestinationReference] ASC) WITH (FILLFACTOR = 90, DATA_COMPRESSION = PAGE)
 );
+
+
 

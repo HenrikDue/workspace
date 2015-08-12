@@ -7,7 +7,9 @@
     [Vaerdi_type]      VARCHAR (25)  NOT NULL,
     [Beskrivelse]      VARCHAR (256) NOT NULL,
     [Check_Element]    VARCHAR (35)  NULL,
-    CONSTRAINT [PK_etl.DataLoadCheck] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [PK_etl.DataLoadCheck] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [FK_Grl_DataLoadCheck_Element_Grl_DataLoadCheck_Hoved1] FOREIGN KEY ([DataLoadCheck_Id]) REFERENCES [etl].[Grl_DataLoadCheck] ([Id])
 );
+
+
 

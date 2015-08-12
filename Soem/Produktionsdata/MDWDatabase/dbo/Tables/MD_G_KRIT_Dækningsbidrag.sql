@@ -6,5 +6,8 @@
     [ATT_Prodvar]    VARCHAR (50) NULL,
     [ATT_ProdAkt]    VARCHAR (50) NULL,
     [Beskrivelse]    VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

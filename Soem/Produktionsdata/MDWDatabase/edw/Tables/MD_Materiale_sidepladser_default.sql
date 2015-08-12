@@ -3,5 +3,8 @@
     [Antal pladser]      INT          NULL,
     [Litra_Materiale_DB] VARCHAR (25) NULL,
     [Litra_type]         VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

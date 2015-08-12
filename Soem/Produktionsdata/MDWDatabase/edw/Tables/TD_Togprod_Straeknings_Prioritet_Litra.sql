@@ -4,5 +4,8 @@
     [Priority]        INT          NULL,
     [FK_DI_Togsystem] INT          NULL,
     [Loebenr]         INT          NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

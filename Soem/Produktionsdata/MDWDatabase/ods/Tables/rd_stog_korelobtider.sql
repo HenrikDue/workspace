@@ -13,5 +13,8 @@
     [Kilometer]         FLOAT (53)   NULL,
     [DoegnInddeling]    VARCHAR (10) NULL,
     [TOG_TYPE]          VARCHAR (1)  DEFAULT ('') NOT NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

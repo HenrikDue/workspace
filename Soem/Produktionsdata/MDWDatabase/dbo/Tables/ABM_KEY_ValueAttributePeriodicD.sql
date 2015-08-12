@@ -5,6 +5,8 @@
     [Reference]    NVARCHAR (64)   NOT NULL,
     [DefaultValue] NVARCHAR (2048) NULL,
     [Formula]      NVARCHAR (2048) NULL,
-    CONSTRAINT [PK_ABM_KEY_ValueAttributePeriodicD] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [Period] ASC, [Scenario] ASC, [Reference] ASC) WITH (FILLFACTOR = 90)
+    CONSTRAINT [PK_ABM_KEY_ValueAttributePeriodicD] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [Period] ASC, [Scenario] ASC, [Reference] ASC) WITH (FILLFACTOR = 90, DATA_COMPRESSION = PAGE)
 );
+
+
 

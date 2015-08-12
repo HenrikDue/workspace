@@ -6,5 +6,8 @@
     [Refnum]       VARCHAR (64) NULL,
     [LevelId]      SMALLINT     NULL,
     [DisplayOrder] FLOAT (53)   NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

@@ -37,5 +37,8 @@
     [Togminutter]             BIGINT          NULL,
     [Status]                  VARCHAR (50)    NULL,
     [Timestamp]               DATETIME        NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

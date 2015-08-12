@@ -7,5 +7,8 @@
     [Produkt]            VARCHAR (50) NULL,
     [Costobjekt]         VARCHAR (50) NULL,
     [Beskrivelse]        VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

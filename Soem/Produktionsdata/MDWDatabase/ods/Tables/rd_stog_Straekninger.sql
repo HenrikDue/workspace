@@ -6,5 +6,8 @@
     [TIL_STAT_NR]                 FLOAT (53)    NULL,
     [KM]                          FLOAT (53)    NULL,
     [PublikumsBetjentMindsteSnit] VARCHAR (255) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

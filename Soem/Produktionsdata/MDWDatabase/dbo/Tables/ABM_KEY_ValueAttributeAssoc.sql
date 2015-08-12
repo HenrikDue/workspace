@@ -21,6 +21,8 @@
     [ItemDimMemberRef4]  NVARCHAR (64)  NULL,
     [ItemDimRef5]        NVARCHAR (64)  NULL,
     [ItemDimMemberRef5]  NVARCHAR (64)  NULL,
-    CONSTRAINT [PK_ABM_KEY_ValueAttributeAssoc] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [Period] ASC, [Scenario] ASC, [AttributeReference] ASC, [ItemDimRef1] ASC, [ItemDimMemberRef1] ASC) WITH (FILLFACTOR = 90)
+    CONSTRAINT [PK_ABM_KEY_ValueAttributeAssoc] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [Period] ASC, [Scenario] ASC, [AttributeReference] ASC, [ItemDimRef1] ASC, [ItemDimMemberRef1] ASC) WITH (FILLFACTOR = 90, DATA_COMPRESSION = PAGE)
 );
+
+
 

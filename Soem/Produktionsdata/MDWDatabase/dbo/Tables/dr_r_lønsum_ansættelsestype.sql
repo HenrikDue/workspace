@@ -7,5 +7,8 @@
     [Medarb_GrpNavn]   VARCHAR (50) NULL,
     [PeriodeIndlæst]   VARCHAR (50) NULL,
     [andel]            FLOAT (53)   NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

@@ -5,5 +5,8 @@
     [OmkStedTil] VARCHAR (50) NULL,
     [PctrFra]    VARCHAR (50) NULL,
     [PctrTil]    VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

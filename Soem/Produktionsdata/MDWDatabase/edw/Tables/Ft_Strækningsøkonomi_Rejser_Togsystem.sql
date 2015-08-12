@@ -5,5 +5,8 @@
     [Delrejser]       FLOAT (53)   NULL,
     [Indtægt]         FLOAT (53)   NULL,
     [Passagerkm]      FLOAT (53)   NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

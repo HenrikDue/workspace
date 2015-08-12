@@ -22,5 +22,8 @@
     CONSTRAINT [FK_FT_OBSOpgaver_DI_Tidsinterval] FOREIGN KEY ([DI_Tidsintervaller]) REFERENCES [edw].[DI_Tidsintervaller] ([PK_ID]),
     CONSTRAINT [FK_FT_OBSOpgaver_DI_TjenesteDepot] FOREIGN KEY ([DI_TjenesteDepot]) REFERENCES [edw].[DI_Turdepot] ([Turdepot]),
     CONSTRAINT [FK_FT_OBSOpgaver_DI_Togsystem] FOREIGN KEY ([DI_Togsystem]) REFERENCES [edw].[DI_Togsystem] ([PK_DI_Togsystem])
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

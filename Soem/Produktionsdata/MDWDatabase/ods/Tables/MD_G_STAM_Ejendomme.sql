@@ -59,5 +59,8 @@
     [Alternativ]          VARCHAR (50) NULL,
     [Nøglefast_Ejendom]   VARCHAR (50) NULL,
     [BGV]                 VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

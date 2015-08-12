@@ -5,5 +5,8 @@
     [Reference]    NVARCHAR (64)   NOT NULL,
     [DefaultValue] NVARCHAR (2048) NULL,
     [Formula]      NVARCHAR (2048) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

@@ -7,5 +7,8 @@
     [Beskrivelses_Id]  VARCHAR (2)    NOT NULL,
     [Valideringstyeo]  VARCHAR (15)   NULL,
     CONSTRAINT [FK_CD_Datavalidering_CD_Data_Validering_Beskrivelse] FOREIGN KEY ([Beskrivelses_Id]) REFERENCES [dbo].[CD_Data_Validering_Beskrivelse] ([Beskrivelses_Id])
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

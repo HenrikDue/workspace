@@ -19,5 +19,8 @@
     [QuantityCalculated]   FLOAT (53)    NULL,
     [UserIdleQuantity]     FLOAT (53)    NULL,
     [AssignedIdleQuantity] FLOAT (53)    NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

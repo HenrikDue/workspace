@@ -3,5 +3,8 @@
     [Navn]     NVARCHAR (30) NULL,
     [Turdepot] NVARCHAR (30) NULL,
     [Dato]     DATETIME      NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

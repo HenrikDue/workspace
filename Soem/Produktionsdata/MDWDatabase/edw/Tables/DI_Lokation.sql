@@ -4,6 +4,8 @@
     [StartStation] VARCHAR (5)  NOT NULL,
     [SlutStation]  VARCHAR (5)  NOT NULL,
     [Timestamp]    DATETIME     NULL,
-    CONSTRAINT [PK_DI_Lokation] PRIMARY KEY CLUSTERED ([Kode] ASC)
+    CONSTRAINT [PK_DI_Lokation] PRIMARY KEY CLUSTERED ([Kode] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 

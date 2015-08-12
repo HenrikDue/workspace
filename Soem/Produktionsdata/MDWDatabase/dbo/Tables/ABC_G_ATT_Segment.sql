@@ -7,6 +7,8 @@
     [DocRef]             VARCHAR (50)  NULL,
     [Periode]            VARCHAR (50)  NOT NULL,
     [DataSerie]          VARCHAR (50)  NULL,
-    CONSTRAINT [PK_ABC_Attribute_Segment] PRIMARY KEY CLUSTERED ([AttributeDimension] ASC, [AccountModuleType] ASC, [AccountReference] ASC, [Periode] ASC) WITH (FILLFACTOR = 90)
+    CONSTRAINT [PK_ABC_Attribute_Segment] PRIMARY KEY CLUSTERED ([AttributeDimension] ASC, [AccountModuleType] ASC, [AccountReference] ASC, [Periode] ASC) WITH (FILLFACTOR = 90, DATA_COMPRESSION = PAGE)
 );
+
+
 

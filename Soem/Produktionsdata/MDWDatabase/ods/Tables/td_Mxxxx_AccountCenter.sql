@@ -54,7 +54,11 @@
 );
 
 
+
+
 GO
 CREATE CLUSTERED INDEX [refnum]
-    ON [ods].[td_Mxxxx_AccountCenter]([Refnum] ASC);
+    ON [ods].[td_Mxxxx_AccountCenter]([Refnum] ASC) WITH (DATA_COMPRESSION = PAGE);
+
+
 

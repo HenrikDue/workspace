@@ -7,6 +7,8 @@
     [AccountReference] VARCHAR (50)  NULL,
     [EnteredCost]      FLOAT (53)    NULL,
     [Periode]          VARCHAR (50)  NOT NULL,
-    CONSTRAINT [PK_ABC_R_CE_Drift] PRIMARY KEY CLUSTERED ([Reference] ASC, [ModuleType] ASC, [Periode] ASC)
+    CONSTRAINT [PK_ABC_R_CE_Drift] PRIMARY KEY CLUSTERED ([Reference] ASC, [ModuleType] ASC, [Periode] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 

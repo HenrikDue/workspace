@@ -4,6 +4,8 @@
     [Value]            VARCHAR (100) NULL,
     [Updated]          DATETIME      NULL,
     [Updated_username] [sysname]     NULL,
-    CONSTRAINT [PK_kilde_system_variabel] PRIMARY KEY CLUSTERED ([Kilde_System] ASC, [Variable] ASC)
+    CONSTRAINT [PK_kilde_system_variabel] PRIMARY KEY CLUSTERED ([Kilde_System] ASC, [Variable] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 

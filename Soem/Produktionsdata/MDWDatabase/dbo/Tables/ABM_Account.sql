@@ -22,5 +22,8 @@
     [DimMemberRef4]    NVARCHAR (64)  NULL,
     [DimRef5]          NVARCHAR (64)  NULL,
     [DimMemberRef5]    NVARCHAR (64)  NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

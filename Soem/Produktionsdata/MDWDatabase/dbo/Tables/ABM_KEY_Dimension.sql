@@ -5,6 +5,8 @@
     [DimID]     SMALLINT      NULL,
     [Reference] NVARCHAR (64) NOT NULL,
     [Name]      NVARCHAR (64) NOT NULL,
-    CONSTRAINT [PK_ABM_KEY_Dimension] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [Reference] ASC) WITH (FILLFACTOR = 90)
+    CONSTRAINT [PK_ABM_KEY_Dimension] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [Reference] ASC) WITH (FILLFACTOR = 90, DATA_COMPRESSION = PAGE)
 );
+
+
 

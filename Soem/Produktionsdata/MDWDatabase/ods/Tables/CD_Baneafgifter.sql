@@ -9,5 +9,8 @@
     [Togkm]           BIGINT       NULL,
     [Togtimer]        BIGINT       NULL,
     [Timestamp]       DATETIME     NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

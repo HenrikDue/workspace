@@ -17,5 +17,8 @@
     [AccountDimMemberRef4] NVARCHAR (64) NULL,
     [AccountDimRef5]       NVARCHAR (64) NULL,
     [AccountDimMemberRef5] NVARCHAR (64) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

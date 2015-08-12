@@ -10,5 +10,8 @@
     [GyldigTildato]        DATETIME     NULL,
     [Aktiv]                VARCHAR (10) NULL,
     [Timestamp]            DATETIME     NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

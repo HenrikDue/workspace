@@ -13,5 +13,8 @@
     [opdateretAf]        [sysname]    NULL,
     [slettetTidspunkt]   DATETIME     DEFAULT (getdate()) NULL,
     [slettetAf]          [sysname]    DEFAULT (suser_sname()) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

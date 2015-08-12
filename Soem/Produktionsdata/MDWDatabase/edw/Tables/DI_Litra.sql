@@ -4,6 +4,8 @@
     [MaterielTypel] VARCHAR (10) NULL,
     [Data_kilde]    VARCHAR (10) NULL,
     [Timestamp]     DATETIME     NULL,
-    CONSTRAINT [PK_DI_Litra] PRIMARY KEY CLUSTERED ([Kode] ASC)
+    CONSTRAINT [PK_DI_Litra] PRIMARY KEY CLUSTERED ([Kode] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 

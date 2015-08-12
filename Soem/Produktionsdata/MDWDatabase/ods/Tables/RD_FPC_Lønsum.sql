@@ -8,5 +8,8 @@
     [PeriodeIndlæst]   VARCHAR (50) NULL,
     [Lønsum]           VARCHAR (50) NULL,
     [FTE]              VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

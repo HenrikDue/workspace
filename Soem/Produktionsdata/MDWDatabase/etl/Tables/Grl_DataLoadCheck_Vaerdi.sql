@@ -4,7 +4,9 @@
     [Period]          INT             NULL,
     [Vaerdi]          DECIMAL (24, 6) NULL,
     [Tidsstempel]     DATETIME        NULL,
-    CONSTRAINT [PK_Grl_DataLoadCheck_Vaerdi] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [PK_Grl_DataLoadCheck_Vaerdi] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [FK_Grl_DataLoadCheck_Vaerdi_Grl_DataLoadCheck_Element] FOREIGN KEY ([CheckElement_Id]) REFERENCES [etl].[Grl_DataLoadCheck_Element] ([Id])
 );
+
+
 

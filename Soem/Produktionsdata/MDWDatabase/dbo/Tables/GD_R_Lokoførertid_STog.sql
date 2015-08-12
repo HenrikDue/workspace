@@ -10,5 +10,8 @@
     [Costobjekt]       VARCHAR (50) NULL,
     [TidsintervalNavn] VARCHAR (50) NULL,
     [Timer]            FLOAT (53)   NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

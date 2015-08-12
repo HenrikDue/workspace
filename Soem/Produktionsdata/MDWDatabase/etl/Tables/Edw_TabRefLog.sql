@@ -21,6 +21,8 @@
     [StartTime]     DATETIME        NOT NULL,
     [EndTime]       DATETIME        NULL,
     [Success]       BIT             CONSTRAINT [DF_ExtractLog_Success] DEFAULT ((0)) NOT NULL,
-    CONSTRAINT [PK_TabRefLogID] PRIMARY KEY CLUSTERED ([TabRefLogID] ASC)
+    CONSTRAINT [PK_TabRefLogID] PRIMARY KEY CLUSTERED ([TabRefLogID] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 

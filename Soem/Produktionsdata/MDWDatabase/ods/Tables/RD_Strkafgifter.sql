@@ -9,5 +9,8 @@
     [AntalTog_UdenAfgift] INT          NULL,
     [Timestamp]           DATETIME     NULL,
     [Status]              VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

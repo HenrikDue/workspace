@@ -20,6 +20,8 @@
     [HalvaarTekst]      VARCHAR (2)  NULL,
     [KvartalTekst]      VARCHAR (2)  NULL,
     [ReferenceName]     VARCHAR (50) NULL,
-    CONSTRAINT [PK_DI_Tid] PRIMARY KEY CLUSTERED ([Reference] ASC)
+    CONSTRAINT [PK_DI_Tid] PRIMARY KEY CLUSTERED ([Reference] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 

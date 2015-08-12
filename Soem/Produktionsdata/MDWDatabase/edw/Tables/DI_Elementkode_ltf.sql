@@ -6,6 +6,8 @@
     [Type]        VARCHAR (10) NULL,
     [TypeNavn]    VARCHAR (50) NULL,
     [Timestamp]   DATETIME     NULL,
-    CONSTRAINT [PK_DI_Elementkode_ltf] PRIMARY KEY CLUSTERED ([Elementkode] ASC)
+    CONSTRAINT [PK_DI_Elementkode_ltf] PRIMARY KEY CLUSTERED ([Elementkode] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 

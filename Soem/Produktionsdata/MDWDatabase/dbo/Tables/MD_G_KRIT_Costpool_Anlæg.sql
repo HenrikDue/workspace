@@ -20,5 +20,8 @@
     [indlæstAf]        [sysname]    CONSTRAINT [DF_MD_G_KRIT_Costpool_Anlæg_indlæstAf] DEFAULT (suser_sname()) NOT NULL,
     [DelområdeFra]     VARCHAR (50) NULL,
     [DelområdeTil]     VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

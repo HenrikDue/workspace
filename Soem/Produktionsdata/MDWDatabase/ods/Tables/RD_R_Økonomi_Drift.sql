@@ -21,5 +21,8 @@
     [indlæstAf]                    [sysname]    DEFAULT (suser_sname()) NULL,
     [Periode]                      VARCHAR (50) NULL,
     [kildefilogark]                VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

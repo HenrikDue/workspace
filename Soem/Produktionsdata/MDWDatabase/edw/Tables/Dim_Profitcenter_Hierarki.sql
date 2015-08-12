@@ -5,5 +5,8 @@
     [Parent_Key]         INT           NULL,
     [ParentProfitcenter] VARCHAR (255) NULL,
     [Niveau]             SMALLINT      NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

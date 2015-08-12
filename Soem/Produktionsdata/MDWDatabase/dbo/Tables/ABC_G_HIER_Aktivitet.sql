@@ -6,6 +6,8 @@
     [Name]            VARCHAR (50)  NULL,
     [ParentReference] VARCHAR (50)  NULL,
     [Periode]         VARCHAR (50)  NOT NULL,
-    CONSTRAINT [PK_ABC_G_HIER_Activity] PRIMARY KEY CLUSTERED ([Reference] ASC, [ModuleType] ASC, [Periode] ASC)
+    CONSTRAINT [PK_ABC_G_HIER_Activity] PRIMARY KEY CLUSTERED ([Reference] ASC, [ModuleType] ASC, [Periode] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 
