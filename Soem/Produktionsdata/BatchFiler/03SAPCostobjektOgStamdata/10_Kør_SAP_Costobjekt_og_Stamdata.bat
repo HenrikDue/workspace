@@ -25,7 +25,7 @@ SET DEST_LOG_PATH=\\%DB_SERVER%\files\%DB_NAVN%\SAP_Costobjekt_og_Stamdata\
 SET FILE_EXT=.xlsx
 
 :: /* konfigurerer log */
-md %DEST_LOG_PATH%\Log
+md %DEST_LOG_PATH%Log
 md %cd%\Log
 SET LOGFILE=%cd%\LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%.txt
 SET LOGFILE=%LOGFILE: =0%
@@ -59,7 +59,7 @@ IF %ValgMasterPeriode%==1 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "SET NOCOUNT 
 IF %ValgMasterPeriode%==1 GOTO Valgslut
 
 :GenvalgPeriode
-IF  %ValgIndtastNyPeriode%==1 SET /p NYPERIODE="Indtast ny loadperiode yyyymm for Protal :"
+IF  %ValgIndtastNyPeriode%==1 SET /p NYPERIODE="Indtast ny loadperiode yyyymm for SAP :"
 IF  %ValgIndtastNyPeriode%==1 SET QUERYTEXT=exec[etl].[loadperiod_SAP]'%NYPERIODE%01'
 IF  %ValgIndtastNyPeriode%==1 (ECHO. & SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q %QUERYTEXT%)
 IF  %ValgIndtastNyPeriode%==1 CHOICE /C 123 /N /M "Tast 1: Start med valgt periode, 2: Indtast Ny dato eller 3: Fortryd og afslut"
@@ -84,8 +84,8 @@ SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_SAP_Costobjekt_og_Sta
 ECHO ******************************************************************************
 %LOGFILE%
 COLOR A0
-%DEST_LOG_PATH%\Log\ErrorOutput.txt
-%DEST_LOG_PATH%\Log\Error_ProfitcenterConvert.txt
+%DEST_LOG_PATH%Log\ErrorOutput.txt
+%DEST_LOG_PATH%Log\Error_ProfitcenterConvert.txt
 pause
 
 :ExitChosen
