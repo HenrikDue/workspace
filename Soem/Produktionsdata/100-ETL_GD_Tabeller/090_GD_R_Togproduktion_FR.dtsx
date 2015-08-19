@@ -13,8 +13,8 @@
   DTS:ObjectName="090_GD_R_Togproduktion_FR"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="58"
-  DTS:VersionGUID="{B05FE335-7C12-466E-91DD-E15FCC816A9F}">
+  DTS:VersionBuild="61"
+  DTS:VersionGUID="{D5F2BB33-416D-460F-85A9-3A16ADA1D164}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:Variables>
@@ -99,7 +99,7 @@
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{3D369588-24E5-411C-9879-EFAAB22A264F}"
-              SQLTask:SqlStatementSource="select SUM(CONVERT(Float, d.litrakm)) As litrakm--, SUM(d.litraminutter) As litraminutter, SUM(d.Pladskm) As Pladskm&#xA;from edw.ft_togproduktion_litra d&#xA;join edw.DI_Tid t on (t.reference = d.FK_DI_Tid)&#xA;join -- Periode&#xA;(Select SUBSTRING(value,1,4) as År, CONVERT(Int, SUBSTRING(value,5,2)) as Måned , SUBSTRING(value,1,50) as Periode&#xA; from ods.ctl_dataload&#xA; Where kilde_system = 'Alle'&#xA; and variable = 'Model_Periode') p on (t.Aar = p.År&#xA;                                      and t.MaanedNum &lt;= p.måned)&#xA;Join edw.DI_Togsystem ts on (d.FK_DI_Togsystem = ts.PK_DI_Togsystem)&#xA;left outer join ods.MD_G_STAM_Togsystem ms on (ms.Togsystemnummer = ts.Togsystemnummer)                                      &#xA;where d.erTrafikkontraktProduktion = 1&#xA;and (d.division = 'MATERIEL'&#xA;or ISNULL(ms.Costobjekt, 'Ikke allokeret') = 'Ikke allokeret')&#xA;"
+              SQLTask:SqlStatementSource="select SUM(CONVERT(Float, d.litrakm)) As litrakm--, SUM(d.litraminutter) As litraminutter, SUM(d.Pladskm) As Pladskm&#xA;from edw.ft_togproduktion_litra_IssueId42 d&#xA;join edw.DI_Tid t on (t.reference = d.FK_DI_Tid)&#xA;join -- Periode&#xA;(Select SUBSTRING(value,1,4) as År, CONVERT(Int, SUBSTRING(value,5,2)) as Måned , SUBSTRING(value,1,50) as Periode&#xA; from ods.ctl_dataload&#xA; Where kilde_system = 'Alle'&#xA; and variable = 'Model_Periode') p on (t.Aar = p.År&#xA;                                      and t.MaanedNum &lt;= p.måned)&#xA;Join edw.DI_Togsystem ts on (d.FK_DI_Togsystem = ts.PK_DI_Togsystem)&#xA;left outer join ods.MD_G_STAM_Togsystem ms on (ms.Togsystemnummer = ts.Togsystemnummer)                                      &#xA;where d.erTrafikkontraktProduktion = 1&#xA;and (d.division = 'MATERIEL'&#xA;or ISNULL(ms.Costobjekt, 'Ikke allokeret') = 'Ikke allokeret')&#xA;"
               SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ResultBinding
                 SQLTask:ResultName="0"
@@ -121,7 +121,7 @@
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{3D369588-24E5-411C-9879-EFAAB22A264F}"
-              SQLTask:SqlStatementSource="select SUM(CONVERT(Float, d.litrakm)) As litrakm--, SUM(d.litraminutter) As litraminutter, SUM(d.Pladskm) As Pladskm&#xA;from edw.ft_togproduktion_litra d&#xA;join edw.DI_Tid t on (t.reference = d.FK_DI_Tid)&#xA;join -- Periode&#xA;(Select SUBSTRING(value,1,4) as År, CONVERT(Int, SUBSTRING(value,5,2)) as Måned , SUBSTRING(value,1,50) as Periode&#xA; from ods.ctl_dataload&#xA; Where kilde_system = 'Alle'&#xA; and variable = 'Model_Periode') p on (t.Aar = p.År&#xA;                                      and t.MaanedNum &lt;= p.måned)&#xA;where ISNULL(d.erTrafikkontraktProduktion, 0) != 1"
+              SQLTask:SqlStatementSource="select SUM(CONVERT(Float, d.litrakm)) As litrakm--, SUM(d.litraminutter) As litraminutter, SUM(d.Pladskm) As Pladskm&#xA;from edw.ft_togproduktion_litra_IssueId42 d&#xA;join edw.DI_Tid t on (t.reference = d.FK_DI_Tid)&#xA;join -- Periode&#xA;(Select SUBSTRING(value,1,4) as År, CONVERT(Int, SUBSTRING(value,5,2)) as Måned , SUBSTRING(value,1,50) as Periode&#xA; from ods.ctl_dataload&#xA; Where kilde_system = 'Alle'&#xA; and variable = 'Model_Periode') p on (t.Aar = p.År&#xA;                                      and t.MaanedNum &lt;= p.måned)&#xA;where ISNULL(d.erTrafikkontraktProduktion, 0) != 1"
               SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ResultBinding
                 SQLTask:ResultName="0"
@@ -143,7 +143,7 @@
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{3D369588-24E5-411C-9879-EFAAB22A264F}"
-              SQLTask:SqlStatementSource="select SUM(CONVERT(Float, d.litrakm)) As litrakm--, SUM(d.litraminutter) As litraminutter, SUM(d.Pladskm) As Pladskm&#xA;from edw.ft_togproduktion_litra d&#xA;join edw.DI_Tid t on (t.reference = d.FK_DI_Tid)&#xA;join -- Periode&#xA;(Select SUBSTRING(value,1,4) as År, CONVERT(Int, SUBSTRING(value,5,2)) as Måned , SUBSTRING(value,1,50) as Periode&#xA; from ods.ctl_dataload&#xA; Where kilde_system = 'Alle'&#xA; and variable = 'Model_Periode') p on (t.Aar = p.År&#xA;                                      and t.MaanedNum &lt;= p.måned)"
+              SQLTask:SqlStatementSource="select SUM(CONVERT(Float, d.litrakm)) As litrakm--, SUM(d.litraminutter) As litraminutter, SUM(d.Pladskm) As Pladskm&#xA;from edw.ft_togproduktion_litra_IssueId42 d&#xA;join edw.DI_Tid t on (t.reference = d.FK_DI_Tid)&#xA;join -- Periode&#xA;(Select SUBSTRING(value,1,4) as År, CONVERT(Int, SUBSTRING(value,5,2)) as Måned , SUBSTRING(value,1,50) as Periode&#xA; from ods.ctl_dataload&#xA; Where kilde_system = 'Alle'&#xA; and variable = 'Model_Periode') p on (t.Aar = p.År&#xA;                                      and t.MaanedNum &lt;= p.måned)"
               SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ResultBinding
                 SQLTask:ResultName="0"
@@ -383,7 +383,7 @@
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{3D369588-24E5-411C-9879-EFAAB22A264F}"
-              SQLTask:SqlStatementSource="select SUM(CONVERT(Float, d.togkm)) As togkm--, SUM(d.togminutter) As togminutter&#xA;from edw.ft_togproduktion_tog d&#xA;join edw.DI_Tid t on (t.reference = d.FK_DI_Tid)&#xA;join -- Periode&#xA;(Select SUBSTRING(value,1,4) as År, CONVERT(Int, SUBSTRING(value,5,2)) as Måned , SUBSTRING(value,1,50) as Periode&#xA; from ods.ctl_dataload&#xA; Where kilde_system = 'Alle'&#xA; and variable = 'Model_Periode') p on (t.Aar = p.År&#xA;                                      and t.MaanedNum &lt;= p.måned)&#xA;Join edw.DI_Togsystem ts on (d.FK_DI_Togsystem = ts.PK_DI_Togsystem)&#xA;left outer join ods.MD_G_STAM_Togsystem ms on (ms.Togsystemnummer = ts.Togsystemnummer)&#xA;where d.erTrafikkontraktProduktion = 1&#xA;and (d.division = 'MATERIEL'&#xA;or ISNULL(ms.Costobjekt, 'Ikke allokeret') = 'Ikke allokeret')"
+              SQLTask:SqlStatementSource="select SUM(CONVERT(Float, d.togkm)) As togkm--, SUM(d.togminutter) As togminutter&#xA;from edw.ft_togproduktion_tog_IssueId42 d&#xA;join edw.DI_Tid t on (t.reference = d.FK_DI_Tid)&#xA;join -- Periode&#xA;(Select SUBSTRING(value,1,4) as År, CONVERT(Int, SUBSTRING(value,5,2)) as Måned , SUBSTRING(value,1,50) as Periode&#xA; from ods.ctl_dataload&#xA; Where kilde_system = 'Alle'&#xA; and variable = 'Model_Periode') p on (t.Aar = p.År&#xA;                                      and t.MaanedNum &lt;= p.måned)&#xA;Join edw.DI_Togsystem ts on (d.FK_DI_Togsystem = ts.PK_DI_Togsystem)&#xA;left outer join ods.MD_G_STAM_Togsystem ms on (ms.Togsystemnummer = ts.Togsystemnummer)&#xA;where d.erTrafikkontraktProduktion = 1&#xA;and (d.division = 'MATERIEL'&#xA;or ISNULL(ms.Costobjekt, 'Ikke allokeret') = 'Ikke allokeret')"
               SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ResultBinding
                 SQLTask:ResultName="0"
@@ -405,7 +405,7 @@
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{3D369588-24E5-411C-9879-EFAAB22A264F}"
-              SQLTask:SqlStatementSource="select SUM(CONVERT(Float, d.togkm)) As togkm--, SUM(d.togminutter) As togminutter&#xA;from edw.ft_togproduktion_tog d&#xA;join edw.DI_Tid t on (t.reference = d.FK_DI_Tid)&#xA;join -- Periode&#xA;(Select SUBSTRING(value,1,4) as År, CONVERT(Int, SUBSTRING(value,5,2)) as Måned , SUBSTRING(value,1,50) as Periode&#xA; from ods.ctl_dataload&#xA; Where kilde_system = 'Alle'&#xA; and variable = 'Model_Periode') p on (t.Aar = p.År&#xA;                                      and t.MaanedNum &lt;= p.måned)&#xA;where d.erTrafikkontraktProduktion &lt;&gt; 1"
+              SQLTask:SqlStatementSource="select SUM(CONVERT(Float, d.togkm)) As togkm--, SUM(d.togminutter) As togminutter&#xA;from edw.ft_togproduktion_tog_IssueId42 d&#xA;join edw.DI_Tid t on (t.reference = d.FK_DI_Tid)&#xA;join -- Periode&#xA;(Select SUBSTRING(value,1,4) as År, CONVERT(Int, SUBSTRING(value,5,2)) as Måned , SUBSTRING(value,1,50) as Periode&#xA; from ods.ctl_dataload&#xA; Where kilde_system = 'Alle'&#xA; and variable = 'Model_Periode') p on (t.Aar = p.År&#xA;                                      and t.MaanedNum &lt;= p.måned)&#xA;where d.erTrafikkontraktProduktion &lt;&gt; 1"
               SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ResultBinding
                 SQLTask:ResultName="0"
@@ -427,7 +427,7 @@
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{3D369588-24E5-411C-9879-EFAAB22A264F}"
-              SQLTask:SqlStatementSource="select SUM(CONVERT(Float, d.togkm)) As togkm--, SUM(d.togminutter) As togminutter&#xA;from edw.ft_togproduktion_tog d&#xA;join edw.DI_Tid t on (t.reference = d.FK_DI_Tid)&#xA;join -- Periode&#xA;(Select SUBSTRING(value,1,4) as År, CONVERT(Int, SUBSTRING(value,5,2)) as Måned , SUBSTRING(value,1,50) as Periode&#xA; from ods.ctl_dataload&#xA; Where kilde_system = 'Alle'&#xA; and variable = 'Model_Periode') p on (t.Aar = p.År&#xA;                                      and t.MaanedNum &lt;= p.måned)"
+              SQLTask:SqlStatementSource="select SUM(CONVERT(Float, d.togkm)) As togkm--, SUM(d.togminutter) As togminutter&#xA;from edw.ft_togproduktion_tog_IssueId42 d&#xA;join edw.DI_Tid t on (t.reference = d.FK_DI_Tid)&#xA;join -- Periode&#xA;(Select SUBSTRING(value,1,4) as År, CONVERT(Int, SUBSTRING(value,5,2)) as Måned , SUBSTRING(value,1,50) as Periode&#xA; from ods.ctl_dataload&#xA; Where kilde_system = 'Alle'&#xA; and variable = 'Model_Periode') p on (t.Aar = p.År&#xA;                                      and t.MaanedNum &lt;= p.måned)"
               SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ResultBinding
                 SQLTask:ResultName="0"
@@ -7983,7 +7983,7 @@ group by p.periode, ts.Togsystemnummer, ms.TogsystemNavn_Kort, dt.Navn, ms.Costo
     design-time-name="Package\Togstandsninger\Beregn GD data for standsninger">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="200,42"
           Id="Package\Togstandsninger\Beregn GD data for standsninger\GD_R_Togproduktion_FR"
@@ -8011,7 +8011,9 @@ group by p.periode, ts.Togsystemnummer, ms.TogsystemNavn_Kort, dt.Navn, ms.Costo
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
