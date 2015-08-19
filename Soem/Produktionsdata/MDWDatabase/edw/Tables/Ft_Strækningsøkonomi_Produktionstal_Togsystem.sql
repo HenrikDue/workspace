@@ -4,5 +4,8 @@
     [costobjekt]      VARCHAR (50) NULL,
     [Togkm]           FLOAT (53)   NULL,
     [Togtimer]        FLOAT (53)   NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

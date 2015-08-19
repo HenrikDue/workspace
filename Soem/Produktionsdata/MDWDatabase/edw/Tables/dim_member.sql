@@ -11,5 +11,8 @@
     [indlæstAf]          [sysname]    DEFAULT (suser_sname()) NULL,
     [opdateretTidspunkt] DATETIME     NULL,
     [opdateretAf]        [sysname]    NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

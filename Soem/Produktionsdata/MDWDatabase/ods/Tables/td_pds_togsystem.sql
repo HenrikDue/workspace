@@ -23,5 +23,8 @@
     [togsystem]                INT          NULL,
     [sekunder]                 INT          NULL,
     [tog_status]               VARCHAR (14) NOT NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

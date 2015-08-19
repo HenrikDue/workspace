@@ -4,5 +4,8 @@
     [DestReference]       VARCHAR (50) NOT NULL,
     [DriverQuantityFixed] FLOAT (53)   NULL,
     [DriverWeightFixed]   FLOAT (53)   NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

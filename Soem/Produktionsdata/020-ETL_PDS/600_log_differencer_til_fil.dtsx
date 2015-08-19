@@ -13,8 +13,8 @@
   DTS:ObjectName="600_log_differencer_til_fil"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="47"
-  DTS:VersionGUID="{DA384746-2C82-48BA-98AD-C7C2D9133919}">
+  DTS:VersionBuild="62"
+  DTS:VersionGUID="{30BEA7DB-8B4D-4906-AE8B-8019E216F747}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -34,7 +34,7 @@
           DTS:RowDelimiter=""
           DTS:TextQualifier="_x003C_none_x003E_"
           DTS:CodePage="1252"
-          DTS:ConnectionString="\\oesmsqlt01\soem\files\mdw_udv4\Togpersonale_FR_PDS\Log\Checktabeller.txt">
+          DTS:ConnectionString="\\oesmsqlt01\soem\files\mdw_test02\Togpersonale_FR_PDS\Log\Checktabeller.txt">
           <DTS:FlatFileColumns>
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -80,7 +80,7 @@
           DTS:RowDelimiter=""
           DTS:TextQualifier="_x003C_none_x003E_"
           DTS:CodePage="1252"
-          DTS:ConnectionString="\\oesmsqlt01\soem\files\mdw_udv4\Togpersonale_FR_PDS\Log\logDiff.txt">
+          DTS:ConnectionString="\\oesmsqlt01\soem\files\mdw_test02\Togpersonale_FR_PDS\Log\logDiff.txt">
           <DTS:FlatFileColumns>
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -202,7 +202,7 @@
           DTS:RowDelimiter=""
           DTS:TextQualifier="_x003C_none_x003E_"
           DTS:CodePage="1252"
-          DTS:ConnectionString="\\oesmsqlt01\soem\files\mdw_udv4\Togpersonale_FR_PDS\Log\logDiffDet.txt">
+          DTS:ConnectionString="\\oesmsqlt01\soem\files\mdw_test02\Togpersonale_FR_PDS\Log\logDiffDet.txt">
           <DTS:FlatFileColumns>
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -2487,6 +2487,13 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <AnnotationLayout
+          Text="Difference i log filer på fravær.&#xA;Tal til logning af evt. difference på indsatte værdier i rådata og fact tabel findes på følgende måde:&#xA;&#xA;Pakken &quot;020_ODS_RD_PDS_Absence_Togfoerer_FR&quot; &#xA;A. I pakken summeres antal sekunder. Resultat omregnes til timer og indsættes i tabellen &#xA;Grl_DataLoadCheck_Vaerdi vha komponenterne &quot;Execute SQL Task&quot; og &quot;Gem fravær total&quot;.&#xA;&#xA;Pakken &quot;120_edw_tr1_ft_OBSfravaer&quot;&#xA;I Data Flow &quot;LOAD Fravaer&quot; hentes antal sekunder rækkevis pr. medarbejder, sammenlignes med helt døgn. Hvis sekunder svarer &#xA;til et helt døgn, omregnes fravær til arbejdsdag i timer ved division med 3600 og en faktor (3,239). Er antal sekunder ikke et helt døgn &#xA;omregnes fravær til timer. Resultat indsættes i tabellen FT_OBSFravaer. &#xA;&#xA;B. Summering af antal fraværstimer fra tabellen FT_OBSFravaer hentes i &quot;Get total fravær&quot; og indsættes i tabellen &#xA;Grl_DataLoadCheck_Vaerdi i &quot;Gem total fravær&quot;. &#xA;&#xA;C. I &quot;Get 24 timers diff&quot; beregnes tid på et døgn der IKKE er arbejdstid til at modregne ovenstående punk A. Tid hentes fra rådata tabel &#xA;(RD_PDS_Absence_Togfører_FR) og indsættes i Grl_DataLoadCheck_Vaerdi i &quot;Gem 24 timers diff&quot; som negativt tal.&#xA;&#xA;Tallene fra A og C summeres og sammenlignes med tallet fra B i pakken &quot;600_log_differencer_til_fil&quot; gennem funktionen &quot;etl.logDiff&quot;.&#xA;&#xA;Konklusion:&#xD;&#xA;Uhensigtsmæssige differencer vil opstå i log filer på grund af følgende: &#xD;&#xA;    Beregning af rådata på forskellig niveau. Rækkevis i Data Flow &quot;LOAD Fravaer&quot; og summering på tabelniveau i resten.&#xD;&#xA;    Sammenligning af sekunder i forhold til helt døgn. Helt døgn fra rådata mangler 30 til 60 sekunder i at være 24 timer. &#xD;&#xA;    Afrunding og sammenligning af tal. Der afrundes og sammenlignes på følgende måde ROUND(sekunder/60) = 1440. Dette &#xD;&#xA;    vil ikke virke når rådata mangler 60 sekunder i at være et døgn.&#xD;&#xA;&#xA;"
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="744,473"
+          Id="31eb6a14-8e46-48a4-a13c-55f8818c553b"
+          TopLeft="499,17" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -2494,41 +2501,35 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
     design-time-name="Package\Select fra CD tabeller til txt fil">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="317,44"
           Id="Package\Select fra CD tabeller til txt fil\Select fra cd-tabeller"
-          TopLeft="5.5,5.5" />
+          TopLeft="13.5,5.5" />
         <NodeLayout
           Size="314,44"
           Id="Package\Select fra CD tabeller til txt fil\checkTabeller txt"
           TopLeft="20.4811320754717,184.216981132075" />
         <EdgeLayout
           Id="Package\Select fra CD tabeller til txt fil.Paths[OLE DB Source Output]"
-          TopLeft="164.216981132075,49.4245283018868">
+          TopLeft="174.740566037736,49.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="13.5094339622642,134.792452830189"
+              EndConnector="0,134.716981132075"
               Start="0,0"
-              End="13.5094339622642,127.292452830189">
+              End="0,127.216981132075">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,67.3962264150943" />
-                  <mssgle:LineSegment
-                    End="13.5094339622642,67.3962264150943" />
-                  <mssgle:LineSegment
-                    End="13.5094339622642,127.292452830189" />
+                    End="0,127.216981132075" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -2548,7 +2549,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
           Id="Package\select fra etl logDiff og logDiffDet til txt fil\logDiff txt"
           TopLeft="51.4245283018868,98.3679245283019" />
         <NodeLayout
-          Size="136,44"
+          Size="144,42"
           Id="Package\select fra etl logDiff og logDiffDet til txt fil\logDiffDet txt"
           TopLeft="298.820754716981,95.3490566037736" />
         <NodeLayout
@@ -2557,22 +2558,18 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
           TopLeft="5.5,5.5" />
         <EdgeLayout
           Id="Package\select fra etl logDiff og logDiffDet til txt fil.Paths[OLE DB Source Output1]"
-          TopLeft="367.38679245283,49.4245283018868">
+          TopLeft="369.212264150944,49.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-0.679245283018872,45.9245283018868"
+              EndConnector="0,45.8490566037736"
               Start="0,0"
-              End="-0.679245283018872,38.4245283018868">
+              End="0,38.3490566037736">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,22.9433962264151" />
-                  <mssgle:LineSegment
-                    End="-0.679245283018872,22.9433962264151" />
-                  <mssgle:LineSegment
-                    End="-0.679245283018872,38.4245283018868" />
+                    End="0,38.3490566037736" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>

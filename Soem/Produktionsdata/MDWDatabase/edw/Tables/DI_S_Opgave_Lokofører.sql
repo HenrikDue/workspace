@@ -6,6 +6,8 @@
     [Gruppe_Navn]      VARCHAR (50) NOT NULL,
     [Type]             VARCHAR (50) NOT NULL,
     [Type_Navn]        VARCHAR (50) NOT NULL,
-    CONSTRAINT [PK_DI_S_Opgave_Lokofører] PRIMARY KEY CLUSTERED ([PK_ID] ASC)
+    CONSTRAINT [PK_DI_S_Opgave_Lokofører] PRIMARY KEY CLUSTERED ([PK_ID] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 

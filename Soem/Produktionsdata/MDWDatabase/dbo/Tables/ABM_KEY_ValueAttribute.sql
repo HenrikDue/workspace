@@ -7,6 +7,8 @@
     [ParentReference] NVARCHAR (64)  NULL,
     [DefaultValue]    NVARCHAR (255) NULL,
     [Type]            NVARCHAR (64)  NULL,
-    CONSTRAINT [PK_ABM_KEY_ValueAttribute] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [Reference] ASC) WITH (FILLFACTOR = 90)
+    CONSTRAINT [PK_ABM_KEY_ValueAttribute] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [Reference] ASC) WITH (FILLFACTOR = 90, DATA_COMPRESSION = PAGE)
 );
+
+
 

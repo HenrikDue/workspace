@@ -3,5 +3,8 @@
     [Station]      VARCHAR (50) NULL,
     [Stationsnavn] VARCHAR (50) NULL,
     [Depot]        VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

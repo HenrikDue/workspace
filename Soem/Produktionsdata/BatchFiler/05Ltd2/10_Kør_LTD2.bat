@@ -1,4 +1,5 @@
 ECHO OFF
+COLOR 9F
 SET ValgIndtastNyPeriode=0
 SET ValgMasterPeriode=0
 rem /* henter server og database konfiguration fra ekstern fil */ 
@@ -71,6 +72,7 @@ SET tmp2=%PERIODE:~3,2%
 SET PERIODE=%tmp1%%tmp2%
 
 pause
+COLOR E0
 echo Overfører filer til sqlserver og afvikler pakker
 ECHO f | xcopy /y %SOURCE_PATH%%SOURCE_FILE1%%PERIODE%%FILE_EXT% %DEST_PATH%%SOURCE_FILE1%%PERIODE%%FILE_EXT% >> %LOGFILE%
 ECHO f | xcopy /y %SOURCE_PATH%%SOURCE_FILE2%%PERIODE%%FILE_EXT% %DEST_PATH%%SOURCE_FILE2%%PERIODE%%FILE_EXT% >> %LOGFILE%
@@ -80,6 +82,7 @@ SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_LTD2 ''" >> %LOGFILE%
 ECHO ******************************************************************************
 ECHO.
 %LOGFILE%
+COLOR A0
 pause
 
 :ExitChosen

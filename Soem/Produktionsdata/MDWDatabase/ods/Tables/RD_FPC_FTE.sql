@@ -9,5 +9,8 @@
     [LoanArt]       VARCHAR (50) NULL,
     [FTE]           VARCHAR (50) NULL,
     [Timestamp]     DATETIME     NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

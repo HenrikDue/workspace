@@ -49,5 +49,8 @@
     [IndlæstTidspunktEX_MD_G_ACCHIER_Ressource] DATETIME      NULL,
     [indlæstTidspunktMD_G_Stam_Artskontoplan]   DATETIME      NULL,
     [indlæstTidspunktGD_R_Økonomi_Drift]        DATETIME      NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

@@ -1,4 +1,5 @@
 ECHO OFF
+COLOR 9F
 SET ValgIndtastNyPeriode=0
 SET ValgMasterPeriode=0
 rem /* henter server og database konfiguration fra ekstern fil */ 
@@ -24,6 +25,7 @@ SET DEST_LOG_PATH=\\%DB_SERVER%\files\%DB_NAVN%\SAP_Costobjekt_og_Stamdata\
 SET FILE_EXT=.xlsx
 
 :: /* konfigurerer log */
+md %DEST_LOG_PATH%Log
 md %cd%\Log
 SET LOGFILE=%cd%\LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%.txt
 SET LOGFILE=%LOGFILE: =0%
@@ -57,7 +59,7 @@ IF %ValgMasterPeriode%==1 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "SET NOCOUNT 
 IF %ValgMasterPeriode%==1 GOTO Valgslut
 
 :GenvalgPeriode
-IF  %ValgIndtastNyPeriode%==1 SET /p NYPERIODE="Indtast ny loadperiode yyyymm for Protal :"
+IF  %ValgIndtastNyPeriode%==1 SET /p NYPERIODE="Indtast ny loadperiode yyyymm for SAP :"
 IF  %ValgIndtastNyPeriode%==1 SET QUERYTEXT=exec[etl].[loadperiod_SAP]'%NYPERIODE%01'
 IF  %ValgIndtastNyPeriode%==1 (ECHO. & SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q %QUERYTEXT%)
 IF  %ValgIndtastNyPeriode%==1 CHOICE /C 123 /N /M "Tast 1: Start med valgt periode, 2: Indtast Ny dato eller 3: Fortryd og afslut"
@@ -70,6 +72,7 @@ SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "declare @periode varchar(50); select @
 for /f %%a in ('SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "SET NOCOUNT ON;select substring(Value,1,6) from ods.CTL_Dataload where kilde_system = 'SAP' and Variable = 'PeriodtoFile'" -h -1') do set PERIODE=%%a
 
 pause
+COLOR E0
 echo Overfører filer til sqlserver og afvikler pakker
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH1%%SOURCE_FILE1% %DEST_PATH1%%SOURCE_FILE1% >> %LOGFILE%
 echo til %DEST_PATH1% >> %LOGFILE%
@@ -80,10 +83,10 @@ ECHO. >> %LOGFILE%
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_SAP_Costobjekt_og_Stamdata ''" >> %LOGFILE%
 ECHO ******************************************************************************
 %LOGFILE%
+COLOR A0
+%DEST_LOG_PATH%Log\ErrorOutput.txt
+%DEST_LOG_PATH%Log\Error_ProfitcenterConvert.txt
 pause
-
-%DEST_LOG_PATH%\Log\ErrorOutput.txt
-%DEST_LOG_PATH%\Log\Error_ProfitcenterConvert.txt
 
 :ExitChosen
 

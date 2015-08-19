@@ -12,5 +12,8 @@
     [ATT_ResType]         VARCHAR (50) NULL,
     [EvenlyAssigned]      VARCHAR (50) NULL,
     [EvenlyAssigned_Name] VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

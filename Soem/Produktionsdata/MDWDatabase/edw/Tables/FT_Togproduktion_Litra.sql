@@ -44,5 +44,8 @@
     CONSTRAINT [FK_FT_Togproduktion_Litra_DI_Tid] FOREIGN KEY ([FK_DI_Tid]) REFERENCES [edw].[DI_Tid] ([Reference]),
     CONSTRAINT [FK_FT_Togproduktion_Litra_DI_Tidsintervaller] FOREIGN KEY ([FK_DI_Tidsintervaller]) REFERENCES [edw].[DI_Tidsintervaller] ([PK_ID]),
     CONSTRAINT [FK_FT_Togproduktion_Litra_DI_Togsystem] FOREIGN KEY ([FK_DI_Togsystem]) REFERENCES [edw].[DI_Togsystem] ([PK_DI_Togsystem])
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

@@ -7,5 +7,8 @@
     [Fredning]       VARCHAR (50) NULL,
     [Kategori]       VARCHAR (50) NULL,
     [Kategori_2]     VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

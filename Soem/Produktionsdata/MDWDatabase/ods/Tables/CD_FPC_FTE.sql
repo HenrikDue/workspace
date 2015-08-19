@@ -10,5 +10,8 @@
     [FTE]           VARCHAR (50) NULL,
     [Kommentar]     VARCHAR (50) NULL,
     [Timestamp]     DATETIME     NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

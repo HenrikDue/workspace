@@ -15,5 +15,8 @@
     [Antaltur]        INT          NULL,
     [Turnummer]       VARCHAR (15) NULL,
     [DI_Tid_Maaned]   VARCHAR (6)  NOT NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

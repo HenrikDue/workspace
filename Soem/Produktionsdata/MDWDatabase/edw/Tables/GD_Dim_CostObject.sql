@@ -17,5 +17,8 @@
     [Markedsprisdok]  VARCHAR (50)  NULL,
     [Period]          VARCHAR (50)  NULL,
     [Timestamp]       DATETIME      NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

@@ -19,5 +19,8 @@
     CONSTRAINT [FK_FT_Lokopersonale_DI_Tid_Maaned] FOREIGN KEY ([DI_Tid_Maaned]) REFERENCES [edw].[DI_Tid_Maaned] ([PK_ID]),
     CONSTRAINT [FK_FT_Lokopersonale_DI_Togsystem] FOREIGN KEY ([DI_Togsystem]) REFERENCES [edw].[DI_Togsystem] ([PK_DI_Togsystem]),
     CONSTRAINT [FK_FT_Lokopersonale_DI_Turdepot] FOREIGN KEY ([DI_Turdepot]) REFERENCES [edw].[DI_Turdepot] ([Turdepot])
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

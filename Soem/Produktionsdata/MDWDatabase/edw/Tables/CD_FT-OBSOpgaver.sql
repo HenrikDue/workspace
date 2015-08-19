@@ -14,5 +14,8 @@
     [Tognummer]         INT          NOT NULL,
     [DI_Station_fra]    VARCHAR (50) NULL,
     [DI_Station_til]    VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

@@ -4,7 +4,9 @@
     [Siddepladser]     INT          NOT NULL,
     [Antal_vogne]      INT          NOT NULL,
     [Materielkategori] VARCHAR (50) DEFAULT ('') NOT NULL,
-    CONSTRAINT [PK_DI_S_Materiel] PRIMARY KEY CLUSTERED ([PK_ID] ASC),
+    CONSTRAINT [PK_DI_S_Materiel] PRIMARY KEY CLUSTERED ([PK_ID] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [UK_DI_S_Materiel_Siddepladser] UNIQUE NONCLUSTERED ([Siddepladser] ASC, [Materielkategori] ASC)
 );
+
+
 

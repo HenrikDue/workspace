@@ -7,5 +7,8 @@
     [Bro]             VARCHAR (50) NULL,
     [AntalTog]        INT          NULL,
     [Timestamp]       DATETIME     NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

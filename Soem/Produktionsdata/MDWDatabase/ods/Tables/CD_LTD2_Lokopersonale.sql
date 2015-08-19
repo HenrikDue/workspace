@@ -18,5 +18,8 @@
     [Periode]          DATETIME        NULL,
     [Timestamp]        DATETIME        NULL,
     [DsbId]            VARCHAR (50)    NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

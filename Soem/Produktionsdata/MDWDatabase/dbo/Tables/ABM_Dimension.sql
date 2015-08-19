@@ -5,5 +5,8 @@
     [DimID]     SMALLINT      NULL,
     [Reference] NVARCHAR (64) NOT NULL,
     [Name]      NVARCHAR (64) NOT NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

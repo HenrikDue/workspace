@@ -6,5 +6,8 @@
     [Comments]         VARCHAR (50) NULL,
     [ModuleType]       VARCHAR (50) NULL,
     [Periode]          VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

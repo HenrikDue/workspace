@@ -6,5 +6,8 @@
     [ParentReference] VARCHAR (64) NULL,
     [DimLevel]        INT          NULL,
     [DimLevelName]    VARCHAR (64) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

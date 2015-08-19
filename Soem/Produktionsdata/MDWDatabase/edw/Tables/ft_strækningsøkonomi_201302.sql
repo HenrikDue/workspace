@@ -31,5 +31,8 @@
     [Tidsinterval_key]               INT        NULL,
     [Momsstatus]                     INT        NULL,
     [kilde_key]                      INT        NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

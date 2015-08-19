@@ -22,6 +22,8 @@
     [DimMemberRef4]    NVARCHAR (64) NULL,
     [DimRef5]          NVARCHAR (64) NULL,
     [DimMemberRef5]    NVARCHAR (64) NULL,
-    CONSTRAINT [PK_ABM_KEY_Account] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [ModuleType] ASC, [Period] ASC, [Scenario] ASC, [Reference] ASC) WITH (FILLFACTOR = 90)
+    CONSTRAINT [PK_ABM_KEY_Account] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [ModuleType] ASC, [Period] ASC, [Scenario] ASC, [Reference] ASC) WITH (FILLFACTOR = 90, DATA_COMPRESSION = PAGE)
 );
+
+
 

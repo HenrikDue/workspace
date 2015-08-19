@@ -16,5 +16,8 @@
     [AttProduktLitra_key]            INT         NOT NULL,
     [AttTogsystem_key]               INT         NOT NULL,
     [CEArt]                          VARCHAR (1) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

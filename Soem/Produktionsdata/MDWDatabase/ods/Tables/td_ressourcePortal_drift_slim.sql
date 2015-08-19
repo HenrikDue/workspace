@@ -12,5 +12,8 @@
     [reversibilitet_key]  INT          NOT NULL,
     [Momsstatus]          INT          NOT NULL,
     [kilde_key]           INT          NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

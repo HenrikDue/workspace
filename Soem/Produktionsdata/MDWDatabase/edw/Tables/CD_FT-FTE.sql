@@ -6,5 +6,8 @@
     [Profitcenter]  VARCHAR (15)    NOT NULL,
     [Loanart]       VARCHAR (15)    NOT NULL,
     [FTE]           DECIMAL (10, 3) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

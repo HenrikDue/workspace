@@ -5,5 +5,8 @@
     [Rentesats]        FLOAT (53)   NULL,
     [indlæstTidspunkt] DATETIME     CONSTRAINT [DF_MD_R_STAM_Rentesats_ny_indlæstTidspunkt] DEFAULT (getdate()) NULL,
     [indlæstAf]        [sysname]    CONSTRAINT [DF_MD_R_STAM_Rentesats_ny_indlæstAf] DEFAULT (suser_sname()) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

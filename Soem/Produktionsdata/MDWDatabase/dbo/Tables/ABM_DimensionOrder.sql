@@ -7,5 +7,8 @@
     [DimID]          SMALLINT      NULL,
     [DimRef]         NVARCHAR (64) NOT NULL,
     [DimName]        NVARCHAR (64) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

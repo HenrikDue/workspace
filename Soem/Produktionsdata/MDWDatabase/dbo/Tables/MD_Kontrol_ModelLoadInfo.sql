@@ -10,6 +10,8 @@
     [Tilstand]         VARCHAR (50) NULL,
     [indlæstTidspunkt] DATETIME     DEFAULT (getdate()) NULL,
     [indlæstAf]        [sysname]    DEFAULT (suser_sname()) NULL,
-    CONSTRAINT [PK_MD_Kontrol_ModelLoadInfo] PRIMARY KEY CLUSTERED ([Job_ID] ASC)
+    CONSTRAINT [PK_MD_Kontrol_ModelLoadInfo] PRIMARY KEY CLUSTERED ([Job_ID] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 

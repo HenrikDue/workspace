@@ -38,5 +38,8 @@
     [Column 39]               VARCHAR (255)   NULL,
     [erSaertog]               BIT             NULL,
     [erAflyst]                BIT             NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

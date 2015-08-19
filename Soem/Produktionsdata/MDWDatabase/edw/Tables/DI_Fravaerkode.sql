@@ -10,6 +10,8 @@
     [TypeNavn]        VARCHAR (50) NULL,
     [PDSRegistrering] VARCHAR (3)  NULL,
     [Timestamp]       DATETIME     NULL,
-    CONSTRAINT [PK_DI_Fravaerkode] PRIMARY KEY CLUSTERED ([Kode] ASC)
+    CONSTRAINT [PK_DI_Fravaerkode] PRIMARY KEY CLUSTERED ([Kode] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 

@@ -1,4 +1,5 @@
 ECHO OFF
+COLOR 9F
 CLS
 set config_file_path=..\Konfiguration\
 setlocal enabledelayedexpansion
@@ -23,6 +24,7 @@ SET DEST_PATH=\\%DB_SERVER%\files\%DB_NAVN%\StamData\
 
 rem /* konfigurerer log */
 md %cd%\Log
+md %DEST_PATH%
 SET LOGFILE=%cd%\LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%.txt
 SET LOGFILE=%LOGFILE: =0%
 ECHO Folder:  %cd%  >> %LOGFILE%
@@ -50,7 +52,9 @@ ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH%%SOURCE_FILE6% %DEST_PATH%%SOURCE_F
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH%%SOURCE_FILE7% %DEST_PATH%%SOURCE_FILE7% >> %LOGFILE%
 echo til %DEST_PATH% >> %LOGFILE%
 ECHO. >> %LOGFILE%
+COLOR E0
 
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_stamdata_mdw ''" >> %LOGFILE%
 %LOGFILE%
+COLOR A0
 pause

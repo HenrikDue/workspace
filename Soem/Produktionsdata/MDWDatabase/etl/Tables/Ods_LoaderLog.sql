@@ -16,6 +16,8 @@
     [CtlColTot_3]  DECIMAL (24, 6) NULL,
     [CtlColName_4] VARCHAR (50)    NULL,
     [CtlColTot_4]  DECIMAL (24, 6) NULL,
-    CONSTRAINT [PK_LoaderLogID] PRIMARY KEY CLUSTERED ([LoaderLogID] ASC)
+    CONSTRAINT [PK_LoaderLogID] PRIMARY KEY CLUSTERED ([LoaderLogID] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 

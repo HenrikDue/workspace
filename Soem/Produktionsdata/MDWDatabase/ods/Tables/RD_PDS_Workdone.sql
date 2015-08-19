@@ -12,5 +12,8 @@
     [OpgaveSlutSt]           VARCHAR (50) NULL,
     [OpgaveTogNr]            VARCHAR (50) NULL,
     [TimeStamp]              DATETIME     NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

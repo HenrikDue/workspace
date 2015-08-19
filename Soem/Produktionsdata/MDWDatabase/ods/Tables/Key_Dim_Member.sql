@@ -5,5 +5,8 @@
     [Created]            DATETIME      DEFAULT (getdate()) NULL,
     [opdateretTidspunkt] DATETIME      NULL,
     [opdateretAf]        [sysname]     NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

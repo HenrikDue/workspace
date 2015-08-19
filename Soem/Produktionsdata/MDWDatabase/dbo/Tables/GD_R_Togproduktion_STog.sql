@@ -7,5 +7,8 @@
     [Enhed]            VARCHAR (50) NULL,
     [Værdi]            FLOAT (53)   NULL,
     [TidsintervalNavn] VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

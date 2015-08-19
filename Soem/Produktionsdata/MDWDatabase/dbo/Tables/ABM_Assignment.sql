@@ -31,5 +31,8 @@
     [DestinationDimMemberRef4] VARCHAR (64) NULL,
     [DestinationDimRef5]       VARCHAR (64) NULL,
     [DestinationDimMemberRef5] VARCHAR (64) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

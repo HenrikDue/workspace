@@ -15,5 +15,8 @@
     [UIC_opslag]           VARCHAR (50) NULL,
     [Stationsfork_PDS]     VARCHAR (50) NULL,
     [Stationsfork_LTD]     VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

@@ -51,5 +51,8 @@
     [Dim1011]                       INT           NULL,
     [Dim1012]                       INT           NULL,
     [Drivername]                    VARCHAR (64)  NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

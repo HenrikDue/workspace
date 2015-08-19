@@ -17,6 +17,8 @@
     [AccountDimMemberRef4] NVARCHAR (64) NULL,
     [AccountDimRef5]       NVARCHAR (64) NULL,
     [AccountDimMemberRef5] NVARCHAR (64) NULL,
-    CONSTRAINT [PK_ABM_KEY_EnteredCostElement] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [Period] ASC, [Scenario] ASC, [ModuleType] ASC, [Reference] ASC) WITH (FILLFACTOR = 90)
+    CONSTRAINT [PK_ABM_KEY_EnteredCostElement] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [Period] ASC, [Scenario] ASC, [ModuleType] ASC, [Reference] ASC) WITH (FILLFACTOR = 90, DATA_COMPRESSION = PAGE)
 );
+
+
 

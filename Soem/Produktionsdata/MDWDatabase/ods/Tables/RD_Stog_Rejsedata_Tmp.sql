@@ -9,5 +9,8 @@
     [Hillerød]      FLOAT (53) NULL,
     [Klampenborg]   FLOAT (53) NULL,
     [Ringbanen]     FLOAT (53) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

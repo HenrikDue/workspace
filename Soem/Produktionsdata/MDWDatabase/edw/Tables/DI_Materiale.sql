@@ -22,7 +22,9 @@
     [Source]                  VARCHAR (50) NULL,
     [Aktiv_fra]               DATETIME     NULL,
     [Aktiv_til]               DATETIME     NULL,
-    CONSTRAINT [PK_DI_Materiale] PRIMARY KEY CLUSTERED ([PK_ID] ASC),
+    CONSTRAINT [PK_DI_Materiale] PRIMARY KEY CLUSTERED ([PK_ID] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [UK_DI_Materiale] UNIQUE NONCLUSTERED ([loebenr] ASC, [Litra] ASC, [Aktiv_fra] ASC, [Aktiv_til] ASC)
 );
+
+
 

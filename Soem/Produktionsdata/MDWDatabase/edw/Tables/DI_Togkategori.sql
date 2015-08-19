@@ -5,5 +5,8 @@
     [Division]          VARCHAR (50) NULL,
     [Kontraktoperatoer] VARCHAR (50) NULL,
     [Tekniskoperatoer]  VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

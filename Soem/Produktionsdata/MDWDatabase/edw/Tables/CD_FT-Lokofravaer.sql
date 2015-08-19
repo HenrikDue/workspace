@@ -7,5 +7,8 @@
     [Turdag]         VARCHAR (15) NULL,
     [Turnummer]      VARCHAR (15) NULL,
     [DI_Tid_Maaned]  VARCHAR (6)  NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

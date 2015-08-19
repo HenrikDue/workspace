@@ -16,5 +16,8 @@
     CONSTRAINT [FK_FT_Lokopersonale_S_tog_DI_S_Opgave_Straekning] FOREIGN KEY ([DI_S_Opgave_Straekning]) REFERENCES [edw].[DI_S_Opgave_Straekning] ([PK_ID]),
     CONSTRAINT [FK_FT_Lokopersonale_S_tog_DI_S_Straekning] FOREIGN KEY ([DI_S_Straekning]) REFERENCES [edw].[DI_S_Straekning] ([PK_ID]),
     CONSTRAINT [FK_FT_Lokopersonale_S_tog_DI_Tid] FOREIGN KEY ([DI_Tid]) REFERENCES [edw].[DI_Tid] ([Reference])
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

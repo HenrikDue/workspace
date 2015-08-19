@@ -33,5 +33,8 @@
     [Momsstatus]                          INT        NULL,
     [Beløb_ganget_op_med_tidsintervaller] FLOAT (53) NULL,
     [kilde_key]                           INT        NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

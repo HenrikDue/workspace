@@ -20,5 +20,8 @@
     [indlæstTidspunkt]    DATETIME     NULL,
     [indlæstAf]           [sysname]    NULL,
     [Periode]             VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

@@ -16,5 +16,8 @@
     [Salgs-automater]           VARCHAR (3)  NULL,
     [Green-speed]               VARCHAR (3)  NULL,
     [Godkendt til tunnelkørsel] VARCHAR (3)  NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

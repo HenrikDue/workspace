@@ -15,5 +15,8 @@
     [Fra_tidspunkt]        DATETIME     NULL,
     [Til_tidspunkt]        DATETIME     NULL,
     [PDS_Start_tidspunkt]  DATETIME     NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

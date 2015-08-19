@@ -7,5 +7,8 @@
     [A_START_DATE_TIME]          DATETIME      NULL,
     [A_END_DATE_TIME]            DATETIME      NULL,
     [DURATION]                   INT           NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

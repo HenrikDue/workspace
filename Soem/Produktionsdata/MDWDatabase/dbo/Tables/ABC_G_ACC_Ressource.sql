@@ -7,6 +7,8 @@
     [ParentReference] VARCHAR (50)  NULL,
     [Periode]         VARCHAR (50)  NOT NULL,
     [DataSerie]       VARCHAR (50)  NULL,
-    CONSTRAINT [PK_ABC_G_ACC_Resource] PRIMARY KEY CLUSTERED ([Reference] ASC, [ModuleType] ASC, [Periode] ASC)
+    CONSTRAINT [PK_ABC_G_ACC_Resource] PRIMARY KEY CLUSTERED ([Reference] ASC, [ModuleType] ASC, [Periode] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 

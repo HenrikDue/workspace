@@ -7,5 +7,8 @@
     [ParentReference] NVARCHAR (64)  NULL,
     [DefaultValue]    NVARCHAR (255) NULL,
     [Type]            NVARCHAR (64)  NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

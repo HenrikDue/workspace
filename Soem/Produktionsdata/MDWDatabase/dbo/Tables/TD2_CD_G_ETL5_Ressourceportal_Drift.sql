@@ -51,5 +51,8 @@
     [KildeArk]                                  VARCHAR (50)  NULL,
     [Variabilitet]                              VARCHAR (50)  NULL,
     [Variabilitet_Navn]                         VARCHAR (50)  NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

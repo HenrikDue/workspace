@@ -12,5 +12,8 @@
     [VariableDriverQuantityOverride] NVARCHAR (64)  NULL,
     [IdleFlowMethod]                 NVARCHAR (64)  NULL,
     [UserEnteredCostAllocation]      BIT            NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

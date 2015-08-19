@@ -9,5 +9,8 @@
     [forrentning]         FLOAT (53)   NULL,
     [RessourceReference]  VARCHAR (50) NULL,
     [kilde_key]           INT          NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

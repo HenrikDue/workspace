@@ -5,5 +5,8 @@
     [Refnum]         VARCHAR (64) NULL,
     [Icon]           INT          NULL,
     [Description]    TEXT         NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

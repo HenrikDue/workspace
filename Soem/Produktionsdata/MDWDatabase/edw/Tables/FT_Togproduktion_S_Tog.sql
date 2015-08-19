@@ -16,5 +16,8 @@
     CONSTRAINT [FK_FT_Togproduktion_S_Tog_DI_S_Straekning] FOREIGN KEY ([DI_S_Straekning]) REFERENCES [edw].[DI_S_Straekning] ([PK_ID]),
     CONSTRAINT [FK_FT_Togproduktion_S_Tog_DI_Tid] FOREIGN KEY ([DI_Tid]) REFERENCES [edw].[DI_Tid] ([Reference]),
     CONSTRAINT [FK_FT_Togproduktion_S_Tog_DI_Tidsinterval] FOREIGN KEY ([DI_Tidsintervaller]) REFERENCES [edw].[DI_Tidsintervaller] ([PK_ID])
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

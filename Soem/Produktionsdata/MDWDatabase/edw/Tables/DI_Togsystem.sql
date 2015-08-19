@@ -12,6 +12,8 @@
     [Aktiv]              BIT           NOT NULL,
     [AktivFra]           DATETIME      NOT NULL,
     [AktivTil]           DATETIME      NOT NULL,
-    CONSTRAINT [PK_DI_Togsystem_2] PRIMARY KEY CLUSTERED ([PK_DI_Togsystem] ASC)
+    CONSTRAINT [PK_DI_Togsystem_2] PRIMARY KEY CLUSTERED ([PK_DI_Togsystem] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 

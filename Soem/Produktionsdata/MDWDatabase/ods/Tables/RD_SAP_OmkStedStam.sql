@@ -9,5 +9,8 @@
     [GyldigFradato]      VARCHAR (50) NULL,
     [GyldigTildato]      VARCHAR (50) NULL,
     [Timestamp]          DATETIME     NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

@@ -6,6 +6,8 @@
     [ParentReference] NVARCHAR (64) NULL,
     [DimLevel]        SMALLINT      NULL,
     [DimLevelName]    NVARCHAR (64) NULL,
-    CONSTRAINT [PK_ABM_KEY_DimensionMemeber] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [DimRef] ASC, [Reference] ASC) WITH (FILLFACTOR = 90)
+    CONSTRAINT [PK_ABM_KEY_DimensionMemeber] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [DimRef] ASC, [Reference] ASC) WITH (FILLFACTOR = 90, DATA_COMPRESSION = PAGE)
 );
+
+
 

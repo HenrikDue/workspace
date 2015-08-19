@@ -5,5 +5,8 @@
     [PDSkode]           VARCHAR (50)    NOT NULL,
     [DI_Tid_Maaned]     VARCHAR (50)    NOT NULL,
     [Varighed_regist]   DECIMAL (18, 1) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

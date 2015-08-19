@@ -16,5 +16,8 @@
     [Aktiv]           VARCHAR (50)  NULL,
     [Markedsprisdok]  VARCHAR (50)  NULL,
     [Niveau]          VARCHAR (4)   NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

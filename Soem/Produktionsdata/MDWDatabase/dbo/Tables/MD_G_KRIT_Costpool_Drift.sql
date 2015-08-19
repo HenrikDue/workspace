@@ -27,5 +27,8 @@
     [Model]            VARCHAR (50) NULL,
     [indlæstTidspunkt] DATETIME     CONSTRAINT [DF_MD_G_KRIT_Costpool_Drift_indlæstTidspunkt] DEFAULT (getdate()) NULL,
     [indlæstAf]        [sysname]    CONSTRAINT [DF_MD_G_KRIT_Costpool_Drift_indlæstAf] DEFAULT (suser_sname()) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

@@ -12,6 +12,8 @@
     [VariableDriverQuantityOverride] NVARCHAR (64)  NULL,
     [IdleFlowMethod]                 NVARCHAR (64)  NULL,
     [UserEnteredCostAllocation]      BIT            NULL,
-    CONSTRAINT [PK_ABM_KEY_Driver] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [Name] ASC) WITH (FILLFACTOR = 90)
+    CONSTRAINT [PK_ABM_KEY_Driver] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [Name] ASC) WITH (FILLFACTOR = 90, DATA_COMPRESSION = PAGE)
 );
+
+
 

@@ -5,5 +5,8 @@
     [OmkStedKont]        VARCHAR (50) NULL,
     [OmkStedNavn]        VARCHAR (50) NULL,
     [Fuldtidsstillinger] FLOAT (53)   NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

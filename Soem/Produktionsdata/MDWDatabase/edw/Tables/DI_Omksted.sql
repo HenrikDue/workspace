@@ -10,7 +10,9 @@
     [GyldigTildato]        DATETIME     NULL,
     [Aktiv]                VARCHAR (10) NULL,
     [Timestamp]            DATETIME     NULL,
-    CONSTRAINT [PK_DI_Omksted] PRIMARY KEY CLUSTERED ([PK_ID] ASC),
+    CONSTRAINT [PK_DI_Omksted] PRIMARY KEY CLUSTERED ([PK_ID] ASC) WITH (DATA_COMPRESSION = PAGE),
     CONSTRAINT [FK_DI_Omksted_DI_Profitcenter] FOREIGN KEY ([FK_Profitcenter_PKID]) REFERENCES [edw].[DI_Profitcenter] ([PK_ID])
 );
+
+
 

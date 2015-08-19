@@ -3,5 +3,8 @@
     [LitraID]          VARCHAR (50) NULL,
     [LitraNavn]        VARCHAR (50) NULL,
     [SAPLitraRef]      VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

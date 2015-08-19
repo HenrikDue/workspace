@@ -5,5 +5,8 @@
     [costObjekt]         VARCHAR (50) NULL,
     [Enhed]              VARCHAR (50) NULL,
     [værdi]              FLOAT (53)   NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

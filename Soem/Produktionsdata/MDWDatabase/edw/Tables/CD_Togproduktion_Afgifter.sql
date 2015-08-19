@@ -10,5 +10,8 @@
     [Afgift_kr]        DECIMAL (24, 6) NULL,
     [Status]           VARCHAR (50)    NULL,
     [Timestamp]        DATETIME        NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

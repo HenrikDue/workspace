@@ -3,5 +3,8 @@
     [litra_sekvens]    INT          NULL,
     [Pladser]          INT          NULL,
     [Materielkategori] VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

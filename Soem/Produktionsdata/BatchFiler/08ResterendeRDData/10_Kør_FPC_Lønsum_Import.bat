@@ -1,4 +1,5 @@
 ECHO OFF
+COLOR 9F
 SET ValgIndtastNyPeriode=0
 SET ValgMasterPeriode=0
 rem /* henter server og database konfiguration fra ekstern fil */ 
@@ -17,6 +18,7 @@ SET SOURCE_PATH=P:\70_BI\Projects\Files\FPC_L›nsum\
 SET SOURCE_FILE1="RD_R_L›nsumAns‘ttelsetype "
 
 SET DEST_PATH=\\%DB_SERVER%\files\%DB_NAVN%\FPC_L›nsum\
+md %DEST_PATH%\CSV
 SET FILE_EXT=.xlsx
 
 :: /* konfigurerer log */
@@ -29,14 +31,13 @@ ECHO. >> %LOGFILE%
 :STARTEN
 CLS
 ECHO Script startet klokken: %time% 
-
 ECHO ******************************************************************************
 ECHO *
 ECHO *  Server: %DB_SERVER%
 ECHO *  Database: %DB_NAVN%
 ECHO *
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "declare @periode varchar(50); select @periode = Value from ods.CTL_Dataload where kilde_system = 'Alle' and Variable = 'Master_periode'; print '*  Master LoadPeriode:  ---> '+@periode + ' <--- Tjek periode her.'" 
-SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "declare @periode varchar(50); select @periode = substring(value,1,6) from ods.CTL_Dataload where kilde_system = 'Alle' and Variable = 'Model_Periode'; print '*  GD LoadPeriode: '+@periode"
+SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "declare @periode varchar(50); select @periode = substring(value,1,6) from ods.CTL_Dataload where kilde_system = 'Alle' and Variable = 'Model_Periode'; print 'Starter med LoadPeriode: '+@periode"
 ECHO *
 ECHO ******************************************************************************
 ECHO.
@@ -62,11 +63,13 @@ IF %errorlevel%==2 SET ValgIndtastNyPeriode=1 & GOTO GenvalgPeriode
 
 :Valgslut
 
-SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "declare @periode varchar(50); select @periode = substring(value,1,6) from ods.CTL_Dataload where kilde_system = 'Alle' and Variable = 'Model_Periode'; print '*  GD LoadPeriode: '+@periode"
+SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "declare @periode varchar(50); select @periode = substring(value,1,6) from ods.CTL_Dataload where kilde_system = 'Alle' and Variable = 'Model_Periode'; print 'Starter med GD LoadPeriode: '+@periode"
 ECHO.
 for /f %%a in ('SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "SET NOCOUNT ON;select Value from ods.CTL_Dataload where kilde_system = 'Alle' and Variable = 'Model_Periode'" -h -1') do set PERIODE=%%a
 
 pause
+COLOR E0
+echo Overfører filer til sqlserver og afvikler pakker
 ECHO. >> %LOGFILE%
 ECHO f | xcopy /y %SOURCE_PATH%%SOURCE_FILE1%%PERIODE%%FILE_EXT% %DEST_PATH%%SOURCE_FILE1%%PERIODE%%FILE_EXT% >> %LOGFILE%
 echo til %DEST_PATH% >> %LOGFILE%
@@ -75,6 +78,7 @@ SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_FPC_Loensum ''" >> %L
 ECHO ******************************************************************************
 ECHO.
 %LOGFILE%
+COLOR A0
 pause
 
 :ExitChosen

@@ -4,5 +4,8 @@
     [ParentReference] VARCHAR (50) NULL,
     [Period]          VARCHAR (50) NULL,
     [Togsystem]       INT          NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

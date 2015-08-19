@@ -6,6 +6,8 @@
     [ParentReference] VARCHAR (64) NULL,
     [DimLevel]        INT          NULL,
     [DimLevelName]    VARCHAR (64) NULL,
-    CONSTRAINT [PK_ABM_KEY_DimensionMember_UdenSort] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [DimRef] ASC, [Reference] ASC) WITH (FILLFACTOR = 90)
+    CONSTRAINT [PK_ABM_KEY_DimensionMember_UdenSort] PRIMARY KEY CLUSTERED ([Delmodel] ASC, [DimRef] ASC, [Reference] ASC) WITH (FILLFACTOR = 90, DATA_COMPRESSION = PAGE)
 );
+
+
 

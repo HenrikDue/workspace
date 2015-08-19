@@ -18,5 +18,8 @@
     [Antalture]       SMALLINT     NULL,
     [DsbId]           VARCHAR (15) NULL,
     [Fravaer]         CHAR (1)     NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

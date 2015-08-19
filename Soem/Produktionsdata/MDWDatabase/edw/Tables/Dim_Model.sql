@@ -12,5 +12,8 @@
     [ABC_Cost_Element] VARCHAR (50) NULL,
     [ABC_Driver]       VARCHAR (50) NULL,
     [ABC_Model_Data]   VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

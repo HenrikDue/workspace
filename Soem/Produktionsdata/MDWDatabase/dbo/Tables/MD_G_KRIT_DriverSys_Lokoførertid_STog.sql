@@ -9,5 +9,8 @@
     [Destination]      VARCHAR (50) NULL,
     [Destinationsnavn] VARCHAR (50) NULL,
     [Periode]          VARCHAR (50) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

@@ -6,5 +6,8 @@
     [Created]             DATETIME      DEFAULT (getdate()) NULL,
     [Updated]             DATETIME      NULL,
     [Gyldigtil_tilrettet] BIT           NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

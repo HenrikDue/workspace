@@ -5,5 +5,8 @@
     [LoadTimeStamp]     DATETIME      NULL,
     [oprettetTidspunkt] DATETIME      DEFAULT (getdate()) NULL,
     [oprettetAf]        [sysname]     DEFAULT (suser_sname()) NOT NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

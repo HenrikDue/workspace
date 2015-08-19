@@ -9,5 +9,8 @@
     [Enhed]                   VARCHAR (50) NULL,
     [Aktiv]                   VARCHAR (50) NULL,
     [Timestamp]               DATETIME     NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

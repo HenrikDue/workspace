@@ -3,5 +3,8 @@
     [Enhed]      VARCHAR (50) NULL,
     [År]         INT          NULL,
     [Værdi]      FLOAT (53)   NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

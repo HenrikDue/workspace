@@ -3,6 +3,8 @@
     [Navn]        VARCHAR (50)    NULL,
     [AfgiftsSats] DECIMAL (18, 2) NOT NULL,
     [Bemaerkning] VARCHAR (50)    NULL,
-    CONSTRAINT [PK__MD_Afgiftssats__2F3AE904] PRIMARY KEY CLUSTERED ([Straekning] ASC)
+    CONSTRAINT [PK__MD_Afgiftssats__2F3AE904] PRIMARY KEY CLUSTERED ([Straekning] ASC) WITH (DATA_COMPRESSION = PAGE)
 );
+
+
 

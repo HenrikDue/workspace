@@ -7,5 +7,8 @@
     [StartDate]       DATETIME      NULL,
     [EndDate]         DATETIME      NULL,
     [Description]     VARCHAR (255) NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 

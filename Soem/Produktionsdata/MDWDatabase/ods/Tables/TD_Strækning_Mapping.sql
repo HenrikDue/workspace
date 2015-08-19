@@ -10,5 +10,8 @@
     [Kilde]                VARCHAR (50) NULL,
     [Aflyst]               VARCHAR (20) NULL,
     [DI_S_Doegn_Inddeling] INT          NULL
-);
+)
+WITH (DATA_COMPRESSION = PAGE);
+
+
 
