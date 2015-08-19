@@ -13,8 +13,8 @@
   DTS:ObjectName="100_GD_R_Togproduktion_Stog"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="32"
-  DTS:VersionGUID="{BAC1E232-10BD-4D1B-9266-A59F4C74B2E1}">
+  DTS:VersionBuild="33"
+  DTS:VersionGUID="{45B5A35E-5532-439D-9763-AB0B7253D93F}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:Variables>
@@ -64,7 +64,7 @@
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{3D369588-24E5-411C-9879-EFAAB22A264F}"
-              SQLTask:SqlStatementSource="SELECT &#xA;&#x9;SUM(CONVERT(Float,Togkm)) As Togkm&#xA;FROM edw.FT_Togproduktion_S_Tog d&#xA;join edw.DI_Tid t on (t.reference = d.DI_Tid) and (d.DI_S_Materiel!=12)&#xA;join -- Periode&#xA;(Select SUBSTRING(value,1,4) as År, CONVERT(Int, SUBSTRING(value,5,2)) as Måned , SUBSTRING(value,1,50) as Periode&#xA; from ods.ctl_dataload&#xA; Where kilde_system = 'Alle'&#xA; and variable = 'Model_Periode') p on (t.Aar = p.År&#xA;                                      and t.MaanedNum &lt;= p.måned)"
+              SQLTask:SqlStatementSource="SELECT &#xA;&#x9;SUM(CONVERT(Float,Togkm)) As Togkm&#xA;FROM edw.FT_Togproduktion_S_Tog d&#xA;join edw.DI_Tid t on (t.reference = d.DI_Tid) and (d.DI_S_Materiel!=12) --Bus&#xA;join -- Periode&#xA;(Select SUBSTRING(value,1,4) as År, CONVERT(Int, SUBSTRING(value,5,2)) as Måned , SUBSTRING(value,1,50) as Periode&#xA; from ods.ctl_dataload&#xA; Where kilde_system = 'Alle'&#xA; and variable = 'Model_Periode') p on (t.Aar = p.År&#xA;                                      and t.MaanedNum &lt;= p.måned)"
               SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ResultBinding
                 SQLTask:ResultName="0"
