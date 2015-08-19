@@ -1,0 +1,1556 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="2/4/2014 9:31:50 AM"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="PC001244"
+  DTS:CreatorName="DSB\THBR0803"
+  DTS:DTSID="{46DC3ACB-C65F-4CBB-9A96-B7DF379D9DC9}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion="11.0.5583.0"
+  DTS:LocaleID="1030"
+  DTS:ObjectName="05_ODS_Load_RD_data_Tmp"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="217"
+  DTS:VersionGUID="{6F244079-8FEB-4F12-BB45-04CABC45F59E}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Excel s-tog rejsedata]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{8F05E9DD-4B12-49F7-B1FD-06A6F99740AB}"
+      DTS:ObjectName="Excel s-tog rejsedata">
+      <DTS:PropertyExpression
+        DTS:Name="ExcelFilePath">"\\\\"+ @[$Project::MDWSERVER]+"\\Files\\"+ @[$Project::MDWDATABASE] +"\\Stog_Rejsedata\\StraekningsopgorelseSTog.xlsx"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\\oesmsqlt01\soem\Files\mdw_test02\Stog_Rejsedata\StraekningsopgorelseSTog.xlsx;Extended Properties=&quot;EXCEL 12.0 XML;HDR=NO&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{CA6FD730-7814-484F-B781-7BE8BE2AFDC3}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Periode">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Find periode for S Tog Rejsedata"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{10765D84-E4E5-42F7-B59D-A99773BA8492}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Find periode for S Tog Rejsedata"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{BBF5EE63-3088-4375-8F7C-7CBA20747C12}"
+          SQLTask:SqlStatementSource="Select Value As periode from ods.ctl_dataload&#xA;Where kilde_system = 'alle'&#xA;and Variable = 'Model_Periode'&#xA;"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="periode"
+            SQLTask:DtsVariableName="User::Periode" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Indlæs s-tog rejsedata"
+      DTS:CreationName="SSIS.Pipeline.3"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{A87F60B0-DAE9-4847-9076-493E50DEB2BB}"
+      DTS:ExecutableType="SSIS.Pipeline.3"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Indlæs s-tog rejsedata"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server v10; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          version="1">
+          <components>
+            <component
+              refId="Package\Indlæs s-tog rejsedata\Cast periode"
+              componentClassID="{49928E82-9C4E-49F0-AABE-3812B82707EC}"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Cast periode"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Indlæs s-tog rejsedata\Cast periode.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Cast periode.Inputs[Derived Column Input].Columns[F1]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="F1"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F1]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Indlæs s-tog rejsedata\Cast periode.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Indlæs s-tog rejsedata\Cast periode.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Cast periode.Outputs[Derived Column Output].Columns[PeriodeStr]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="6"
+                      lineageId="Package\Indlæs s-tog rejsedata\Cast periode.Outputs[Derived Column Output].Columns[PeriodeStr]"
+                      name="PeriodeStr"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_STR,4,1252)[YEAR]((DT_DATE)("01-" + [SUBSTRING]([LTRIM](#{Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F1]}),1,6))) + [RIGHT]("0" + (DT_STR,4,1252)[MONTH]((DT_DATE)("01-" + [SUBSTRING]([LTRIM](#{Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F1]}),1,6))),2)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_STR,4,1252)YEAR((DT_DATE)("01-" + SUBSTRING(LTRIM(F1),1,6))) + RIGHT("0" + (DT_STR,4,1252)MONTH((DT_DATE)("01-" + SUBSTRING(LTRIM(F1),1,6))),2)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Cast periode.Outputs[Derived Column Output].Columns[PeriodeDato]"
+                      dataType="date"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Indlæs s-tog rejsedata\Cast periode.Outputs[Derived Column Output].Columns[PeriodeDato]"
+                      name="PeriodeDato"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_DATE)("01-" + [SUBSTRING]([LTRIM](#{Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F1]}),1,6))</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_DATE)("01-" + SUBSTRING(LTRIM(F1),1,6))</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Indlæs s-tog rejsedata\Cast periode.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Indlæs s-tog rejsedata\Cast periode.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Cast periode.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Indlæs s-tog rejsedata\Cast periode.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Cast periode.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Indlæs s-tog rejsedata\Cast periode.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Indlæs s-tog rejsedata\Excel Source"
+              componentClassID="{8C084929-27D1-479F-9641-ABB7CDADF1AC}"
+              contactInfo="Excel Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Excel Source"
+              name="Excel Source"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">'Totaler månedsniveau$'</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mapping from parameters in the SQL command to variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Indlæs s-tog rejsedata\Excel Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Excel s-tog rejsedata]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel s-tog rejsedata]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output]"
+                  name="Excel Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F1]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].ExternalColumns[F1]"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F1]"
+                      name="F1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F2]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].ExternalColumns[F2]"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F2]"
+                      name="F2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F3]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].ExternalColumns[F3]"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F3]"
+                      name="F3"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F4]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].ExternalColumns[F4]"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F4]"
+                      name="F4"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F5]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].ExternalColumns[F5]"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F5]"
+                      name="F5"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F6]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].ExternalColumns[F6]"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F6]"
+                      name="F6"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F7]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].ExternalColumns[F7]"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F7]"
+                      name="F7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F8]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].ExternalColumns[F8]"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F8]"
+                      name="F8"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F9]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].ExternalColumns[F9]"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F9]"
+                      name="F9"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F10]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].ExternalColumns[F10]"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F10]"
+                      name="F10"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].ExternalColumns[F1]"
+                      dataType="wstr"
+                      length="255"
+                      name="F1" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].ExternalColumns[F2]"
+                      dataType="wstr"
+                      length="255"
+                      name="F2" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].ExternalColumns[F3]"
+                      dataType="wstr"
+                      length="255"
+                      name="F3" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].ExternalColumns[F4]"
+                      dataType="wstr"
+                      length="255"
+                      name="F4" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].ExternalColumns[F5]"
+                      dataType="wstr"
+                      length="255"
+                      name="F5" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].ExternalColumns[F6]"
+                      dataType="wstr"
+                      length="255"
+                      name="F6" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].ExternalColumns[F7]"
+                      dataType="wstr"
+                      length="255"
+                      name="F7" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].ExternalColumns[F8]"
+                      dataType="wstr"
+                      length="255"
+                      name="F8" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].ExternalColumns[F9]"
+                      dataType="wstr"
+                      length="255"
+                      name="F9" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].ExternalColumns[F10]"
+                      dataType="wstr"
+                      length="255"
+                      name="F10" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Error Output]"
+                  isErrorOut="true"
+                  name="Excel Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Error Output].Columns[F1]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Error Output].Columns[F1]"
+                      name="F1" />
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Error Output].Columns[F2]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Error Output].Columns[F2]"
+                      name="F2" />
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Error Output].Columns[F3]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Error Output].Columns[F3]"
+                      name="F3" />
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Error Output].Columns[F4]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Error Output].Columns[F4]"
+                      name="F4" />
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Error Output].Columns[F5]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Error Output].Columns[F5]"
+                      name="F5" />
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Error Output].Columns[F6]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Error Output].Columns[F6]"
+                      name="F6" />
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Error Output].Columns[F7]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Error Output].Columns[F7]"
+                      name="F7" />
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Error Output].Columns[F8]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Error Output].Columns[F8]"
+                      name="F8" />
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Error Output].Columns[F9]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Error Output].Columns[F9]"
+                      name="F9" />
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Error Output].Columns[F10]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Error Output].Columns[F10]"
+                      name="F10" />
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Indlæs s-tog rejsedata\Filtrer gældende periode"
+              componentClassID="{7F88F654-4E20-4D14-84F4-AF9C925D3087}"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Filtrer gældende periode"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Indlæs s-tog rejsedata\Filtrer gældende periode.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Filtrer gældende periode.Inputs[Conditional Split Input].Columns[PeriodeStr]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="PeriodeStr"
+                      lineageId="Package\Indlæs s-tog rejsedata\Cast periode.Outputs[Derived Column Output].Columns[PeriodeStr]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Indlæs s-tog rejsedata\Filtrer gældende periode.Outputs[GældendePeriode]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="GældendePeriode"
+                  synchronousInputId="Package\Indlæs s-tog rejsedata\Filtrer gældende periode.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\Indlæs s-tog rejsedata\Cast periode.Outputs[Derived Column Output].Columns[PeriodeStr]} == @[User::Periode]</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">PeriodeStr == @[User::Periode]</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Indlæs s-tog rejsedata\Filtrer gældende periode.Outputs[Conditional Split Default Output]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Conditional Split Default Output"
+                  synchronousInputId="Package\Indlæs s-tog rejsedata\Filtrer gældende periode.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Indlæs s-tog rejsedata\Filtrer gældende periode.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\Indlæs s-tog rejsedata\Filtrer gældende periode.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Filtrer gældende periode.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Indlæs s-tog rejsedata\Filtrer gældende periode.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Filtrer gældende periode.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Indlæs s-tog rejsedata\Filtrer gældende periode.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Indlæs s-tog rejsedata\Filtrer relevante rækker"
+              componentClassID="{7F88F654-4E20-4D14-84F4-AF9C925D3087}"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Filtrer relevante rækker"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Indlæs s-tog rejsedata\Filtrer relevante rækker.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Filtrer relevante rækker.Inputs[Conditional Split Input].Columns[RejsedataErTal]"
+                      cachedDataType="i4"
+                      cachedName="RejsedataErTal"
+                      lineageId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[RejsedataErTal]" />
+                    <inputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Filtrer relevante rækker.Inputs[Conditional Split Input].Columns[ErDato]"
+                      cachedDataType="i4"
+                      cachedName="ErDato"
+                      lineageId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[ErDato]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Indlæs s-tog rejsedata\Filtrer relevante rækker.Outputs[RelevanteRækker]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="RelevanteRækker"
+                  synchronousInputId="Package\Indlæs s-tog rejsedata\Filtrer relevante rækker.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">[ISNULL](#{Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[RejsedataErTal]}) ==  FALSE  &amp;&amp; [ISNULL](#{Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[ErDato]}) ==  FALSE </property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">ISNULL(RejsedataErTal) ==  FALSE  &amp;&amp; ISNULL(ErDato) ==  FALSE </property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Indlæs s-tog rejsedata\Filtrer relevante rækker.Outputs[Conditional Split Default Output]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Conditional Split Default Output"
+                  synchronousInputId="Package\Indlæs s-tog rejsedata\Filtrer relevante rækker.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Indlæs s-tog rejsedata\Filtrer relevante rækker.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\Indlæs s-tog rejsedata\Filtrer relevante rækker.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Filtrer relevante rækker.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Indlæs s-tog rejsedata\Filtrer relevante rækker.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Filtrer relevante rækker.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Indlæs s-tog rejsedata\Filtrer relevante rækker.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data"
+              componentClassID="{49928E82-9C4E-49F0-AABE-3812B82707EC}"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Find rækker med relevante data"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Inputs[Derived Column Input].Columns[F2]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="F2"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F2]" />
+                    <inputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Inputs[Derived Column Input].Columns[F1]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="F1"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F1]" />
+                    <inputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Inputs[Derived Column Input].Columns[F3]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="F3"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F3]" />
+                    <inputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Inputs[Derived Column Input].Columns[F4]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="F4"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F4]" />
+                    <inputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Inputs[Derived Column Input].Columns[F5]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="F5"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F5]" />
+                    <inputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Inputs[Derived Column Input].Columns[F6]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="F6"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F6]" />
+                    <inputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Inputs[Derived Column Input].Columns[F7]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="F7"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F7]" />
+                    <inputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Inputs[Derived Column Input].Columns[F8]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="F8"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F8]" />
+                    <inputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Inputs[Derived Column Input].Columns[F9]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="F9"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F9]" />
+                    <inputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Inputs[Derived Column Input].Columns[F10]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="F10"
+                      lineageId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F10]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[RejsedataErTal]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="IgnoreFailure"
+                      lineageId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[RejsedataErTal]"
+                      name="RejsedataErTal"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_I4)#{Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F2]} == (DT_I4)#{Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F2]} ? 1 : 0</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_I4)F2 == (DT_I4)F2 ? 1 : 0</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[ErDato]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="IgnoreFailure"
+                      lineageId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[ErDato]"
+                      name="ErDato"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_DATE)#{Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F1]} == (DT_DATE)#{Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F1]} ? 1 : 0</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_DATE)F1 == (DT_DATE)F1 ? 1 : 0</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F2_num]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="IgnoreFailure"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F2_num]"
+                      name="F2_num"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACE](#{Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F2]},".","")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACE(F2,".","")</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F3_num]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="IgnoreFailure"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F3_num]"
+                      name="F3_num"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACE](#{Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F3]},".","")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACE(F3,".","")</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F4_num]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="IgnoreFailure"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F4_num]"
+                      name="F4_num"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACE](#{Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F4]},".","")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACE(F4,".","")</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F5_num]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="IgnoreFailure"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F5_num]"
+                      name="F5_num"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACE](#{Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F5]},".","")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACE(F5,".","")</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F6_num]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="IgnoreFailure"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F6_num]"
+                      name="F6_num"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACE](#{Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F6]},".","")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACE(F6,".","")</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F7_num]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="IgnoreFailure"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F7_num]"
+                      name="F7_num"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACE](#{Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F7]},".","")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACE(F7,".","")</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F8_num]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="IgnoreFailure"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F8_num]"
+                      name="F8_num"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACE](#{Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F8]},".","")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACE(F8,".","")</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F9_num]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="IgnoreFailure"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F9_num]"
+                      name="F9_num"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACE](#{Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F9]},".","")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACE(F9,".","")</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F10_num]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="IgnoreFailure"
+                      length="255"
+                      lineageId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F10_num]"
+                      name="F10_num"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACE](#{Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output].Columns[F10]},".","")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACE(F10,".","")</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp"
+              componentClassID="{4ADA7EAA-136C-4215-8098-D7A7C27FC0D1}"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="RD_Stog_Rejsedata_Tmp"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[ods].[RD_Stog_Rejsedata_Tmp]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Connections[OleDbConnection]"
+                  connectionManagerID="{BBF5EE63-3088-4375-8F7C-7CBA20747C12}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[MDW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].Columns[PeriodeDato]"
+                      cachedDataType="date"
+                      cachedName="PeriodeDato"
+                      externalMetadataColumnId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].ExternalColumns[Periode]"
+                      lineageId="Package\Indlæs s-tog rejsedata\Cast periode.Outputs[Derived Column Output].Columns[PeriodeDato]" />
+                    <inputColumn
+                      refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].Columns[F2_num]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="F2_num"
+                      externalMetadataColumnId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].ExternalColumns[Rejsetal]"
+                      lineageId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F2_num]" />
+                    <inputColumn
+                      refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].Columns[F3_num]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="F3_num"
+                      externalMetadataColumnId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].ExternalColumns[City]"
+                      lineageId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F3_num]" />
+                    <inputColumn
+                      refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].Columns[F9_num]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="F9_num"
+                      externalMetadataColumnId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].ExternalColumns[Køge]"
+                      lineageId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F9_num]" />
+                    <inputColumn
+                      refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].Columns[F7_num]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="F7_num"
+                      externalMetadataColumnId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].ExternalColumns[Høje Taastrup]"
+                      lineageId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F7_num]" />
+                    <inputColumn
+                      refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].Columns[F5_num]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="F5_num"
+                      externalMetadataColumnId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].ExternalColumns[Frederikssund]"
+                      lineageId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F5_num]" />
+                    <inputColumn
+                      refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].Columns[F4_num]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="F4_num"
+                      externalMetadataColumnId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].ExternalColumns[Farum]"
+                      lineageId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F4_num]" />
+                    <inputColumn
+                      refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].Columns[F6_num]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="F6_num"
+                      externalMetadataColumnId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].ExternalColumns[Hillerød]"
+                      lineageId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F6_num]" />
+                    <inputColumn
+                      refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].Columns[F8_num]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="F8_num"
+                      externalMetadataColumnId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].ExternalColumns[Klampenborg]"
+                      lineageId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F8_num]" />
+                    <inputColumn
+                      refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].Columns[F10_num]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="F10_num"
+                      externalMetadataColumnId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].ExternalColumns[Ringbanen]"
+                      lineageId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output].Columns[F10_num]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].ExternalColumns[Periode]"
+                      dataType="dbTimeStamp"
+                      name="Periode" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].ExternalColumns[Rejsetal]"
+                      dataType="r8"
+                      name="Rejsetal" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].ExternalColumns[City]"
+                      dataType="r8"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].ExternalColumns[Køge]"
+                      dataType="r8"
+                      name="Køge" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].ExternalColumns[Høje Taastrup]"
+                      dataType="r8"
+                      name="Høje Taastrup" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].ExternalColumns[Frederikssund]"
+                      dataType="r8"
+                      name="Frederikssund" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].ExternalColumns[Farum]"
+                      dataType="r8"
+                      name="Farum" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].ExternalColumns[Hillerød]"
+                      dataType="r8"
+                      name="Hillerød" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].ExternalColumns[Klampenborg]"
+                      dataType="r8"
+                      name="Klampenborg" />
+                    <externalMetadataColumn
+                      refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input].ExternalColumns[Ringbanen]"
+                      dataType="r8"
+                      name="Ringbanen" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Indlæs s-tog rejsedata.Paths[Derived Column Output]"
+              endId="Package\Indlæs s-tog rejsedata\Filtrer relevante rækker.Inputs[Conditional Split Input]"
+              name="Derived Column Output"
+              startId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Indlæs s-tog rejsedata.Paths[Derived Column Output1]"
+              endId="Package\Indlæs s-tog rejsedata\Filtrer gældende periode.Inputs[Conditional Split Input]"
+              name="Derived Column Output"
+              startId="Package\Indlæs s-tog rejsedata\Cast periode.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Indlæs s-tog rejsedata.Paths[Excel Source Output]"
+              endId="Package\Indlæs s-tog rejsedata\Find rækker med relevante data.Inputs[Derived Column Input]"
+              name="Excel Source Output"
+              startId="Package\Indlæs s-tog rejsedata\Excel Source.Outputs[Excel Source Output]" />
+            <path
+              refId="Package\Indlæs s-tog rejsedata.Paths[GældendeDato]"
+              endId="Package\Indlæs s-tog rejsedata\Cast periode.Inputs[Derived Column Input]"
+              name="GældendeDato"
+              startId="Package\Indlæs s-tog rejsedata\Filtrer relevante rækker.Outputs[RelevanteRækker]" />
+            <path
+              refId="Package\Indlæs s-tog rejsedata.Paths[GældendePeriode]"
+              endId="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp.Inputs[OLE DB Destination Input]"
+              name="GældendePeriode"
+              startId="Package\Indlæs s-tog rejsedata\Filtrer gældende periode.Outputs[GældendePeriode]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate RD_Stog_Rejsedata_Tmp"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{2BDDD62D-2914-4C71-9158-CD3F61C45A7B}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate RD_Stog_Rejsedata_Tmp"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{BBF5EE63-3088-4375-8F7C-7CBA20747C12}"
+          SQLTask:SqlStatementSource="truncate table [ods].[RD_Stog_Rejsedata_Tmp]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{9955E94D-64C8-4BA0-86C4-F9C5210F5B71}"
+      DTS:From="Package\Truncate RD_Stog_Rejsedata_Tmp"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Indlæs s-tog rejsedata" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{E78FD308-6ECD-4B84-B237-08E0121CF82D}"
+      DTS:From="Package\Find periode for S Tog Rejsedata"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Truncate RD_Stog_Rejsedata_Tmp" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="246,42"
+          Id="Package\Find periode for S Tog Rejsedata"
+          TopLeft="139.5,24.5" />
+        <NodeLayout
+          Size="246,44"
+          Id="Package\Indlæs s-tog rejsedata"
+          TopLeft="139.5,267.5" />
+        <NodeLayout
+          Size="246,42"
+          Id="Package\Truncate RD_Stog_Rejsedata_Tmp"
+          TopLeft="139.5,138" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="262.5,180">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,87.5"
+              Start="0,0"
+              End="0,80">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,80" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="262.5,66.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,71.5"
+              Start="0,0"
+              End="0,64">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,64" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Indlæs s-tog rejsedata">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="232,42"
+          Id="Package\Indlæs s-tog rejsedata\Excel Source"
+          TopLeft="356.333333333333,32" />
+        <NodeLayout
+          Size="232,42"
+          Id="Package\Indlæs s-tog rejsedata\Find rækker med relevante data"
+          TopLeft="356.333333333333,127.8" />
+        <NodeLayout
+          Size="232,42"
+          Id="Package\Indlæs s-tog rejsedata\Cast periode"
+          TopLeft="356.333333333333,319.4" />
+        <NodeLayout
+          Size="232,42"
+          Id="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp"
+          TopLeft="356.333333333333,511" />
+        <NodeLayout
+          Size="232,42"
+          Id="Package\Indlæs s-tog rejsedata\Filtrer gældende periode"
+          TopLeft="356.333333333333,415.2" />
+        <NodeLayout
+          Size="232,42"
+          Id="Package\Indlæs s-tog rejsedata\Filtrer relevante rækker"
+          TopLeft="356.333333333333,223.6" />
+        <EdgeLayout
+          Id="Package\Indlæs s-tog rejsedata.Paths[Derived Column Output1]"
+          TopLeft="472.333333333333,361.4">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53.8"
+              Start="0,0"
+              End="0,46.3">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.3" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Indlæs s-tog rejsedata.Paths[Derived Column Output]"
+          TopLeft="472.333333333333,169.8">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53.8"
+              Start="0,0"
+              End="0,46.3">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.3" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Indlæs s-tog rejsedata.Paths[GældendePeriode]"
+          TopLeft="472.333333333333,457.2">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53.8"
+              Start="0,0"
+              End="0,46.3">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.3" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-39.6088671875,18.27548828125,79.217734375,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Indlæs s-tog rejsedata.Paths[GældendeDato]"
+          TopLeft="472.333333333333,265.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53.8"
+              Start="0,0"
+              End="0,46.3">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.3" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-39.23869140625,18.27548828125,78.4773828125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Indlæs s-tog rejsedata.Paths[Excel Source Output]"
+          TopLeft="472.333333333333,74">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53.8"
+              Start="0,0"
+              End="0,46.3">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.3" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <AnnotationLayout
+          Text="Rækker med strækningsrejsetal i XL fra Siri skal formateres til decmaltal med 15 decimaler i xl arket"
+          ParentId="Package\Indlæs s-tog rejsedata"
+          FontInfo="{assembly:Null}"
+          Size="553,42"
+          Id="a185266f-6dbb-4a68-bdf4-f1ed9c871453"
+          TopLeft="725,30" />
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Indlæs s-tog rejsedata\Excel Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Indlæs s-tog rejsedata\RD_Stog_Rejsedata_Tmp">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

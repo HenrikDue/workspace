@@ -1,0 +1,591 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/13/2013 1:01:52 PM"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="DSB075473"
+  DTS:CreatorName="DSB\KM2406"
+  DTS:DTSID="{DB0FB490-4996-44A0-B023-46A5CDAE0160}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion="11.0.5583.0"
+  DTS:LocaleID="1030"
+  DTS:ObjectName="D_edw_dt_Opdater_Dim_Materiale_pgaFluk"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="118"
+  DTS:VersionGUID="{F911EF99-74EC-4A5B-9403-8B8BCDBAD954}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{3ECC997C-4E4F-4CB8-AF8C-9FC67A954C1A}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="Counter">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{05C9542D-E501-481C-9F97-72B218658300}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="DATABASE">
+      <DTS:VariableValue
+        DTS:DataType="8">Ukurans</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{EB4EE464-957E-4163-9D38-816897EA9AD4}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SERVER">
+      <DTS:VariableValue
+        DTS:DataType="8">mssqlp01\alpha</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Ajourfør FT_Transaktioner med rette Dim_Materiale"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{62A66783-737F-4827-BF01-2AA30F950620}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Ajourfør FT_Transaktioner med rette Dim_Materiale"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
+          SQLTask:SqlStatementSource="-- Ajourfør Dim_Materiale i edw.FT_Transaktioner&#xA;Update a&#xA;Set a.Dim_Materiale = b.PK_ID&#xA;From edw.FT_Transaktioner a&#xA;Left join edw.Dim_Materiale b on a.Materiale = b.Materiale and b.Aktiv ='J'&#xA;Where BogfDato &gt;=  (select cast(left(vaerdi, 8) + '01' as datetime) from edw.md_styringstabel where parameter = 'RegnOpdtDato')&#xA;&#x9;and a.Dim_Materiale &lt;&gt; b.PK_ID" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Udvælg data for ajourføring af FLUK"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{db36152d-b2be-493d-87ed-a2377a665532}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Udvælg data for ajourføring af FLUK"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
+          SQLTask:SqlStatementSource="--Udvælg data for ajourføring af FLUK&#xA;Truncate table edw.TD40_MatBehNedskrSfaFLUK &#xA;Go&#xA;&#xA;Insert into edw.TD40_MatBehNedskrSfaFLUK &#xA;Select distinct Materiale&#xA;      ,sum(q1.Beholdning) as Beholdning&#xA;      ,avg(q1.GlidGnsPris) as GlidGnsPris&#xA;      ,sum(q1.Vaerdi_GP) as Vaerdi_GP&#xA;   ,q1.StatGr2&#xA;   ,avg(q1.DUF) as DUF&#xA;      ,avg(q1.StatusDUF_NedskrAar) as StatusDUF_NedskrAar&#xA;      ,avg(q1.StatusNedskrPct) as StatusNedskrPct&#xA;      ,q1.Nuv_StatusGr2&#xA;      ,q1.Nuv_LNType&#xA;From &#xA; (Select &#xA;   a.Dim_Fabrik as Fabrik&#xA;  ,a.Materiale&#xA;  ,a.Beholdning&#xA;  ,a.GlidGnsPris&#xA;  ,a.Vaerdi_GP&#xA;  ,'FLUK' as StatGr2&#xA;  ,a.DUF&#xA;  ,d.DUF_NedskrAar as StatusDUF_NedskrAar&#xA;  ,e.LavNedPct as  StatusNedskrPct&#xA;  ,c.StatusGr2 as Nuv_StatusGr2&#xA;  ,a.LNType as Nuv_LNType&#xA; From edw.FT_Nedskriv a&#xA; Left join edw.Dim_Materiale c on a.Materiale = c.Materiale and c.Aktiv = 'J'&#xA;&#x9;and c.GyldigFra &lt;= (select Vaerdi from edw.md_styringstabel where parameter = 'PrimoDato')&#xA;&#x9;and c.GyldigTil &gt;= (select Vaerdi from edw.md_styringstabel where parameter = 'UltimoDato')&#xA; Left join edw.Dim_Litra d on c.Litra_PKID = d.PK_ID --LitraGr2 and dl.GyldigTil = '9999-12-31'&#xA; Left join edw.FT_Nedskriv e on a.Dim_Fabrik = e.Dim_Fabrik and a.Materiale = e.materiale&#xA;  and e.Dim_Tid =  (select replace(left(vaerdi, 7), '-', '') from edw.md_styringstabel where parameter = 'PrimoDato')&#xA; Where a.Dim_Tid = (select replace(left(vaerdi, 7), '-', '')  from edw.md_styringstabel where parameter = 'UltimoDato') &#xA;&#x9;and left(e.LNType,1) in ('R')&#xA;&#x9;and a.LNType in ('Lang')    &#xA;&#x9;and a.LavNedPct &gt; e.LavNedPct + 0.05 -- 5% karenstid, materialer der vil opnå samme nedskrivning i løbet af ca et halvt år, ændres ikke.&#xA; or   a.Dim_Tid = (select replace(left(vaerdi, 7), '-', '')  from edw.md_styringstabel where parameter = 'UltimoDato')&#xA;&#x9;and e.LNType in ('Stat')&#xA;&#x9;and c.StatusGr2 = 'FLUK'&#xA;&#x9;and a.LNType in ('Lang') &#xA;    and a.LavNedPct &gt; e.LavNedPct&#xA; or   a.Dim_Tid = (select replace(left(vaerdi, 7), '-', '')  from edw.md_styringstabel where parameter = 'UltimoDato') &#xA;&#x9;and c.StatusGr2 = 'FLUK' -- 140922-1: Nuværende status tilføjet, da materialet ellers falder tilbage til Lang ved et fornyet 2. gennemløb af modellen&#xA;&#x9;and a.LavNedPct &gt; e.LavNedPct&#xA;-- 150114: Alle former for ændringer, der sker på materialer med FLUK i Dim_Materialer, medtages såfremt de ikke længere har LNType = 'Stat'&#xA; or a.Dim_Tid = (select replace(left(vaerdi, 7), '-', '')  from edw.md_styringstabel where parameter = 'UltimoDato')&#xA;&#x9;and c.StatusGr2 = 'FLUK'&#xA;&#x9;and a.LNType &lt;&gt; 'Stat'&#xA;  ) q1&#xA;Group by Materiale, StatGr2, Nuv_StatusGr2, Nuv_LNType&#xA;Order by Materiale&#xA;&#xA;Go&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{13a9769e-d391-405f-b402-cd4502482a4f}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\De tilbagevendne overføres til DI_Materiale hhv MP_MatTid_Att"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{9801ce32-7159-4c2a-a833-9c7abef63a21}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="De tilbagevendne overføres til DI_Materiale hhv MP_MatTid_Att"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
+              SQLTask:SqlStatementSource="-- 5) De tilbagevendne overføres til Dim_Materiale&#xA;&#xA;Insert into edw.Dim_Materiale&#xA;Select a.Materiale&#xA;   ,a.MaterialeTekst&#xA;   ,a.LitraGr2&#xA;   ,a.StatusGr2&#xA;   ,'J' as Aktiv&#xA;   ,a.Gyldigfra&#xA;   ,a.Gyldigtil&#xA;   ,a.FRegAar&#xA;   ,a.FTrAar&#xA;   ,a.FRegDato&#xA;   ,a.FTrDato&#xA;   ,d.OprettetDato as Oprettet&#xA;   ,d.MatArt&#xA;   ,d.VareGrp&#xA;   ,a.FBevArt&#xA;   ,d.OmlVare&#xA;   ,case when c.Litra_PKID is null &#xA;    then e.PK_ID&#xA;    else c.Litra_PKID&#xA;    end as Litra_PKID&#xA;   ,Getdate() as Timestamp&#xA; &#xA;From edw.TD11_MatStatus_Ej_FLUK a&#xA;Left join edw.Dim_Materiale c on a.Materiale = c.Materiale and a.GyldigTil = c.GyldigTil&#xA;Left join ods.RD_SAP_MaterialeStamdata d on a.Materiale = d.Materiale&#xA;Left join edw.Dim_Litra e on a.LitraGr2 = e.LitraGr2 and e.GyldigTil = '9999-12-31'&#xA;&#xA;Go&#xA;&#xA;&#xA;-- 5) De tilbagevendne overføres til MP_MatTid_Att&#xA;&#xA;Insert into edw.MP_MatTid_Att&#xA;Select a.* &#xA;From edw.TD12_EjMatTid_Att a&#xA;Left join edw.MP_MatTid_Att b on a.Materiale = b.Materiale and a.GyldigFra = b.GyldigFra&#xA;Where b.Materiale is null&#xA;&#xA;Go&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\Hvis bortfald så ny post med USN og Null i hhv DI_Materiale og MP_MatTid_Att"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{ef462b8d-e39f-4912-b7bc-8f6d85b6c9b9}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Hvis bortfald så ny post med USN og Null i hhv DI_Materiale og MP_MatTid_Att"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
+              SQLTask:SqlStatementSource="-- 3) Hvis bortfald så ny post med USN som StatusGr2  &#xA;&#xA;If object_id('edw.TD11_MatStatus_Ej_FLUK') is not null Drop Table edw.TD11_MatStatus_Ej_FLUK&#xA;Go&#xA;&#xA;Select a.Materiale, a.MaterialeTekst, a.FRegAar, a.FTrAar, a.LitraGr2&#xA;      ,'USN' as StatusGr2&#xA;      ,(select cast( (select left(Vaerdi, 8) + '01' from edw.md_styringstabel where parameter = 'RegnOpdtDato') as datetime)) As GyldigFra&#xA;      ,a.GyldigTil, a.FRegDato, a.FTrDato, a.FBevArt, a.OmlVare, a.Litra_PKID, Getdate() as Timestamp&#xA;      ,'' as Status&#xA;Into edw.TD11_MatStatus_Ej_FLUK&#xA;From edw.Dim_Materiale a&#xA;Left Join edw.TD10_MatStatusGrFLUK b on a.GyldigTil = b.GyldigTil And a.Materiale = b.Materiale&#xA;Left join edw.Dim_Materiale c on a.Materiale = c.Materiale and c.Aktiv = 'J'&#xA;Where a.StatusGr2 = 'FLUK' and a.Aktiv = 'J' &#xA; and b.Nuv_LNType &lt;&gt; 'Stat'&#xA;&#xA;Go&#xA;&#xA;-- 3) Hvis bortfald så ny post med Null i MP_MatTid_Att&#xA;&#xA;If object_id('edw.TD12_EjMatTid_Att') is not null Drop Table edw.TD12_EjMatTid_Att&#xA;Go&#xA;&#xA;Select a.Materiale&#xA;,(select cast( (select left(Vaerdi, 8) + '01' from edw.md_styringstabel where parameter = 'RegnOpdtDato') as datetime)) As GyldigFra&#xA;,a.GyldigTil&#xA;,Null as FLUK_Pct&#xA;,'J' as Aktiv&#xA;Into edw.TD12_EjMatTid_Att&#xA;From edw.Dim_Materiale a&#xA;Left join edw.TD10_MatStatusGrFLUK b on a.Materiale = b.Materiale and a.aktiv = 'J'&#xA;Left join edw.MP_MatTID_Att c on a.Materiale = c.Materiale and c.aktiv = 'J'&#xA;Where a.StatusGr2 = 'FLUK' and a.Aktiv = 'J' &#xA; and b.Nuv_LNType &lt;&gt; 'Stat'&#xA;Go&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\Hvis ej længere StatusGr2 FLUK ajourføres den eksisterende i DI_Materiale hhv MP_MatTid_Att"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{caa5f236-1984-4073-99eb-b589e38c3edb}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Hvis ej længere StatusGr2 FLUK ajourføres den eksisterende i DI_Materiale hhv MP_MatTid_Att"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
+              SQLTask:SqlStatementSource="-- 4) Hvis bortfald (så post eksisterer), så opdater poster&#xA;&#xA;Update edw.MP_MatTID_Att&#xA;Set GyldigTil = (select cast( (select left(Vaerdi, 8) + '01' from edw.md_styringstabel where parameter = 'RegnOpdtDato') as datetime)) -0.0000001&#xA; ,Aktiv = 'N'&#xA;From edw.Dim_Materiale a&#xA;Left join edw.TD10_MatStatusGrFLUK b on a.Materiale = b.Materiale and a.aktiv = 'J'&#xA;Left join edw.MP_MatTID_Att c on a.Materiale = c.Materiale and c.aktiv = 'J'&#xA;Where a.StatusGr2 = 'FLUK' and a.Aktiv = 'J' and b.Nuv_LNType &lt;&gt; 'Stat'&#xA; and c.Materiale is not null&#xA;Go&#xA;&#xA;-- 4) Hvis ej længere StatusGr2 FLUK ajourføres den eksisterende i Dim_Materiale (Periode lukkes før ny overføres)&#xA;&#xA;Update edw.Dim_Materiale&#xA;Set GyldigTil = (select cast( (select left(Vaerdi, 8) + '01' from edw.md_styringstabel where parameter = 'RegnOpdtDato') as datetime)) -0.0000001, Aktiv = 'N'&#xA;From edw.Dim_Materiale a&#xA;Left Join edw.TD10_MatStatusGrFLUK b on a.GyldigTil = b.GyldigTil And a.Materiale = b.Materiale&#xA;Where a.StatusGr2 = 'FLUK' and a.Aktiv = 'J' and b.Nuv_LNType &lt;&gt; 'Stat' &#xA;&#xA;Go " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\Hvis ingen ændring i StatusGr FLUK markeres slet i ajourføringstabel"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{668c6483-da9e-4965-b257-2bf17b236b89}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Hvis ingen ændring i StatusGr FLUK markeres slet i ajourføringstabel"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
+              SQLTask:SqlStatementSource="-- 2) Hvis ingen ændring i StatusGr FLUK markeres slet i den aktuelle&#xA;&#xA;Update edw.TD10_MatStatusGrFLUK&#xA;Set Status = 'Slet'&#xA;From edw.Dim_Materiale a&#xA;Left Join edw.TD10_MatStatusGrFLUK b on  a.Materiale = b.Materiale and a.GyldigTil = b.GyldigTil&#xA;Left join edw.Dim_Materiale c on a.Materiale = c.Materiale and c.Aktiv = 'J'&#xA;Where b.Nuv_LNType = 'Stat'&#xA;&#x9;and c.StatusGr2 = 'FLUK' &#xA;&#xA;Go&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\Hvis ny FLUK ajourføres den eksisterende i DI_Materiale hhv MP_MatTid_Att"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{94e5e1c8-c74a-4529-b918-401c1bd8383c}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Hvis ny FLUK ajourføres den eksisterende i DI_Materiale hhv MP_MatTid_Att"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
+              SQLTask:SqlStatementSource="-- 6) Hvis ny FLUK ajourføres den eksisterende i Dim_Materiale (Periode lukkes før ny overføres)&#xA;&#xA;Update a&#xA;Set GyldigTil = (select cast( (select left(Vaerdi, 8) + '01' from edw.md_styringstabel where parameter = 'RegnOpdtDato') as datetime)) -0.0000001, &#xA; Aktiv = 'N'&#xA;-- Select *&#xA;From edw.Dim_Materiale a&#xA;Left Join edw.TD10_MatStatusGrFLUK b on a.GyldigTil = b.GyldigTil And a.Materiale = b.Materiale&#xA;  Where b.Nuv_StatusGr2 &lt;&gt; 'FLUK'&#xA; and b.Status &lt;&gt; 'Slet'&#xA;&#xA;Go&#xA;&#xA;-- 6) Hvis ny FLUK ajourføres den eksisterende i edw.MP_MatTid_Att (Periode lukkes før ny overføres)&#xA;&#xA;Update a&#xA;Set FLUK_Pct = c.FLUK_Pct &#xA; ,Aktiv = 'J'&#xA;From  edw.MP_MatTid_Att a&#xA;Left join edw.TD10_MatStatusGrFLUK b on a.Materiale = b.Materiale and a.GyldigFra = b.GyldigFra&#xA;Left join edw.MP_MatTid_Att c on a.Materiale = c.Materiale&#xA; and c.GyldigFra =(select cast( (select left(Vaerdi, 8) + '01' from edw.md_styringstabel where parameter = 'RegnOpdtDato') as datetime))&#xA;  Where b.Nuv_StatusGr2 &lt;&gt; 'FLUK'&#xA; and b.Status &lt;&gt; 'Slet' &#xA;&#xA;Go&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\Opdater DI_Materiale hhv MP_MatTid_Att med de nye FLUK"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{1fea38c8-238c-4422-a759-934f5f518626}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Opdater DI_Materiale hhv MP_MatTid_Att med de nye FLUK"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
+              SQLTask:SqlStatementSource="-- 7) Opdater Dim_Materiale med de nye StatusGr2&#xA;&#xA;Insert into edw.Dim_Materiale &#xA;Select Materiale&#xA;      ,MaterialeTekst&#xA;      ,LitraGr2&#xA;      ,StatusGr2&#xA;      ,Aktiv&#xA;      ,GyldigFra&#xA;      ,GyldigTil&#xA;      ,FRegAar&#xA;      ,FTrAar&#xA;      ,FRegDato&#xA;      ,FTrDato&#xA;      ,Oprettet&#xA;      ,MatArt&#xA;      ,VareGrp&#xA;      ,FBevArt&#xA;      ,OmlVare&#xA;      ,Litra_PKID&#xA;      ,Getdate() as Timestamp&#xA;&#xA;From edw.TD10_MatStatusGrFLUK&#xA;  Where Nuv_StatusGr2 &lt;&gt; 'FLUK'&#xA; and Status &lt;&gt; 'Slet'&#xA;&#xA;Go&#xA;&#xA;-- 7) Opdater MP_MatTid_Att med de nye FLUK&#xA;&#xA;Insert into edw.MP_MatTid_Att&#xA;Select a.Materiale&#xA;      ,a.GyldigFra&#xA;      ,a.GyldigTil&#xA;      ,b.StatusNedskrPct as FLUK_Pct&#xA;      ,a.Aktiv&#xA;From edw.TD10_MatStatusGrFLUK a&#xA;Left join edw.TD40_MatBehNedskrSfaFLUK b on a.Materiale = b.Materiale&#xA;Left join edw.MP_MatTid_Att c on a.Materiale = c.Materiale&#xA; and c.GyldigFra =(select cast( (select left(Vaerdi, 8) + '01' from edw.md_styringstabel where parameter = 'RegnOpdtDato') as datetime))&#xA;  Where a.Nuv_StatusGr2 &lt;&gt; 'FLUK'&#xA; and a.Status &lt;&gt; 'Slet' &#xA; and c.Materiale is null" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\Udvælg materialer til statusgruppe FLUK"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{34a88f03-aed9-45ee-a519-e40a21e731bb}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Udvælg materialer til statusgruppe FLUK"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
+              SQLTask:SqlStatementSource="-- 1) Udvælg og ajourfør Dim_Materiale for statusgruppe FLUK&#xA;&#xA;If object_id('edw.TD10_MatStatusGrFLUK') is not null Drop Table edw.TD10_MatStatusGrFLUK&#xA;Go&#xA;&#xA;Select distinct b.Materiale&#xA;   ,b.MaterialeTekst&#xA;   ,b.LitraGr2&#xA;   ,a.StatGr2 as StatusGr2&#xA;   ,a.Nuv_StatusGr2 &#xA;   ,a.Nuv_LNType&#xA;   ,'J' as Aktiv &#xA;&#xA;     ,(select cast( (select left(Vaerdi, 8) + '01' from edw.md_styringstabel where parameter = 'RegnOpdtDato') as datetime)) as GyldigFra &#xA;     ,convert(datetime,'9999-12-31') As GyldigTil &#xA;      ,b.FRegAar&#xA;      ,b.FTrAar&#xA;      ,b.FRegDato&#xA;      ,b.FTrDato&#xA;      ,b.Oprettet&#xA;      ,b.MatArt&#xA;      ,b.VareGrp&#xA;      ,b.FBevArt&#xA;      ,b.OmlVare&#xA;      ,b.Litra_PKID&#xA;      ,Getdate() as Timestamp&#xA;&#xA;      ,Status = '      ' &#xA;Into edw.TD10_MatStatusGrFLUK&#xA;From edw.TD40_MatBehNedskrSfaFLUK a&#xA;Left Join edw.Dim_Materiale b on a.Materiale = b.Materiale and b.Aktiv = 'J'&#xA;Order by b.Materiale&#xA;&#xA;Go&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{36a9c680-f7d8-4bf8-abd0-18b7a61948cc}"
+          DTS:From="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\Udvælg materialer til statusgruppe FLUK"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\Hvis ingen ændring i StatusGr FLUK markeres slet i ajourføringstabel" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{207e80aa-0e8f-43c0-98e7-48c8110b6d5d}"
+          DTS:From="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\Hvis ingen ændring i StatusGr FLUK markeres slet i ajourføringstabel"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\Hvis bortfald så ny post med USN og Null i hhv DI_Materiale og MP_MatTid_Att" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{2a85973f-ca47-4e79-b76f-e6d60896f7d5}"
+          DTS:From="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\Hvis ej længere StatusGr2 FLUK ajourføres den eksisterende i DI_Materiale hhv MP_MatTid_Att"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\De tilbagevendne overføres til DI_Materiale hhv MP_MatTid_Att" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att.PrecedenceConstraints[Constraint 3]"
+          DTS:CreationName=""
+          DTS:DTSID="{e2c91383-8da5-413c-b68d-9ffcebfee14a}"
+          DTS:From="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\De tilbagevendne overføres til DI_Materiale hhv MP_MatTid_Att"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 3"
+          DTS:To="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\Hvis ny FLUK ajourføres den eksisterende i DI_Materiale hhv MP_MatTid_Att" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att.PrecedenceConstraints[Constraint 4]"
+          DTS:CreationName=""
+          DTS:DTSID="{fc7cda53-a2b7-4d7e-aa96-ddcd6d4effef}"
+          DTS:From="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\Hvis ny FLUK ajourføres den eksisterende i DI_Materiale hhv MP_MatTid_Att"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 4"
+          DTS:To="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\Opdater DI_Materiale hhv MP_MatTid_Att med de nye FLUK" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att.PrecedenceConstraints[Constraint 6]"
+          DTS:CreationName=""
+          DTS:DTSID="{b687fbf2-4063-482d-b1e8-e972a6943633}"
+          DTS:From="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\Hvis bortfald så ny post med USN og Null i hhv DI_Materiale og MP_MatTid_Att"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 6"
+          DTS:To="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\Hvis ej længere StatusGr2 FLUK ajourføres den eksisterende i DI_Materiale hhv MP_MatTid_Att" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{682FF1D3-F47B-4935-99AA-79A5663D496D}"
+      DTS:From="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Ajourfør FT_Transaktioner med rette Dim_Materiale" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 10]"
+      DTS:CreationName=""
+      DTS:DTSID="{8904D1E7-BAAB-4EC2-B40D-B9A930D0651F}"
+      DTS:From="Package\Udvælg data for ajourføring af FLUK"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 10"
+      DTS:To="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="325,42"
+          Id="Package\Ajourfør FT_Transaktioner med rette Dim_Materiale"
+          TopLeft="431.933962264151,312.254716981132" />
+        <NodeLayout
+          Size="252,42"
+          Id="Package\Udvælg data for ajourføring af FLUK"
+          TopLeft="48.8207547169811,1.5" />
+        <NodeLayout
+          Size="272,44"
+          Id="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\De tilbagevendne overføres til DI_Materiale hhv MP_MatTid_Att"
+          TopLeft="33.078167115903,268.14465408805" />
+        <NodeLayout
+          Size="272,44"
+          Id="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\Hvis bortfald så ny post med USN og Null i hhv DI_Materiale og MP_MatTid_Att"
+          TopLeft="33.078167115903,137.364779874214" />
+        <NodeLayout
+          Size="272,44"
+          Id="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\Hvis ej længere StatusGr2 FLUK ajourføres den eksisterende i DI_Materiale hhv MP_MatTid_Att"
+          TopLeft="33.078167115903,202.754716981132" />
+        <NodeLayout
+          Size="272,44"
+          Id="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\Hvis ingen ændring i StatusGr FLUK markeres slet i ajourføringstabel"
+          TopLeft="33.078167115903,71.9748427672956" />
+        <NodeLayout
+          Size="272,44"
+          Id="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\Hvis ny FLUK ajourføres den eksisterende i DI_Materiale hhv MP_MatTid_Att"
+          TopLeft="33.078167115903,333.534591194969" />
+        <NodeLayout
+          Size="272,44"
+          Id="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\Opdater DI_Materiale hhv MP_MatTid_Att med de nye FLUK"
+          TopLeft="33.078167115903,398.924528301887" />
+        <NodeLayout
+          Size="272,42"
+          Id="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att\Udvælg materialer til statusgruppe FLUK"
+          TopLeft="33.078167115903,8.58490566037736" />
+        <EdgeLayout
+          Id="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att.PrecedenceConstraints[Constraint]"
+          TopLeft="33.078167115903,29.5849056603774">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58.3899371069183"
+              Start="0,0"
+              End="-7.5,58.3899371069183">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-18.5,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-18.5,0"
+                    Point2="-22.5,0"
+                    Point3="-22.5,4" />
+                  <mssgle:LineSegment
+                    End="-22.5,54.3899371069183" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-22.5,54.3899371069183"
+                    Point2="-22.5,58.3899371069183"
+                    Point3="-18.5,58.3899371069183" />
+                  <mssgle:LineSegment
+                    End="-7.5,58.3899371069183" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att.PrecedenceConstraints[Constraint 1]"
+          TopLeft="33.078167115903,99.9748427672956">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53.3899371069182"
+              Start="0,0"
+              End="-7.5,53.3899371069182">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-18.5,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-18.5,0"
+                    Point2="-22.5,0"
+                    Point3="-22.5,4" />
+                  <mssgle:LineSegment
+                    End="-22.5,49.3899371069182" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-22.5,49.3899371069182"
+                    Point2="-22.5,53.3899371069182"
+                    Point3="-18.5,53.3899371069182" />
+                  <mssgle:LineSegment
+                    End="-7.5,53.3899371069182" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att.PrecedenceConstraints[Constraint 2]"
+          TopLeft="33.078167115903,230.754716981132">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53.3899371069182"
+              Start="0,0"
+              End="-7.5,53.3899371069182">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-18.5,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-18.5,0"
+                    Point2="-22.5,0"
+                    Point3="-22.5,4" />
+                  <mssgle:LineSegment
+                    End="-22.5,49.3899371069182" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-22.5,49.3899371069182"
+                    Point2="-22.5,53.3899371069182"
+                    Point3="-18.5,53.3899371069182" />
+                  <mssgle:LineSegment
+                    End="-7.5,53.3899371069182" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att.PrecedenceConstraints[Constraint 3]"
+          TopLeft="33.078167115903,296.14465408805">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53.3899371069182"
+              Start="0,0"
+              End="-7.5,53.3899371069182">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-18.5,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-18.5,0"
+                    Point2="-22.5,0"
+                    Point3="-22.5,4" />
+                  <mssgle:LineSegment
+                    End="-22.5,49.3899371069182" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-22.5,49.3899371069182"
+                    Point2="-22.5,53.3899371069182"
+                    Point3="-18.5,53.3899371069182" />
+                  <mssgle:LineSegment
+                    End="-7.5,53.3899371069182" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att.PrecedenceConstraints[Constraint 4]"
+          TopLeft="33.078167115903,361.534591194969">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.3899371069182"
+              Start="0,0"
+              End="-7.5,59.3899371069182">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-18.5,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-18.5,0"
+                    Point2="-22.5,0"
+                    Point3="-22.5,4" />
+                  <mssgle:LineSegment
+                    End="-22.5,55.3899371069182" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-22.5,55.3899371069182"
+                    Point2="-22.5,59.3899371069182"
+                    Point3="-18.5,59.3899371069182" />
+                  <mssgle:LineSegment
+                    End="-7.5,59.3899371069182" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att.PrecedenceConstraints[Constraint 6]"
+          TopLeft="33.078167115903,165.364779874214">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53.3899371069182"
+              Start="0,0"
+              End="-7.5,53.3899371069182">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-18.5,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-18.5,0"
+                    Point2="-22.5,0"
+                    Point3="-22.5,4" />
+                  <mssgle:LineSegment
+                    End="-22.5,49.3899371069182" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-22.5,49.3899371069182"
+                    Point2="-22.5,53.3899371069182"
+                    Point3="-18.5,53.3899371069182" />
+                  <mssgle:LineSegment
+                    End="-7.5,53.3899371069182" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43.924528301886795"
+          IsExpanded="True"
+          PanelSize="353,480"
+          Size="353,524"
+          Id="Package\Udvælg og ajourfør materialer til statusgruppe FLUK og tilføj procent i MP_MatTid_Att"
+          TopLeft="5.5,70.1792452830189" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="358.5,332.716981132075">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="73.433962264151,0"
+              Start="0,0"
+              End="65.933962264151,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="65.933962264151,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 10]"
+          TopLeft="178.410377358491,43.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,26.6792452830189"
+              Start="0,0"
+              End="0,19.1792452830189">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.1792452830189" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

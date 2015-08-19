@@ -1,0 +1,786 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/13/2013 1:01:52 PM"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="DSB075473"
+  DTS:CreatorName="DSB\KM2406"
+  DTS:DTSID="{4B716E94-8351-4C96-92B5-DADE41277B68}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion="11.0.5583.0"
+  DTS:LocaleID="1030"
+  DTS:ObjectName="C_edw_dt_Opdater_Facttabeller"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="92"
+  DTS:VersionGUID="{F67CDBA4-2890-4B1C-8AC6-5AB3684843EE}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{3ECC997C-4E4F-4CB8-AF8C-9FC67A954C1A}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="Counter">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{EFB66EC6-E798-4D7E-9943-54C73E94264E}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="DATABASE">
+      <DTS:VariableValue
+        DTS:DataType="8">Ukurans</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{908A02F1-C225-4FF3-A479-DD52348EBF21}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SERVER">
+      <DTS:VariableValue
+        DTS:DataType="8">mssqlp01\alpha</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Opdater fælles TD-tabeller for beregning"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{623545D7-F54C-4285-8A84-A0D92220558E}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Opdater fælles TD-tabeller for beregning">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Opdater fælles TD-tabeller for beregning\21 Kalkuler samlet beholdning"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{8A05222B-228F-4613-8D29-3F091DA26EBC}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="21 Kalkuler samlet beholdning"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
+              SQLTask:SqlStatementSource="-- 21 Kalkuler samlet beholdning&#xA;&#xA;Select [Materiale], [MaterialeTekst] &#xA;&#x9;,sum([Beholdning]) as Beholdning&#xA;&#x9;,sum([Vaerdi_GP]) as Vaerdi_GP&#xA;Into [edw].[TD21_MatBeh] &#xA;From [ods].[RD_SAP_MatBehold]&#xA;Where [OmlVare] is null and [Beholdning] &gt; 0  and [Vaerdi_GP] &gt;0 &#xA;Group by [Materiale], [MaterialeTekst] &#xA;&#xA;Go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Opdater fælles TD-tabeller for beregning\22 Kalkuler laveste rækkevidde"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{C25C6FD2-4EF9-4340-ACC9-B0D27FF78927}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="22 Kalkuler laveste rækkevidde"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
+              SQLTask:SqlStatementSource="-- 22 Kalkuler laveste rækkevidde&#xA;&#xA;Select b.[Materiale], b.[MaterialeTekst], b.[Beholdning], sum(a.[Forbrug_pr_dag]) as ForbPrDagIalt, b.[Vaerdi_GP]&#xA;&#x9;,Round((sum(b.[Beholdning])/sum(a.[Forbrug_pr_dag])),0,1) MinRID&#xA;Into [edw].[TD22_MatMinRID] &#xA;From [ods].[RD_SAP_MatRID] a&#xA;Left Join [edw].[TD21_MatBeh] b On a.[Materiale] = b.[Materiale]&#xA;Where b.[Beholdning] &gt; 0 and a.[Forbrug_pr_dag] &gt; 0&#xA;Group by b.[Materiale], b.[MaterialeTekst], b.[Beholdning], b.[Vaerdi_GP]&#xA;Having (Round((sum(b.[Beholdning])/sum(a.[Forbrug_pr_dag])),0,1)) &gt;0&#xA;Order by b.Materiale&#xA;&#xA;Go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Opdater fælles TD-tabeller for beregning\23 Fælles glidende pris for de anskaffede materialer kalkuleres"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{6C68B3BB-BE14-4194-96DC-9873B8695ACC}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="23 Fælles glidende pris for de anskaffede materialer kalkuleres"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
+              SQLTask:SqlStatementSource="-- 23 Fælles glidende pris for de anskaffede materialer kalkuleres&#xA;&#xA;Select distinct [Materiale], Fabrik &#xA;,sum([Beholdning]) as BehIalt &#xA;,sum([Vaerdi_GP]) as VaerdiIalt&#xA;,(sum([Vaerdi_GP]) / sum([Beholdning])* min([PrisEnh])) GlidGnsPris&#xA;Into [edw].[TD23_MatBehGnsGlidIndkPris]&#xA;From [ods].[RD_SAP_MatBehold]&#xA;Where OmlVare is null and [Beholdning] &gt; 0  and [Vaerdi_GP] &gt;0 &#xA;Group by [Materiale] , [Fabrik]&#xA;Order by [Materiale]&#xA;&#xA;Go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Opdater fælles TD-tabeller for beregning\24 Historiske indkøb ialt kalkuleres"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{652947D4-8281-4D52-B928-DFBCAFEC877D}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="24 Historiske indkøb ialt kalkuleres"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
+              SQLTask:SqlStatementSource="-- 24 Historiske indkøb ialt kalkuleres  &#xA;&#xA;&#xA;Select a.[Materiale],&#xA;&#x9;sum(a.[Maengde]) as AnskMgdIalt&#xA;Into [edw].[TD24_MatTransAnskMgd]   &#xA;From [edw].[FT_Transaktioner] a&#xA;Left Join [edw].[Dim_Materiale] b&#xA;On a.[Materiale] = b.[Materiale]&#xA;Left join edw.Dim_BevArt c on a.Dim_BevArt = c.BevArt&#xA;--Where BevArt in ('101' , '102' , '122' , '123' , '961' , '962' )&#xA;--Where a.BevArt in ('101' , '102' , '122' , '123' )&#xA;Where c.BevArtType = 'Indkøb'&#xA;&#x9;and b.[FTrAar] = 'F2000'&#xA;Group by a.[Materiale]&#xA;Order by a.[Materiale]&#xA;&#xA;Go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Opdater fælles TD-tabeller for beregning\35 Nyanskaffet materialer indefor seneste 3 år målt fra første transaktion"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{07BCA017-D3C4-4026-A120-8C4DFD297B97}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="35 Nyanskaffet materialer indefor seneste 3 år målt fra første transaktion"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
+              SQLTask:SqlStatementSource="-- 35 Nyanskaffet materialer indefor seneste 3 år målt fra første transaktion&#xA;&#xA;Select a.[Fabrik]&#xA;      ,a.[Materiale]&#xA;      ,a.[MaterialeTekst]&#xA;      ,a.[Beholdning]&#xA;      ,a.[Vaerdi_GP]&#xA;      ,b.[FRegAar]&#xA;      ,b.[FTrAar]&#xA;      ,b.[FTrDato]&#xA;Into [edw].[TD35_MatBehNySeneste3Aar]&#xA;From [ods].[RD_SAP_MatBehold] a&#xA;Left Join [edw].[Dim_Materiale] b On a.[Materiale] = b.[Materiale] and b.[GyldigTil] = '9999-12-31'&#xA;Where a.[OmlVare] is Null&#xA;&#x9;and a.[Vaerdi_GP] &gt;0&#xA;&#x9;and b.FTrDato &gt; ((select cast(vaerdi as datetime) from edw.md_styringstabel where parameter = 'RegnOpdtDato')&#x9;- 1095 ) &#xA;-- 150324-1: rettet til større end i stedet for større end eller lig med. Kunne også have rettet det til - 1094 dage&#xA;Order by a.[Materiale], a.fabrik&#xA;&#xA;Go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Opdater fælles TD-tabeller for beregning\36 Indkøb seneste 12 måneder kalkuleres"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{66D0F211-2201-4FA9-92F0-4349314D77C5}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="36 Indkøb seneste 12 måneder kalkuleres"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
+              SQLTask:SqlStatementSource="-- 36 Indkøb seneste 12 måneder kalkuleres  &#xA;&#xA;Select b.[Materiale]&#xA;,b.Dim_Fabrik&#xA;,sum(b.[Maengde]) as IndkMgdIalt&#xA;,a.[GlidGnsPris]&#xA;,a.BehIalt&#xA;,&#x9;Case When (sum(b.[Maengde]) &lt; a.[BehIalt])&#xA;&#x9;&#x9;Then sum(b.[Maengde])&#xA;&#x9;&#x9;Else a.[BehIalt]&#xA;&#x9;End as BehIndk&#xA;,&#x9;Case When (sum(b.[Maengde]) &lt; a.[BehIalt])&#xA;&#x9;&#x9;Then (sum(b.[Maengde])* a.[GlidGnsPris])&#xA;&#x9;&#x9;Else a.VaerdiIalt --(sum(a.[BehIalt])* a.[GlidGnsPris])&#xA;&#x9;End as IndkVaerdiIalt&#xA;Into [edw].[TD36_MatBehIndk12md]   &#xA;From [edw].[FT_Transaktioner] b&#xA;Left Join [edw].[TD23_MatBehGnsGlidIndkPris] a on a.[Materiale] = b.[Materiale] and a.[Fabrik] = b.[Dim_Fabrik]&#xA;Left Join [edw].[TD35_MatBehNySeneste3Aar] c on a.[Materiale] = c.[Materiale]&#xA;Left join edw.Dim_BevArt d on b.Dim_BevArt = d.BevArt&#xA;Where c.[Materiale] Is null&#xA;&#x9;and d.BevArtType = 'Indkøb'&#xA;&#x9;and b.RegistrDato &gt;= ((select cast(vaerdi as datetime) from edw.md_styringstabel where parameter = 'RegnOpdtDato')&#x9;- 365 )&#xA;&#x9;and a.[GlidGnsPris] is not null&#xA;Group by b.Dim_Fabrik, b.[Materiale], a.[GlidGnsPris], a.BehIalt, a.VaerdiIalt&#xA;Order by b.[Materiale], b.Dim_Fabrik, IndkVaerdiIalt desc &#xA;&#xA;Go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Opdater fælles TD-tabeller for beregning\37 Rest Åbningsbalance findes og ligger i filen TD37_MatTransAabnBalRest"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{7909B055-A507-41E1-A401-464F2958EFD2}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="37 Rest Åbningsbalance findes og ligger i filen TD37_MatTransAabnBalRest"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
+              SQLTask:SqlStatementSource="-- 37 Rest Åbningsbalance findes og ligger i filen TD37_MatTransAabnBalRest&#xA;&#xA;Select a.[Materiale]&#xA;, a.[MaterialeTekst]&#xA;, a.[Fabrik]&#xA;, sum(a.[Beholdning]) as BehIalt&#xA;, avg(a.[GlGPris]) as NuvStkPris&#xA;, b.AnskMgdIalt&#xA;, Case when (b.AnskMgdIalt &gt;= sum(a.[Beholdning])) then 0&#xA;&#x9;Else (sum(a.[Beholdning]) -b.AnskMgdIalt) End  RestAabnBalBeh&#xA;, Case when (b.AnskMgdIalt &gt;= sum(a.[Beholdning])) then 0&#xA;&#x9;Else (sum(a.[Beholdning]) -b.AnskMgdIalt) * avg(a.[GlGPris]) End  RestAabnBalVaerdi&#xA;, Case&#x9;when substring(a.materiale,1,2) = '91' then -0.8&#xA;&#x9;&#x9;when substring(a.materiale,1,2) = '96' then -0.7&#xA;&#x9;&#x9;when substring(a.materiale,1,2) = '97' then -0.8&#xA;&#x9;&#x9;Else -0.25&#xA;&#x9;End as AabnBalNedskrPct&#xA;, (sum(a.[Beholdning]) -b.AnskMgdIalt) * avg(a.[GlGPris])  *&#x9;Case&#x9;when substring(a.materiale,1,2) = '91' then -0.8&#xA;&#x9;&#x9;when substring(a.materiale,1,2) = '96' then -0.7&#xA;&#x9;&#x9;when substring(a.materiale,1,2) = '97' then -0.8&#xA;&#x9;&#x9;Else -0.25&#xA;&#x9;End as AabnBalNedskrVaerdi&#xA;&#xA;Into [edw].[TD37_MatTransAabnBalRest] &#xA;From [edw].[TD24_MatTransAnskMgd] b&#xA;Left Join [ods].[RD_SAP_MatBehold] a on a.[Materiale] = b.[Materiale]&#xA;Where GlGPris &gt;0&#xA;Group by a.[Materiale], a.[MaterialeTekst], a.[Fabrik], a.[GlGPris], b.AnskMgdIalt&#xA;--With rollup&#xA;Having b.AnskMgdIalt &lt; sum(a.[Beholdning])&#xA;Order by RestAabnBalVaerdi desc &#xA;&#xA;Go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Opdater fælles TD-tabeller for beregning.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{F577BC31-185F-4AE2-8510-A1BBA12BFE69}"
+          DTS:From="Package\Opdater fælles TD-tabeller for beregning\21 Kalkuler samlet beholdning"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Opdater fælles TD-tabeller for beregning\22 Kalkuler laveste rækkevidde" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Opdater fælles TD-tabeller for beregning.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{6DA11B7E-D775-4112-8C20-C2A7AB2B8C47}"
+          DTS:From="Package\Opdater fælles TD-tabeller for beregning\22 Kalkuler laveste rækkevidde"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\Opdater fælles TD-tabeller for beregning\23 Fælles glidende pris for de anskaffede materialer kalkuleres" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Opdater fælles TD-tabeller for beregning.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{CC9E05BF-21D5-455B-A91C-55161D0E9022}"
+          DTS:From="Package\Opdater fælles TD-tabeller for beregning\23 Fælles glidende pris for de anskaffede materialer kalkuleres"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\Opdater fælles TD-tabeller for beregning\24 Historiske indkøb ialt kalkuleres" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Opdater fælles TD-tabeller for beregning.PrecedenceConstraints[Constraint 3]"
+          DTS:CreationName=""
+          DTS:DTSID="{365C0BDF-8A89-44A3-B433-8AA0AE542184}"
+          DTS:From="Package\Opdater fælles TD-tabeller for beregning\24 Historiske indkøb ialt kalkuleres"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 3"
+          DTS:To="Package\Opdater fælles TD-tabeller for beregning\35 Nyanskaffet materialer indefor seneste 3 år målt fra første transaktion" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Opdater fælles TD-tabeller for beregning.PrecedenceConstraints[Constraint 4]"
+          DTS:CreationName=""
+          DTS:DTSID="{B4149382-2C19-48CD-ACF0-C051F879D3FE}"
+          DTS:From="Package\Opdater fælles TD-tabeller for beregning\35 Nyanskaffet materialer indefor seneste 3 år målt fra første transaktion"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 4"
+          DTS:To="Package\Opdater fælles TD-tabeller for beregning\36 Indkøb seneste 12 måneder kalkuleres" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Opdater fælles TD-tabeller for beregning.PrecedenceConstraints[Constraint 5]"
+          DTS:CreationName=""
+          DTS:DTSID="{D44AF0D3-0B1D-4BAF-A09C-2DE379344307}"
+          DTS:From="Package\Opdater fælles TD-tabeller for beregning\36 Indkøb seneste 12 måneder kalkuleres"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 5"
+          DTS:To="Package\Opdater fælles TD-tabeller for beregning\37 Rest Åbningsbalance findes og ligger i filen TD37_MatTransAabnBalRest" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Overfør data til FT_Beholdning"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{C899C8AF-C1E0-4920-B06D-67DD585351CD}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Overfør data til FT_Beholdning"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
+          SQLTask:SqlStatementSource="-- Overfør data til edw.FT_Beholdning&#xA;-- Ajourført 140627-1: Af hensyn til at kunne afstemme alle beholdninger, er kriterie &quot;Vaerdi_GP &gt; 0 fjernet&quot;&#xA;-- Ajourført 140630-1: Af hensyn til at kunne indlæse gamle perioder er opslag på PK_ID ændret, så relevant periode findes&#xA;&#xA;Delete from edw.FT_Beholdning&#xA;&#x9;where Dim_Tid =&#xA;&#x9;&#x9;(select replace(left(vaerdi, 7), '-', '') from edw.md_styringstabel where parameter = 'UltimoDato')&#xA;&#xA;Insert into edw.FT_Beholdning  &#xA;Select a.Fabrik as Dim_Fabrik&#xA;&#x9;,a.Materiale&#xA;&#x9;,b.PK_ID as Dim_Materiale&#xA;&#x9;,(select replace(left(vaerdi, 7), '-', '') from edw.md_styringstabel where parameter = 'UltimoDato') as Dim_Tid&#xA;&#x9;,sum(a.Beholdning) as Beholdning&#xA;&#x9;,sum(a.Vaerdi_GP) as Vaerdi_GP&#xA;&#x9;,sum(a.Vaerdi_GP) / sum(a.Beholdning)* min(a.PrisEnh) as GlidGnsPris&#xA;&#x9;,sum(a.Vaerdi_SP) as Vaerdi_SP&#xA;From ods.RD_SAP_MatBehold a&#xA;Left join edw.Dim_Materiale b on a.Materiale = b.Materiale &#xA;&#x9;and (select convert(datetime, substring(replace(convert(varchar, b.GyldigFra, 102), '.', '-'), 1, 8) + '01'))&#xA;&#x9;&#x9; &lt;= (select left(vaerdi, 8) + '01' from edw.md_styringstabel where parameter = 'UltimoDato') &#xA;&#x9;and b.GyldigTil &gt;= ( select vaerdi from edw.md_styringstabel where parameter = 'UltimoDato') &#xA;Where a.OmlVare is null and a.Beholdning &gt; 0  -- and a.Vaerdi_GP &gt;0 &#xA;&#x9;or a.OmlVare is null and a.Beholdning &gt; 0  -- and a.Vaerdi_SP &gt;0)&#xA;Group by a.Fabrik, a.Materiale, b.PK_ID&#xA;&#xA;Go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Overfør data til FT_Indk12md"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{C964F99F-02FD-4FBC-A5D9-608560A12C50}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Overfør data til FT_Indk12md"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
+          SQLTask:SqlStatementSource="-- Overfør data til edw.FT_Indk12md&#xA;Delete from edw.FT_Indk12md&#xA;Where Dim_Tid =(select replace(left(vaerdi, 7), '-', '') from edw.md_styringstabel where parameter = 'UltimoDato')&#xA;&#xA;Insert into edw.FT_Indk12md&#xA;Select Dim_Fabrik&#xA;&#x9;,a.Materiale&#xA;      &#x9;,b.PK_ID as Dim_Materiale&#xA;&#x9;,(select replace(left(vaerdi, 7), '-', '') from edw.md_styringstabel where parameter = 'UltimoDato') as Dim_Tid&#xA;      &#x9;,IndkMgdIalt&#xA;      &#x9;,BehIndk&#xA;      &#x9;,IndkVaerdiIalt&#xA;From edw.TD36_MatBehIndk12md a&#xA;Left join edw.Dim_Materiale b on a.Materiale = b.Materiale and Aktiv = 'J'&#xA;&#xA;Go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Overfør data til FT_MinDUF"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{A471746E-D452-49F0-84EA-3DCD08CB45A9}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Overfør data til FT_MinDUF"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
+          SQLTask:SqlStatementSource="&#xA;-- Indlæsning til edw.FT_MinDUF&#xA;&#xA;Delete from edw.FT_MinDUF&#xA;where Dim_Tid =(select replace(left(vaerdi, 7), '-', '') from edw.md_styringstabel where parameter = 'UltimoDato')&#xA;&#xA;&#xA;Insert into edw.FT_MinDUF&#xA;Select  a.Materiale&#xA;       ,b.PK_ID&#xA;       ,(select replace(left(vaerdi, 7), '-', '') from edw.md_styringstabel where parameter = 'UltimoDato') as Dim_Tid&#xA;       ,a.SAP_MinDUF&#xA;       ,a.FTr_MinDUF&#xA;       ,a.Hist_MinDUF&#xA;       ,a.MinDUF&#xA;From edw.TD06_MatBehMinDUF a &#xA;Left join edw.Dim_Materiale b on a.Materiale = b.Materiale and b.Aktiv = 'J'&#xA;&#xA;Go&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Overfør data til FT_Nedskriv"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{fa83a462-1ba1-4d88-9bba-f54603e55775}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Overfør data til FT_Nedskriv"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
+          SQLTask:SqlStatementSource="-- Slet data, der opdateres&#xA;&#xA;Delete from edw.FT_Nedskriv&#xA;Where FraTil_tid = (select replace(left(vaerdi, 7), '-', '') from edw.md_styringstabel where parameter = 'PrimoDato') &#xA;&#x9;+ '-' + ( select replace(left(vaerdi, 7), '-', '') from edw.md_styringstabel where parameter = 'UltimoDato')&#xA;GO&#xA;&#xA;-- overføre data fra vw til ft_Nedskriv&#xA;&#xA;Insert into edw.FT_Nedskriv&#xA;Select [dim_fabrik]&#xA;      ,[dim_materiale]&#xA;      ,[materiale]&#xA;      ,( select replace(left(vaerdi, 7), '-', '') from edw.md_styringstabel where parameter = 'UltimoDato')&#xA;      ,[Beholdning]&#xA;      ,[Vaerdi_GP]&#xA;      ,[GlidGnsPris]&#xA;      ,[LNType]&#xA;      ,[FLNType]&#xA;      ,[LavNedPct]&#xA;      ,[LogNedBrutto]&#xA;      ,[LogNedBruttoPae]&#xA;      ,[NedskrNetto]&#xA;      ,[NedKorrNytMat]&#xA;      ,[NedKorrNytMatPae]&#xA;      ,[BrutIndk12mdMgd]&#xA;      ,[StatusNedskrPct]&#xA;      ,[LangNedskrPct]&#xA;      ,[RaekkeNedskrPct]&#xA;      ,[LitraNedskrPct]&#xA;      ,[NedKorrIndk]&#xA;      ,[NedKorrIndkPae]&#xA;      ,[UltBehIndk12mdMgd]&#xA;      ,[UltBehIndk12mdVd]&#xA;      ,[Vaerdi_SP]&#xA;      ,[Forskel]&#xA;      ,[LitraNedVaerdi]&#xA;      ,[DUF]&#xA;      ,[LangNedVaerdi]&#xA;      ,[RID]&#xA;      ,[RaekkeNedVaerdi]&#xA;      ,[StatNedVaerdi]&#xA;      ,[StatNedReelt]&#xA;      ,[RestAabnBalBeh]&#xA;      ,[AabnNedPct]&#xA;      ,[AabnBalNedVaerdi]&#xA;      ,( select replace(left(vaerdi, 7), '-', '') from edw.md_styringstabel where parameter = 'PrimoDato')&#xA;&#x9;+ '-' + ( select replace(left(vaerdi, 7), '-', '') from edw.md_styringstabel where parameter = 'UltimoDato')&#xA;      ,[NedskrNettoPae]&#xA;From [dbo].[vw_Nedskriv]&#xA;&#xA;GO&#xA;&#xA;&#xA;/*&#xA;--update di_materiale for a Primo period which did not exist at the time of the Primo dato&#xA;update edw.ft_Nedskriv&#xA;set di_materiale = isnull(pk_id, -1)&#xA;from edw.ft_Nedskriv&#xA;left join edw.DI_Materiale&#xA;on materiale_num = nummer&#xA;where di_materiale is null&#xA;and convert(datetime, left(di_tid, 4) + '-' + right(di_tid, 2) + '-01')&#xA;&gt;= convert(datetime, left(convert(varchar, Gyldigfradato, 102), 4) + '-' + substring(convert(varchar, Gyldigfradato, 102), 6, 2) + '-01')&#xA;and convert(datetime, left(di_tid, 4) + '-' + right(di_tid, 2) + '-01')&#xA;&lt;= Gyldigtildato&#xA;GO&#xA;&#xA;--if a material did not exist at the time refered by Primo-dato then di_material gets a reference -1 (ingen materiale)&#xA;update edw.ft_Nedskriv&#xA;set di_materiale = -1&#xA;where di_materiale is null&#xA;and  FraTil_tid = select (select parametervalue2 from [edw].[MD_Styringstabel_BU_140130_1] where parameter = 'PrimoDatoPeriode') + '-' +( select parametervalue2 from [edw].[MD_Styringstabel_BU_140130_1] where parameter = 'UltimoDatoPeriode')&#xA;GO&#xA;*/" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Overfør til FT_MinRID"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{0D1D355F-3A25-44DA-98C0-4C6011353DAA}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Overfør til FT_MinRID"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
+          SQLTask:SqlStatementSource=" &#xA;-- Indlæsning til edw.FT_MinRID&#xA;&#xA;&#xA;Delete from edw.FT_MinRID&#xA;where Dim_Tid =(select replace(left(vaerdi, 7), '-', '') from edw.md_styringstabel where parameter = 'UltimoDato')&#xA;&#xA;Insert into edw.FT_MinRID&#xA;Select a.Materiale&#xA;      ,b.PK_ID as Dim_Materiale&#xA;      ,(select replace(left(vaerdi, 7), '-', '') from edw.md_styringstabel where parameter = 'UltimoDato') as Dim_Tid&#xA;      ,a.Beholdning&#xA;      ,a.ForbPrDagIalt as Forbrug_pr_dag&#xA;      ,a.Vaerdi_GP&#xA;      ,a.MinRID&#xA;From edw.TD22_MatMinRID a&#xA;Left join edw.Dim_Materiale b on a.Materiale = b.Materiale and b.Aktiv = 'J'&#xA;&#xA;Go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Overfør til FT_NySeneste3aar"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{297A5C12-2E05-40DC-875A-8D96055D4761}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Overfør til FT_NySeneste3aar"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
+          SQLTask:SqlStatementSource="-- Indlæsning til edw.FT_NySeneste3aar&#xA;&#xA;Delete from edw.FT_NySeneste3aar&#xA;where Dim_Tid =(select replace(left(vaerdi, 7), '-', '') from edw.md_styringstabel where parameter = 'UltimoDato')&#xA;&#xA;Insert into  edw.FT_NySeneste3aar&#xA;Select a.Fabrik &#xA;      ,a.Materiale&#xA;      ,b.PK_ID as Dim_Materiale&#xA;      ,(select replace(left(vaerdi, 7), '-', '') from edw.md_styringstabel where parameter = 'UltimoDato') as Dim_Tid&#xA;      ,a.Vaerdi_GP&#xA;      ,a.Beholdning&#xA;From edw.TD35_MatBehNySeneste3Aar a   &#xA;Left join edw.Dim_Materiale b on a.Materiale = b.Materiale and b.Aktiv = 'J'  &#xA;&#xA;Go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Tøm tabeller der bruges i dette script"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{D6F35FE3-CDB2-4CC3-8F0D-EF950ED9A0EE}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Tøm tabeller der bruges i dette script"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F2A94D2E-B5B5-4BEA-825C-265DA8BF970D}"
+          SQLTask:SqlStatementSource="-- Tøm tabeller der anvendes i dette script&#xA;&#xA;-- 21 Kalkuler samlet beholdning&#xA;If object_id('[edw].[TD21_MatBeh]') is not null &#xA;Drop Table [edw].[TD21_MatBeh]&#xA;&#xA;-- 22 Kalkuler laveste rækkevidde&#xA;If object_id('[edw].[TD22_MatMinRID]') is not null &#xA;Drop Table [edw].[TD22_MatMinRID]&#xA;&#xA;-- 23 Fælles glidende pris for de anskaffede materialer kalkuleres&#xA;If object_id('[edw].[TD23_MatBehGnsGlidIndkPris]') is not null &#xA;Drop Table [edw].[TD23_MatBehGnsGlidIndkPris]&#xA;&#xA;-- 24 Historiske indkøb ialt kalkuleres  &#xA;If object_id('[edw].[TD24_MatTransAnskMgd]') is not null &#xA;Drop Table [edw].[TD24_MatTransAnskMgd]&#xA;&#xA;-- 35 Nyanskaffet materialer indefor seneste 3 år målt fra første transaktion&#xA;If object_id('[edw].[TD35_MatBehNySeneste3Aar]') is not null &#xA;Drop Table [edw].[TD35_MatBehNySeneste3Aar]&#xA;&#xA;-- 36 Indkøb seneste 12 måneder kalkuleres  &#xA;If object_id('[edw].[TD36_MatBehIndk12md]') is not null &#xA;Drop Table [edw].[TD36_MatBehIndk12md]&#xA;&#xA;-- 37 Rest Åbningsbalance findes og ligger i filen TD37_MatTransAabnBalRest&#xA;If object_id('[edw].[TD37_MatTransAabnBalRest]') is not null &#xA;Drop Table [edw].[TD37_MatTransAabnBalRest]&#xA;&#xA;Go&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{6A374061-01AF-4004-B1BD-6BF082204072}"
+      DTS:From="Package\Tøm tabeller der bruges i dette script"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Opdater fælles TD-tabeller for beregning" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{16FD599A-690F-4693-807B-9D05A9C9B22B}"
+      DTS:From="Package\Opdater fælles TD-tabeller for beregning"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Overfør data til FT_Indk12md" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{86DE2D0F-C786-4FEF-BDC6-869166190F7E}"
+      DTS:From="Package\Overfør data til FT_Indk12md"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Overfør data til FT_Beholdning" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{81A30862-73CA-4F5C-B9AE-AA155D587797}"
+      DTS:From="Package\Overfør data til FT_Beholdning"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Overfør data til FT_MinDUF" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
+      DTS:CreationName=""
+      DTS:DTSID="{3BA445AC-9186-4F60-A7D0-E36DE44F7329}"
+      DTS:From="Package\Overfør data til FT_MinDUF"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 5"
+      DTS:To="Package\Overfør til FT_MinRID" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 6]"
+      DTS:CreationName=""
+      DTS:DTSID="{96D391DE-2C66-42CB-83E0-14670D38BCC0}"
+      DTS:From="Package\Overfør til FT_MinRID"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 6"
+      DTS:To="Package\Overfør til FT_NySeneste3aar" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 7]"
+      DTS:CreationName=""
+      DTS:DTSID="{38DAFEC1-77DA-4D44-9D2F-AD538035E3B7}"
+      DTS:From="Package\Overfør til FT_NySeneste3aar"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 7"
+      DTS:To="Package\Overfør data til FT_Nedskriv" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="353,44"
+          Id="Package\Opdater fælles TD-tabeller for beregning\21 Kalkuler samlet beholdning"
+          TopLeft="30.9433962264151,34.8490566037736" />
+        <NodeLayout
+          Size="353,44"
+          Id="Package\Opdater fælles TD-tabeller for beregning\22 Kalkuler laveste rækkevidde"
+          TopLeft="30.4528301886792,112.735849056604" />
+        <NodeLayout
+          Size="353,44"
+          Id="Package\Opdater fælles TD-tabeller for beregning\23 Fælles glidende pris for de anskaffede materialer kalkuleres"
+          TopLeft="30.9433962264151,194.622641509434" />
+        <NodeLayout
+          Size="353,44"
+          Id="Package\Opdater fælles TD-tabeller for beregning\24 Historiske indkøb ialt kalkuleres"
+          TopLeft="31.9245283018868,274.509433962264" />
+        <NodeLayout
+          Size="353,44"
+          Id="Package\Opdater fælles TD-tabeller for beregning\35 Nyanskaffet materialer indefor seneste 3 år målt fra første transaktion"
+          TopLeft="31.9622641509434,353.339622641509" />
+        <NodeLayout
+          Size="353,44"
+          Id="Package\Opdater fælles TD-tabeller for beregning\36 Indkøb seneste 12 måneder kalkuleres"
+          TopLeft="31.4716981132075,430.245283018868" />
+        <NodeLayout
+          Size="353,44"
+          Id="Package\Opdater fælles TD-tabeller for beregning\37 Rest Åbningsbalance findes og ligger i filen TD37_MatTransAabnBalRest"
+          TopLeft="32.9433962264151,506.094339622641" />
+        <EdgeLayout
+          Id="Package\Opdater fælles TD-tabeller for beregning.PrecedenceConstraints[Constraint]"
+          TopLeft="207.198113207547,78.8490566037736">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33.8867924528302"
+              Start="0,0"
+              End="0,26.3867924528302">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.3867924528302" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Opdater fælles TD-tabeller for beregning.PrecedenceConstraints[Constraint 1]"
+          TopLeft="207.198113207547,156.735849056604">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,37.8867924528302"
+              Start="0,0"
+              End="0,30.3867924528302">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.3867924528302" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Opdater fælles TD-tabeller for beregning.PrecedenceConstraints[Constraint 2]"
+          TopLeft="207.933962264151,238.622641509434">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,35.8867924528302"
+              Start="0,0"
+              End="0,28.3867924528302">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.3867924528302" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Opdater fælles TD-tabeller for beregning.PrecedenceConstraints[Constraint 3]"
+          TopLeft="208.443396226415,318.509433962264">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34.8301886792453"
+              Start="0,0"
+              End="0,27.3301886792453">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.3301886792453" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Opdater fælles TD-tabeller for beregning.PrecedenceConstraints[Constraint 4]"
+          TopLeft="208.216981132075,397.339622641509">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32.9056603773585"
+              Start="0,0"
+              End="0,25.4056603773585">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.4056603773585" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Opdater fælles TD-tabeller for beregning.PrecedenceConstraints[Constraint 5]"
+          TopLeft="208.707547169811,474.245283018868">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.8490566037735"
+              Start="0,0"
+              End="0,24.3490566037735">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.3490566037735" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43.924528301886795"
+          IsExpanded="True"
+          PanelSize="454,627"
+          Size="454,671"
+          Id="Package\Opdater fælles TD-tabeller for beregning"
+          TopLeft="28.7735849056604,83.3867924528302" />
+        <NodeLayout
+          Size="272,44"
+          Id="Package\Overfør data til FT_Beholdning"
+          TopLeft="665.955974842767,200.5" />
+        <NodeLayout
+          Size="272,44"
+          Id="Package\Overfør data til FT_Indk12md"
+          TopLeft="665.955974842767,116.38679245283" />
+        <NodeLayout
+          Size="272,44"
+          Id="Package\Overfør data til FT_MinDUF"
+          TopLeft="665.955974842767,284.61320754717" />
+        <NodeLayout
+          Size="272,44"
+          Id="Package\Overfør data til FT_Nedskriv"
+          TopLeft="665.955974842767,536.952830188679" />
+        <NodeLayout
+          Size="272,44"
+          Id="Package\Overfør til FT_MinRID"
+          TopLeft="665.955974842767,368.72641509434" />
+        <NodeLayout
+          Size="272,44"
+          Id="Package\Overfør til FT_NySeneste3aar"
+          TopLeft="665.955974842767,452.83962264151" />
+        <NodeLayout
+          Size="453,44"
+          Id="Package\Tøm tabeller der bruges i dette script"
+          TopLeft="28,13.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="255.13679245283,57.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,25.8867924528302"
+              Start="0,0"
+              End="0,18.3867924528302">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.3867924528302" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="482.77358490566,418.88679245283">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="183.182389937107,-280.5"
+              Start="0,0"
+              End="175.682389937107,-280.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="87.5911949685534,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="87.5911949685534,0"
+                    Point2="91.5911949685534,0"
+                    Point3="91.5911949685534,-4" />
+                  <mssgle:LineSegment
+                    End="91.5911949685534,-276.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="91.5911949685534,-276.5"
+                    Point2="91.5911949685534,-280.5"
+                    Point3="95.5911949685534,-280.5" />
+                  <mssgle:LineSegment
+                    End="175.682389937107,-280.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="801.955974842767,160.38679245283">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.1132075471698"
+              Start="0,0"
+              End="0,32.6132075471698">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.6132075471698" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="801.955974842767,244.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.1132075471699"
+              Start="0,0"
+              End="0,32.6132075471699">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.6132075471699" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="801.955974842767,328.61320754717">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.1132075471699"
+              Start="0,0"
+              End="0,32.6132075471699">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.6132075471699" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 6]"
+          TopLeft="801.955974842767,412.72641509434">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.1132075471699"
+              Start="0,0"
+              End="0,32.6132075471699">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.6132075471699" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 7]"
+          TopLeft="801.955974842767,496.83962264151">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.1132075471699"
+              Start="0,0"
+              End="0,32.6132075471699">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.6132075471699" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
