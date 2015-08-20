@@ -1,0 +1,2 @@
+﻿CREATE USER [DSB] FOR LOGIN [DSB];
+

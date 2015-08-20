@@ -6,7 +6,6 @@
 Create view [dbo].[vw_Forklaring_2del]
 -- Ajourført 141114-1: Ændret FraTil_Tid med en Cast, da det fyldte 8000... 
 -- Ajourført 150318-1: Delt i 2 da "minimum row size exceeds the maximum allowable of 8060 bytes"
--- Ajourført 150727-1: Tilføjet manuel vurdering pba. vurderet forbrug restperiode frem til prognose (indlagt i edw.PrognManVurdering)
 
 as
 --insert into edw.FT_Forklaring
@@ -205,10 +204,3 @@ select 'NEDS_NETTO' Aendring,  Dim_Fabrik, Materiale, Dim_Materiale, LNType, FLN
 	End DSystAendr,
 NedskrNetto, Beholdning, Vaerdi_SP, Isnull(AnskVaerdi, 0) - Isnull(Vaerdi_SP, 0) as Forskel
 from [dbo].[vw_NedskrivNetto]
-
-union all
--- Ajourført 150727-1: Tilføjet manuel vurdering pba. vurderet forbrug restperiode frem til prognose (indlagt i edw.PrognManVurdering)
--- insert into edw.FT_Forklaring
-Select 'MANUEL_KORR' as Aendring,
-Dim_Fabrik, Materiale, Dim_Materiale, LNType, FLNType, FraTil_tid, AnskVaerdi, NedForPrinc, DSystAendr, NedskrNetto, Beholdning, Vaerdi_SP, Forskel
-from [dbo].[vw_ManuelVurdering_2_Test]

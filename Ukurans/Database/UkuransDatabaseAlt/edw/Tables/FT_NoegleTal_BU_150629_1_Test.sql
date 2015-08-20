@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [edw].[FT_NoegleTal_BU_150629_1_Test] (
     [Rap_Dim]       VARCHAR (10)    NOT NULL,
     [Dim_Tid]       VARCHAR (8)     NOT NULL,
-    [Dim_Vaerdi]    VARCHAR (10)    NULL,
+    [Dim_Vaerdi]    VARCHAR (15)    NULL,
     [AnskVaerdi]    DECIMAL (18, 3) NULL,
     [LogNedBrutto]  DECIMAL (18, 3) NULL,
     [NedskrNetto]   DECIMAL (18, 3) NULL,
@@ -17,4 +17,6 @@
     [Pct_HOmsH]     DECIMAL (7, 5)  NULL,
     [FraTil_tid]    VARCHAR (13)    NOT NULL
 );
+
+
 

@@ -18,11 +18,11 @@ q1.LitraGr2, q1.DUF_NedskrAar
 from (
 Select ftb.Dim_Fabrik, ftb.Materiale, ftb.Dim_Materiale, ftb.Dim_Tid,
 replace(left(convert(varchar,( SELECT replace(left(Vaerdi, 7), '-', '')
-								FROM [edw].[MD_Styringstabel]
+								FROM [UKURANS].[edw].[MD_Styringstabel]
 								where parameter = 'UltimoDato'
 							  ), 102), 7), '.', '') + '-' + 
 replace(left(convert(varchar,( SELECT replace(left(Vaerdi, 7), '-', '')
-								FROM [edw].[MD_Styringstabel]
+								FROM [UKURANS].[edw].[MD_Styringstabel]
 								where parameter = 'PrognBeregDato'
 							  ), 102), 7), '.', '') FraTil_Tid,
 ftb.Beholdning, ftb.Vaerdi_GP, ftb.GlidGnsPris, ftb.Vaerdi_SP
@@ -30,12 +30,12 @@ ftb.Beholdning, ftb.Vaerdi_GP, ftb.GlidGnsPris, ftb.Vaerdi_SP
 ,ftm.MinDuf
 + datediff( day, 
 ( SELECT Vaerdi
-  FROM [edw].[MD_Styringstabel]
+  FROM [UKURANS].[edw].[MD_Styringstabel]
   where parameter = 'UltimoDato'
  ),
 (
 SELECT Vaerdi
-  FROM [edw].[MD_Styringstabel]
+  FROM [UKURANS].[edw].[MD_Styringstabel]
   where parameter = 'PrognBeregDato'
  )
  ) as DUF_DagtilProg

@@ -4,11 +4,13 @@
 
 
 
+
 CREATE view [dbo].[vw_UltBeh_Indk12md]
 -- 141114-1: Ajourført FraTil_Tid med en Cast, da det fyldte 8000...
 -- 141121-1: Ajourført kriterie for ly-join til FraTil_Tid og rettet ly-periode med ny PrimoPrimoDato
 -- 150309-1: Ajourført kriterie for dl.LitraNedskrProcent i subquery fra edw.FT_Indk12md så 0 medtages
 -- 150311-1: Ændret så NedForPrinC henter NedKorrIndkPae fra FT_Nedskriv - ikke nuværende NedKorrIndk...
+-- 150730-1: Ændret så Beholdning kun er nyligt indkøbt, ikke samlet beholdning
 as
 
 Select q1.Dim_Materiale
@@ -31,8 +33,8 @@ from
 ,Cast((select replace(left(Vaerdi, 7), '-', '') from [edw].[MD_Styringstabel] where parameter = 'PrimoDato') + '-' 
 	  +( select replace(left(Vaerdi, 7), '-', '') from [edw].[MD_Styringstabel] where parameter = 'UltimoDato') 
 	  as Varchar (13)) as FraTil_tid
-,Case	When	cy.Beholdning	>		0	
-		Then	cy.Beholdning
+,Case	When	cy.UltBehIndk12mdMgd	>		0	
+		Then	cy.UltBehIndk12mdMgd
 		Else	Null
  End	as Beholdning
 ,Case	When cy.Vaerdi_GP > 0

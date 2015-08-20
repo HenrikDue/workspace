@@ -188,13 +188,13 @@ left join dbo.vw_NedskrSfaRIDPae vwnrpa
 on ftb.Materiale = vwnrpa.Materiale 
 left join ((Select a.[Dim_Fabrik],a.[Materiale],a.[Dim_Tid],a.[BrutIndk12mdMgd],a.[UltBehIndk12mdMgd]
 			,a.[UltBehIndk12mdVd],a.[Dim_Materiale]
-			From [edw].[FT_Indk12md] a
-			Left join edw.Dim_Materiale b on a.Dim_Materiale = b.PK_ID
-			Left join edw.Dim_Litra c on b.Litra_PKID = c.PK_ID
+			From [UKURANS].[edw].[FT_Indk12md] a
+			Left join ukurans.edw.Dim_Materiale b on a.Dim_Materiale = b.PK_ID
+			Left join ukurans.edw.Dim_Litra c on b.Litra_PKID = c.PK_ID
 			Where Dim_Tid = (select replace(left(Vaerdi, 7), '-', '') from [edw].[MD_Styringstabel] where parameter = 'UltimoDato')
 			and isnull(c.LitraNedskrPct, 0) = 0)
 			) fti12
 on ftb.Dim_Fabrik = fti12.Dim_Fabrik and ftb.Dim_Materiale = fti12.Dim_Materiale and ftb.Dim_Tid = fti12.Dim_Tid
 
 -- Ajourført 150120-1: Indsat ny join for at eliminere korrektion for IR4 efter Dim_Tid 201411
-Left join edw.Dim_Materiale d on ftb.Dim_Materiale = d.PK_ID
+Left join ukurans.edw.Dim_Materiale d on ftb.Dim_Materiale = d.PK_ID
