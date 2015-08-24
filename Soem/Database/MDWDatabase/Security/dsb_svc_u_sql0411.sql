@@ -1,0 +1,2 @@
+﻿CREATE USER [dsb\svc_u_sql0411] FOR LOGIN [DSB\SVC_U_SQL0411];
+
