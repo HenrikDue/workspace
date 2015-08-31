@@ -21,8 +21,8 @@ SET DEST_PATH=\\%DB_SERVER%\files\%DB_NAVN%\Stog_Rejsedata\
 SET FILE_EXT=.xlsx
 
 :: /* konfigurerer log */
-md %cd%\Log
-SET LOGFILE=%cd%\LOG\Log_Stog_Rejsedata_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%.txt
+if not exist .\Log md .\Log
+SET LOGFILE=.\LOG\Log_Stog_Rejsedata_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%.txt
 SET LOGFILE=%LOGFILE: =0%
 ECHO Folder:  %cd%  >> %LOGFILE%
 ECHO. >> %LOGFILE%

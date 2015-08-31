@@ -18,12 +18,12 @@ SET SOURCE_PATH=P:\70_BI\Projects\Files\FPC_L›nsum\
 SET SOURCE_FILE1="RD_R_L›nsumAns‘ttelsetype "
 
 SET DEST_PATH=\\%DB_SERVER%\files\%DB_NAVN%\FPC_L›nsum\
-md %DEST_PATH%\CSV
+if not exist %DEST_PATH%\CSV md %DEST_PATH%\CSV
 SET FILE_EXT=.xlsx
 
 :: /* konfigurerer log */
-md %cd%\Log
-SET LOGFILE=%cd%\LOG\Log_FPC_L›nsum_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%.txt
+if not exist .\Log md .\Log
+SET LOGFILE=.\LOG\Log_FPC_L›nsum_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%.txt
 SET LOGFILE=%LOGFILE: =0%
 ECHO Folder:  %cd%  >> %LOGFILE%
 ECHO. >> %LOGFILE%
@@ -69,7 +69,7 @@ for /f %%a in ('SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "SET NOCOUNT ON;select 
 
 pause
 COLOR E0
-echo Overfører filer til sqlserver og afvikler pakker
+echo Overf›rer filer til sqlserver og afvikler pakker
 ECHO. >> %LOGFILE%
 ECHO f | xcopy /y %SOURCE_PATH%%SOURCE_FILE1%%PERIODE%%FILE_EXT% %DEST_PATH%%SOURCE_FILE1%%PERIODE%%FILE_EXT% >> %LOGFILE%
 echo til %DEST_PATH% >> %LOGFILE%

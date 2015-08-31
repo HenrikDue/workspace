@@ -12,8 +12,8 @@ for /f "tokens=3 delims=><" %%a in ('type %config_file_path%\ServerOgDatabase.dt
   )
 
 :: /* konfigurerer log */
-md %cd%\Log
-SET LOGFILE=%cd%\LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%.txt
+if not exist .\Log md .\Log
+SET LOGFILE=.\LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%.txt
 SET LOGFILE=%LOGFILE: =0%
 ECHO Folder:  %cd%  >> %LOGFILE%
 ECHO. >> %LOGFILE%
