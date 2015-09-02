@@ -20,7 +20,6 @@
     [CostGivenAssigned]             FLOAT (53)    NULL,
     [UnitCostEntered]               FLOAT (53)    NULL,
     [IdleCost]                      FLOAT (53)    NULL,
-    [InventoryCost]                 FLOAT (53)    NULL,
     [Revenue]                       FLOAT (53)    NULL,
     [TotalDriverQuantityBasic]      FLOAT (53)    NULL,
     [TotalDriverQuantityCalculated] FLOAT (53)    NULL,
@@ -28,7 +27,6 @@
     [SoldQuantity]                  FLOAT (53)    NULL,
     [UserInputQuantity]             FLOAT (53)    NULL,
     [UserOutputQuantity]            FLOAT (53)    NULL,
-    [ConsumedBOCQuantity]           FLOAT (53)    NULL,
     [Measure]                       VARCHAR (64)  NULL,
     [UnitCostType]                  BIT           NULL,
     [AllocatedCostIn]               FLOAT (53)    NULL,
@@ -51,8 +49,9 @@
     [Dim1011]                       INT           NULL,
     [Dim1012]                       INT           NULL,
     [Drivername]                    VARCHAR (64)  NULL
-)
-WITH (DATA_COMPRESSION = PAGE);
+);
+
+
 
 
 

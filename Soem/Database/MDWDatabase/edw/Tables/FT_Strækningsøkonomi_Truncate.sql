@@ -1,4 +1,4 @@
-﻿CREATE TABLE [edw].[FT_Strækningsøkonomi_Staging] (
+﻿CREATE TABLE [edw].[FT_Strækningsøkonomi_Truncate] (
     [Ft_key]                         BIGINT        NOT NULL,
     [Periode]                        INT           NOT NULL,
     [Model_id]                       INT           NOT NULL,
@@ -34,9 +34,6 @@
     [Momsstatus]                     INT           NULL,
     [kilde_key]                      INT           NULL,
     [OprettetTidspunkt]              DATETIME      NULL,
-    [OprettetAf]                     VARCHAR (256) NULL,
-    CONSTRAINT [chk_FT_Strækningsøkonomi_Staging_partition] CHECK ([Periode]=(201507))
+    [OprettetAf]                     VARCHAR (256) NULL
 );
-
-
 

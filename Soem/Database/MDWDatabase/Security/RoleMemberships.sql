@@ -26,3 +26,7 @@ ALTER ROLE [db_datareader] ADD MEMBER [DSB\SQL_BI_BRUGER];
 GO
 ALTER ROLE [db_datawriter] ADD MEMBER [DSB\SQL_BI_BRUGER];
 
+
+GO
+ALTER ROLE [db_datareader] ADD MEMBER [dsb\svc_u_sql0411];
+

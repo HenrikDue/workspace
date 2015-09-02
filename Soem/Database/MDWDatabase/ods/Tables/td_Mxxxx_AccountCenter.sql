@@ -4,7 +4,6 @@
     [AssignedIdleQuantity]          FLOAT (53)    NULL,
     [BalAdjType]                    SMALLINT      NULL,
     [CalcError]                     SMALLINT      NULL,
-    [ConsumedBOCQuantity]           FLOAT (53)    NULL,
     [CostGivenAssigned]             FLOAT (53)    NULL,
     [CostGivenBOC]                  FLOAT (53)    NULL,
     [CostPrimaryAssigned]           FLOAT (53)    NULL,
@@ -17,7 +16,6 @@
     [Drivername]                    VARCHAR (64)  NULL,
     [Id]                            INT           NULL,
     [IdleCost]                      FLOAT (53)    NULL,
-    [InventoryCost]                 FLOAT (53)    NULL,
     [IsBehavior]                    INT           NULL,
     [Measure]                       VARCHAR (64)  NULL,
     [ModuleId]                      SMALLINT      NULL,
@@ -56,9 +54,13 @@
 
 
 
+
+
 GO
 CREATE CLUSTERED INDEX [refnum]
-    ON [ods].[td_Mxxxx_AccountCenter]([Refnum] ASC) WITH (DATA_COMPRESSION = PAGE);
+    ON [ods].[td_Mxxxx_AccountCenter]([Refnum] ASC);
+
+
 
 
 

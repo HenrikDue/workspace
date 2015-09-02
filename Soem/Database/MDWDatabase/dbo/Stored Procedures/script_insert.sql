@@ -21,7 +21,7 @@ print 'SELECT '
 fetch first from col into @colname
 while @@fetch_status = 0
 begin
-	print ' ' + quotename(@colname,'[')  + ',   ---' + @colname
+	print ' [a].' + quotename(@colname,'[')  + ',   ---' + @colname
 	fetch next from col into @colname
 end
 close col

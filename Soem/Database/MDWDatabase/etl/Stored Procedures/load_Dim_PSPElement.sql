@@ -1,11 +1,23 @@
-﻿CREATE PROC [etl].[load_Dim_PSPElement]
+﻿
+CREATE PROC [etl].[load_Dim_PSPElement]
 as 
 BEGIN
+
 /*
-Initialt:
-insert into [ods].[key_Dim_PSPElement] (PSPElement) values ('Ikke allokeret') --PK_KEY = -1
-insert into [ods].[key_Dim_PSPElement] (PSPElement) values ('Ukendt') --PK_KEY = 0
- */
+if not exists (select 'x' from [ods].[key_Dim_PSPElement] where pk_key = -1) 
+begin
+	set identity_insert [ods].[key_Dim_PSPElement] on 
+	insert into [ods].[key_Dim_PSPElement] (pk_key, PSPElement) values (-1, 'Ikke allokeret') 
+	set identity_insert [ods].[key_Dim_PSPElement] off 
+end
+
+if not exists (select 'x' from [ods].[key_Dim_PSPElement] where pk_key = 0) 
+begin
+	set identity_insert [ods].[key_Dim_PSPElement] on 
+	insert into [ods].[key_Dim_PSPElement] (pk_key, PSPElement) values (0, 'Ukendt') 
+	set identity_insert [ods].[key_Dim_PSPElement] off 
+end*/
+
 INSERT INTO [ods].[key_Dim_PSPElement] 
 	(PSPElement)
 SELECT DISTINCT 
