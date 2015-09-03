@@ -11,6 +11,8 @@ declare @execution_id bigint;
 declare @databasename sysname;
 set @databasename = db_name();
 
+truncate table etl.ssisdb_messages
+
 exec [SSISDB].catalog.create_execution 
   @folder_name = @databasename
  ,@project_name = '000-ETL_Stamdata_MDW'
@@ -40,7 +42,6 @@ EXEC [SSISDB].[catalog].[set_execution_parameter_value]
 exec [SSISDB].catalog.start_execution @execution_id
 
 /*logning */
-truncate table etl.ssisdb_messages
 insert into etl.SSISDB_Messages
 select
  Pakkenavn = '001_KOER_STAM_PAKKER',

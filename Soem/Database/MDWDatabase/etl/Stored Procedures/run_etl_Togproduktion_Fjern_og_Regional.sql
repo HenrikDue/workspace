@@ -11,6 +11,8 @@ declare @execution_id bigint;
 declare @databasename sysname;
 set @databasename = db_name();
 
+truncate table etl.ssisdb_messages
+
  exec [SSISDB].catalog.create_execution 
   @folder_name = @databasename
  ,@project_name = '010-ETL_Togproduktion_Fjern_og_Regional'
@@ -40,7 +42,6 @@ set @databasename = db_name();
  exec [SSISDB].catalog.start_execution @execution_id
 
 /*logning */
-truncate table etl.ssisdb_messages
 insert into etl.SSISDB_Messages
 select
  Pakkenavn = '001_KOER_ALLE_PAKKER_TOGPROD_F_R',

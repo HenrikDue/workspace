@@ -4,13 +4,14 @@
 -- Description:	<Description,,>
 -- =============================================
 CREATE PROCEDURE [etl].[run_etl_RIM_RejseData]
-	@output_status varchar(50) output
 AS
 BEGIN
 declare @status varchar(50);
 declare @execution_id bigint;
 declare @databasename sysname;
 set @databasename = db_name();
+
+truncate table etl.ssisdb_messages
 
  exec [SSISDB].catalog.create_execution 
   @folder_name = @databasename
@@ -39,28 +40,11 @@ set @databasename = db_name();
         @parameter_value=@@SERVERNAME;
 
  exec [SSISDB].catalog.start_execution @execution_id
- --set @output_execution_id = @execution_id
 
-/*hent resultat af kørsel*/
-SELECT 
-    @status = CASE [STATUS]
-	when 1 then 'Oprettet'--'Created'
-	when 2 then 'Kører'--'Running'
-	when 3 then 'Annulleret'--'Cancelled'
-	when 4 then 'Fejlet'--'Failed'
-	when 5 then 'Afventer'--'Pending'
-	when 6 then 'Aflsuttet uventet'--'Ended Unexpectedly'
-	when 7 then 'Afsluttet uden fejl'--'Success'
-	when 8 then 'Stopper'--'Stopping'
-	when 9 then 'Komplet'--'Complete'
- end
-FROM [SSISDB].[internal].[operations]
-WHERE operation_id = @execution_id;
-set @output_status = @status;
-
---/* eksempel til logning
+/*logning */
+insert into etl.SSISDB_Messages
 select
- Pakkenavn = 'ETL_Rim_RejseData',
+ Pakkenavn = '001_KOER_ALLE_PAKKER_ETL_RIM_RejseData',
   Resultat = convert(char(20), CASE in_op.[status]
 	when 1 then 'Oprettet'--'Created'
 	when 2 then 'Kører'--'Running'
@@ -77,6 +61,15 @@ select
  Varighed_sek = convert(char(20), datediff(s,in_op.start_time,in_op.end_time))
 from [SSISDB].[internal].[operations] in_op
 where [operation_id] = @execution_id
---*/
+
+/*hent resultat af kørsel*/
+SELECT 
+    @status = CASE [STATUS]
+	when 7 then 0 --'Success'
+    else 1
+	end 
+FROM [SSISDB].[internal].[operations]
+WHERE operation_id = @execution_id;
+return @status;
 
 END
