@@ -1,10 +1,10 @@
 ECHO OFF
 COLOR 9F
 CLS
-set config_file_path=..\Konfiguration\
+SET config_file_path=..\Konfiguration\
 setlocal enabledelayedexpansion
-set COUNTER=1
-for /f "tokens=3 delims=><" %%a in ('type %config_file_path%\ServerOgDatabase.dtsConfig ^| find "<ConfiguredValue>"') do (
+SET COUNTER=1
+FOR /f "tokens=3 delims=><" %%a in ('type %config_file_path%\ServerOgDatabase.dtsConfig ^| find "<ConfiguredValue>"') DO (
   IF !COUNTER!==1 (SET DB_NAVN=%%a)
   IF !COUNTER!==2 (SET DB_SERVER=%%a)
   REM /* hvis der er flere variabel indsættes de her */
@@ -22,9 +22,9 @@ SET SOURCE_FILE6=EX_MD_G_STAM_Timer_.xlsx
 SET SOURCE_FILE7=EX_MD_G_STAM_Togsystem.xls
 SET DEST_PATH=\\%DB_SERVER%\files\%DB_NAVN%\StamData\
 
-rem /* konfigurerer log */
-if not exist .\Log md .\Log
-if not exist %DEST_PATH% md %DEST_PATH%
+REM /* konfigurerer log */
+IF NOT EXIST .\Log MD .\Log
+IF NOT EXIST %DEST_PATH% MD %DEST_PATH%
 SET LOGFILE=.\LOG\Log_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%.txt
 SET LOGFILE=%LOGFILE: =0%
 ECHO Folder:  %cd%  >> %LOGFILE%
@@ -50,11 +50,11 @@ ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH%%SOURCE_FILE4% %DEST_PATH%%SOURCE_F
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH%%SOURCE_FILE5% %DEST_PATH%%SOURCE_FILE5% >> %LOGFILE%
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH%%SOURCE_FILE6% %DEST_PATH%%SOURCE_FILE6% >> %LOGFILE%
 ECHO f | xcopy /y %SOURCE_DRIVE%%SOURCE_PATH%%SOURCE_FILE7% %DEST_PATH%%SOURCE_FILE7% >> %LOGFILE%
-echo til %DEST_PATH% >> %LOGFILE%
+ECHO til %DEST_PATH% >> %LOGFILE%
 ECHO. >> %LOGFILE%
 COLOR E0
 
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_stamdata_mdw ''" >> %LOGFILE%
 %LOGFILE%
 COLOR A0
-pause
+PAUSE

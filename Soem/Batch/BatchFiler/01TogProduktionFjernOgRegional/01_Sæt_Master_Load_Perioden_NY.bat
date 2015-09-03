@@ -2,20 +2,20 @@ ECHO OFF
 COLOR 9F
 SET GenstartMedForrigeMaanedSomPeriodeValgt=0
 SET GenstartMedIndtastNyPriode=0
-set returvaerdi=1
-rem /* henter server og database konfiguration fra ekstern fil */ 
-set config_file_path=..\Konfiguration\
+SET returvaerdi=1
+REM /* henter server og database konfiguration fra ekstern fil */ 
+SET config_file_path=..\Konfiguration\
 setlocal enabledelayedexpansion
-set COUNTER=1
-for /f "tokens=3 delims=><" %%a in ('type %config_file_path%\ServerOgDatabase.dtsConfig ^| find "<ConfiguredValue>"') do (
+SET COUNTER=1
+FOR /f "tokens=3 delims=><" %%a in ('type %config_file_path%\ServerOgDatabase.dtsConfig ^| find "<ConfiguredValue>"') DO (
   IF !COUNTER!==1 (SET DB_NAVN=%%a)
   IF !COUNTER!==2 (SET DB_SERVER=%%a)
   REM /* hvis der er flere variabel indsættes de her */
   SET /a COUNTER=!COUNTER!+1
   )
 
-rem /* konfigurerer log */
-if not exist .\Log md .\Log
+REM /* konfigurerer log */
+IF NOT EXIST .\Log MD .\Log
 SET LOGFILE=.\LOG\LogLoadPeriode_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%.txt
 SET LOGFILE=%LOGFILE: =0%
 :STARTEN
@@ -47,19 +47,18 @@ IF %errorlevel%==1 GOTO ExitChosen
 IF %errorlevel%==2 SET GenstartMedForrigeMaanedSomPeriodeValgt=1 & GOTO Starten
 IF %errorlevel%==3 SET GenstartMedIndtastNyPriode=1 & GOTO Starten
 
-pause
+PAUSE
 
 :ExitChosen
 COLOR E0
 
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "declare @periode varchar(50); select @periode = Value from ods.CTL_Dataload where kilde_system = 'Alle' and Variable = 'Master_periode'; print '*  Afslutter med Master loadperiode sat til '+@periode + '.'" 
-echo.
-echo *  Afvikler pakker
-for /f %%a in ('SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "declare @return_value int; EXEC @return_value = etl.run_load_period_all; print @return_value;" -h -1') do set returvaerdi=%%a
-rem echo %returvaerdi%
-IF NOT %returvaerdi%==0 (ECHO *  Afvikling af pakker fejlet & GOTO Fejlet) ELSE (ECHO *  Afvikling af pakker afsluttet - ok)
-echo.
+ECHO.
+ECHO *  Afvikler pakker
+FOR /f %%a in ('SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "declare @return_value int; EXEC @return_value = etl.run_load_period_all; print @return_value;" -h -1') DO SET returvaerdi=%%a
 SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "SET NOCOUNT ON;declare @pakkenavn varchar(50),@resultat varchar(50),@startet varchar(50),@afsluttet varchar(50),@varighed varchar(20); select @pakkenavn=pakkenavn,@resultat=resultat,@startet=startet,@afsluttet=afsluttet,@varighed=varighed from etl.ssisdb_messages;print 'Pakkenavn: '+@pakkenavn+' Resultat: '+@resultat+ ' Startet: '+@startet+' Afsluttet: '+@afsluttet+' Varighed sek: '+@varighed" >> %LOGFILE%
+IF NOT %returvaerdi%==0 (ECHO *  Afvikling af pakker fejlet & GOTO Fejlet) ELSE (ECHO *  Afvikling af pakker afsluttet - ok)
+ECHO.
 ECHO. >> %LOGFILE%
 COLOR A0
 
@@ -79,6 +78,7 @@ GOTO Afslut
 :Fejlet
 
 COLOR 4F
-pause
+%LOGFILE%
+PAUSE
 
 :Afslut

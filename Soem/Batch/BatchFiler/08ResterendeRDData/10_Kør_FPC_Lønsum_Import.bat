@@ -5,6 +5,8 @@ SET ValgMasterPeriode=0
 rem /* henter server og database konfiguration fra ekstern fil */ 
 set config_file_path=..\Konfiguration\
 setlocal enabledelayedexpansion
+SET FejlSum=0
+SET returvaerdi=1
 set COUNTER=1
 for /f "tokens=3 delims=><" %%a in ('type %config_file_path%\ServerOgDatabase.dtsConfig ^| find "<ConfiguredValue>"') do (
   IF !COUNTER!==1 (SET DB_NAVN=%%a)
@@ -69,17 +71,31 @@ for /f %%a in ('SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "SET NOCOUNT ON;select 
 
 pause
 COLOR E0
-echo Overf›rer filer til sqlserver og afvikler pakker
+echo *  Overf›rer filer til sqlserver
 ECHO. >> %LOGFILE%
 ECHO f | xcopy /y %SOURCE_PATH%%SOURCE_FILE1%%PERIODE%%FILE_EXT% %DEST_PATH%%SOURCE_FILE1%%PERIODE%%FILE_EXT% >> %LOGFILE%
+SET /a FejlSum=Fejlsum+%ERRORLEVEL%
 echo til %DEST_PATH% >> %LOGFILE%
 ECHO. >> %LOGFILE%
-SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_FPC_Loensum ''" >> %LOGFILE%
-ECHO ******************************************************************************
+IF NOT %FejlSum%==0 (ECHO *  Kopiering af filer fejlet & SET /a FejlSum=Fejlsum+1 & GOTO Fejlet) ELSE (ECHO *  Kopiering af filer afsluttet - ok)
+REM SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "exec etl.run_etl_FPC_Loensum ''" >> %LOGFILE%
+ECHO *  Afvikler pakker
+FOR /f %%a in ('SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "declare @return_value int; EXEC @return_value = etl.run_etl_FPC_Loensum; print @return_value;" -h -1') DO SET returvaerdi=%%a
+SQLCMD -S %DB_SERVER% -d %DB_NAVN% -E -Q "SET NOCOUNT ON;declare @pakkenavn varchar(50),@resultat varchar(50),@startet varchar(50),@afsluttet varchar(50),@varighed varchar(20); select @pakkenavn=pakkenavn,@resultat=resultat,@startet=startet,@afsluttet=afsluttet,@varighed=varighed from etl.ssisdb_messages;print 'Pakkenavn: '+@pakkenavn+' Resultat: '+@resultat+ ' Startet: '+@startet+' Afsluttet: '+@afsluttet+' Varighed sek: '+@varighed" >> %LOGFILE%
+IF NOT %returvaerdi%==0 (ECHO *  Afvikling af pakker fejlet & GOTO Fejlet) ELSE (ECHO *  Afvikling af pakker afsluttet - ok)
 ECHO.
+ECHO. >> %LOGFILE%
 %LOGFILE%
 COLOR A0
 pause
+
+GOTO ExitChosen
+
+:Fejlet
+
+COLOR 4F
+%LOGFILE%
+PAUSE
 
 :ExitChosen
 
